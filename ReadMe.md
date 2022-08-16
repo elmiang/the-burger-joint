@@ -1,2 +1,3 @@
 # README
-READ ME FILE
+
+This is the readme file for Group 5's Restaurant Ordering System
