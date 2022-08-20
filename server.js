@@ -9,6 +9,10 @@ var server = app.listen(port, function () {
   console.log("Example app listening at http://%s:%s", host, port);
 })
 
+app.get("/", (req, res) => {
+  res.send("Hello");
+})
+
 app.get('/api', function (req, res) {
   res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
 })
