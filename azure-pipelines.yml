@@ -23,3 +23,5 @@ steps:
 - task: Npm@1
   inputs:
     command: 'publish'
+    publishRegistry: 'useFeed'
+    publishFeed: 'e0b5d473-ae5b-4ac7-bbff-37deb22b8b81'
