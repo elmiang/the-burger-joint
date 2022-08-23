@@ -20,8 +20,8 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: Npm@1
-  inputs:
-    command: 'publish'
-    publishRegistry: 'useFeed'
-    publishFeed: '3eaa1418-7323-41c8-b44a-31878da72e5a/dae4a809-ff9e-491a-882e-dee35e2371d2'
+# - task: Npm@1
+#   inputs:
+#     command: 'publish'
+#     publishRegistry: 'useFeed'
+#     publishFeed: '3eaa1418-7323-41c8-b44a-31878da72e5a/dae4a809-ff9e-491a-882e-dee35e2371d2'
