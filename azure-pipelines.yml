@@ -19,9 +19,6 @@ steps:
     cd frontend
     npm install
     npm run build
-    cd ../backend
-    npm install
-    npm start
   displayName: 'npm install and build'
 
 # - task: Npm@1
