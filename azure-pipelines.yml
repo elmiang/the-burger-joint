@@ -15,7 +15,16 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
+  #build backend
 - script: |
+    cd frontend
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+  #build frontend
+  script: |
+    cd frontend
     npm install
     npm run build
   displayName: 'npm install and build'
