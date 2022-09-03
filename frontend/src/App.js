@@ -1,7 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LoginButton from './components/LoginButton';
-import LogoutButton from './components/LogoutButton';
 import Cart from "./pages/Cart"
 import Footer from "./components/Footer";
 
