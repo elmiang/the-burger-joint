@@ -14,13 +14,13 @@ const OrderOptions = () => {
               <h4 className="border-1 border-bottom text-warning pb-2">Serving Size</h4>
               <div className="row">
                 <div className="col form-check py-2 ms-3">
-                  <input className="form-check-input" name="servingRadio" type="radio" value="" defaultChecked/>
+                  <input className="form-check-input" type="checkbox" value="" checked/>
                     <label className="form-check-label ms-1 text-white">
                       Regular
                     </label>
                 </div>
                 <div className="col form-check py-2">
-                  <input className="form-check-input" name="servingRadio" type="radio" value=""/>
+                  <input className="form-check-input" type="checkbox" value=""/>
                     <label className="form-check-label ms-1 text-white">
                       Large
                     </label>
