@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginButton from './components/LoginButton';
 import LogoutButton from './components/LogoutButton';
+import Cart from "./pages/Cart"
+import Footer from "./components/Footer";
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -14,12 +16,9 @@ function App() {
 
   return (
     <div className="App">
-      <main>
-        <h1>Test</h1>
-        <LoginButton/>
-        <LogoutButton/>
-      </main>
+      <Cart />
       {/* <p>{!data ? "Loading..." : data}</p> */}
+      <Footer />
     </div>
   );
 }
