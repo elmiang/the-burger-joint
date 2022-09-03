@@ -5,7 +5,7 @@
 
 trigger:
 - main
-
+- Menu-KD
 pool:
   vmImage: ubuntu-latest
 
