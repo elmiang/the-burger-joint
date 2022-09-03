@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
-import Cards from './components/Cards';
+import Menu from './components/Menu';
 import Header from './components/Header';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   <>
 
     <Header/>
-    <Cards/>
+    <Menu/>
     <Footer/>
 
   </>
