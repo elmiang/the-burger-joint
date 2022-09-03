@@ -1,13 +1,15 @@
 import React from 'react';
 import Footer from './components/Footer';
 import Menu from './components/Menu';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return ( 
   <>
 
-    <Header/>
+    <Navbar/>
+    <Sidebar/>
     <Menu/>
     <Footer/>
 
