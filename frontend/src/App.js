@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginButton from './components/LoginButton';
+import LogoutButton from './components/LogoutButton';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -12,7 +14,12 @@ function App() {
 
   return (
     <div className="App">
-      <p>{!data ? "Loading..." : data}</p>
+      <main>
+        <h1>Test</h1>
+        <LoginButton/>
+        <LogoutButton/>
+      </main>
+      {/* <p>{!data ? "Loading..." : data}</p> */}
     </div>
   );
 }
