@@ -3,8 +3,15 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+# Trigger CI pipeline on commits to all branches
 trigger:
-- Release-0
+  branches:
+    include:
+    - '*'
+
+# Trigger CI pipeline on Pull Request into main
+pr:
+- main
 
 pool:
   vmImage: ubuntu-latest
