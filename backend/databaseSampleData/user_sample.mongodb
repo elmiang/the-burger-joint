@@ -9,7 +9,7 @@ use('BurgerJointDB');
 // Make sure you run it against the correct database and collection.
 db.User.drop();
 
-// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+// Insert a few documents into the user collection, if the collection doesnt exist, this will create it.
 db.User.insertMany([
   { User_id: 1, FirstName: 'Hugh', SirName: 'Mann', Email: 'hmann@email.com', Address: '123 Street Rd, Sydney', PhoneNo: '0428394054'},
   { User_id: 2, FirstName: 'Kath', SirName: 'Person', Email: 'kperson@gmail.com', Address: '1 Road St, Sydney', PhoneNo: '0423666392'},

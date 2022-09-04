@@ -9,7 +9,7 @@ use('BurgerJointDB');
 // Make sure you run it against the correct database and collection.
 db.Payment.drop();
 
-// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+// Insert a few documents into the payment collection, if the collection doesnt exist, this will create it.
 db.Payment.insertMany([
   { Payment_id: 1, User_id: 1, CardName: 'Mr Hugh Mann', CardNo: '3859238583924839', CardCVV: '921'},
   { Payment_id: 2, User_id: 2, CardName: 'Ms Kath Person', CardNo: '5748291039674633', CardCVV: '352'},

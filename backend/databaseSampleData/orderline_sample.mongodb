@@ -9,7 +9,7 @@ use('BurgerJointDB');
 // Make sure you run it against the correct database and collection.
 db.OrderLine.drop();
 
-// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+// Insert a few documents into the orderline collection, if the collection doesnt exist, this will create it.
 db.OrderLine.insertMany([
   { Order_id: 1, Dish_id: 1, OrderQuantity: 2},
   { Order_id: 1, Dish_id: 4, OrderQuantity: 1},

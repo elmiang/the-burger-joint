@@ -9,7 +9,7 @@ use('BurgerJointDB');
 // Make sure you run it against the correct database and collection.
 db.Ticket.drop();
 
-// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+// Insert a few documents into the ticket collection, if the collection doesnt exist, this will create it.
 db.Ticket.insertMany([
   { Ticket_id: 1, User_id: 1, ProbDescription: 'Order did not arrive', Status: 'FIXED'},
   { Ticket_id: 2, User_id: 3, ProbDescription: 'Received incorrect burgerm plz fix', Status: 'PENDING'},

@@ -9,7 +9,7 @@ use('BurgerJointDB');
 // Make sure you run it against the correct database and collection.
 db.Order.drop();
 
-// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+// Insert a few documents into the order collection, if the collection doesnt exist, this will create it.
 db.Order.insertMany([
   { Order_id: 1, User_id: 1, Payment_id: 1, Date: new Date('2014-03-01T08:00:00Z')},
   { Order_id: 2, User_id: 2, Payment_id: 2, Date: new Date('2014-03-01T09:00:00Z')},
