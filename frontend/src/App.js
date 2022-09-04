@@ -1,7 +1,11 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Cart from "./pages/Cart"
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
+// pages & components
+import Navbar from './components/Navbar';
 import Footer from "./components/Footer";
+
+import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
 
 function App() {
@@ -15,11 +19,24 @@ function App() {
 
   return (
     <div className="App">
-
-      {/* Temporary: Need to set up navigation links */}
-      <Menu/>
-      <Cart />
-      {/* <p>{!data ? "Loading..." : data}</p> */}
+      <BrowserRouter>
+        <Navbar />
+          <Routes>
+            <Route 
+              path="/menu" 
+              element={<Menu />}
+            />
+            <Route 
+              path="/cart" 
+              element={<Cart />}
+            />
+            <Route 
+              path="/"
+              element={<Navigate replace to="/menu"/>}
+            />
+            {/* <p>{!data ? "Loading..." : data}</p> */}
+        </Routes>
+      </BrowserRouter>
       <Footer />
     </div>
   );

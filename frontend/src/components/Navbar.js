@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom'
+import Cart from "../pages/Cart";
+
+
 const Navbar = () => {
   return(
     <nav className="navbar navbar-dark bg-dark">
@@ -23,10 +27,12 @@ const Navbar = () => {
               <a className="nav-link" href="#">Sign Up</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Menu</a>
+              {/* <a className="nav-link" href="#">Menu</a> */}
+              <Link className="nav-link" to="/menu">Menu</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Cart</a>
+              {/* <a className="nav-link" href="#">Cart</a> */}
+              <Link className="nav-link" to="/cart">Cart</Link>
             </li>
           </ul>
         </div>

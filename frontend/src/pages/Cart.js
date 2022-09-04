@@ -1,12 +1,10 @@
 import CartItem from "../components/CartItem";
-import Navbar from "../components/Navbar";
 import OrderOptions from "../components/OrderOptions";
 
 //Cart page
 const Cart = () => {
   return (
     <div className="cart bg-secondary">
-      <Navbar/>
       <div className="container-fluid bg-secondary w-50 mt-3 p-3 border border-dark">
         <h2 className="display-6 text-warning pb-3 fw-bold border-3 border-bottom border-warning">Cart</h2>
           {/* Cart Sample Items */}

@@ -1,13 +1,11 @@
 import React from "react";
 import MenuItem from "../components/MenuItem";
-import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 const Menu = () => {
     return ( 
         
         <div class="container-fluid ">
-            <Navbar/>
             <div class="row">
             <Sidebar/>
                 <div class="col-2 bg-dark"></div>
