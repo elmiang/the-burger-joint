@@ -1,6 +1,7 @@
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
-
 
 const Navbar = () => {
   return(
@@ -21,10 +22,8 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-end align-center navbar-dark" id="main-nav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#">Login</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Sign Up</a>
+              <LoginButton/>
+              <LogoutButton/>
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Menu</a> */}
