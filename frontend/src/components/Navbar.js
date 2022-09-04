@@ -1,11 +1,13 @@
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import { Link } from 'react-router-dom'
+import Cart from "../pages/Cart";
 
 const Navbar = () => {
   return(
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid">
-        {/* Navbar brand */}
+        {/* Navbar brnpm,and */}
         <a href="" className="navbar-brand">
           <span className="fw-bold text-warning">
             The Burger Joint
@@ -24,15 +26,15 @@ const Navbar = () => {
               <LogoutButton/>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Menu</a>
+              {/* <a className="nav-link" href="#">Menu</a> */}
+              <Link className="nav-link" to="/menu">Menu</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Cart</a>
+              {/* <a className="nav-link" href="#">Cart</a> */}
+              <Link className="nav-link" to="/cart">Cart</Link>
             </li>
           </ul>
         </div>
-
-
       </div>
     </nav>
   )
