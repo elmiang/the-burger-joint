@@ -2,7 +2,7 @@ const Navbar = () => {
   return(
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid">
-        {/* Navbar brand */}
+        {/* Navbar brnpm,and */}
         <a href="" className="navbar-brand">
           <span className="fw-bold text-warning">
             The Burger Joint
@@ -17,16 +17,16 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-end align-center navbar-dark" id="main-nav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="">Login</a>
+              <a className="nav-link" href="#">Login</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Sign Up</a>
+              <a className="nav-link" href="#">Sign Up</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Menu</a>
+              <a className="nav-link" href="#">Menu</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="">Cart</a>
+              <a className="nav-link" href="#">Cart</a>
             </li>
           </ul>
         </div>

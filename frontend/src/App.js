@@ -2,8 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Cart from "./pages/Cart"
 import Footer from "./components/Footer";
-import Menu from './components/Menu';
-import Sidebar from './components/Sidebar';
+import Menu from './pages/Menu';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -16,8 +15,8 @@ function App() {
 
   return (
     <div className="App">
-      
-      <Sidebar/>
+
+      {/* Temporary: Need to set up navigation links */}
       <Menu/>
       <Cart />
       {/* <p>{!data ? "Loading..." : data}</p> */}
