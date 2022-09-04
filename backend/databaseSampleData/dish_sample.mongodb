@@ -1,0 +1,19 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Dish.drop();
+
+// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+db.Dish.insertMany([
+  { Dish_id: 1, DishName: 'Cheese Burger', Price: 10, Description: 'Yum'},
+  { Dish_id: 2, DishName: 'Meat Burger', Price: 11, Description: 'Also yum'},
+  { Dish_id: 3, DishName: 'Veggie Burger', Price: 13, Description: 'Healthy'},
+  { Dish_id: 4, DishName: 'Steak Burger', Price: 17, Description: 'Fancy'},
+  { Dish_id: 5, DishName: 'Edible Burger', Price: 9, Description: 'Its really edible!'}
+]);

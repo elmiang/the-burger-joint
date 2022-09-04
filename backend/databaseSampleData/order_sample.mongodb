@@ -1,0 +1,19 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Order.drop();
+
+// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+db.Order.insertMany([
+  { Order_id: 1, User_id: 1, Payment_id: 1, Date: new Date('2014-03-01T08:00:00Z')},
+  { Order_id: 2, User_id: 2, Payment_id: 2, Date: new Date('2014-03-01T09:00:00Z')},
+  { Order_id: 3, User_id: 2, Payment_id: 2, Date: new Date('2014-04-04T11:21:39.736Z')},
+  { Order_id: 4, User_id: 1, Payment_id: 4, Date: new Date('2014-04-04T21:23:13.331Z')},
+  { Order_id: 5, User_id: 3, Payment_id: 3, Date: new Date('2014-04-04T21:23:13.331Z')},
+]);

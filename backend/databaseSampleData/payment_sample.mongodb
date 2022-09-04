@@ -1,0 +1,18 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Payment.drop();
+
+// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+db.Payment.insertMany([
+  { Payment_id: 1, User_id: 1, CardName: 'Mr Hugh Mann', CardNo: '3859238583924839', CardCVV: '921'},
+  { Payment_id: 2, User_id: 2, CardName: 'Ms Kath Person', CardNo: '5748291039674633', CardCVV: '352'},
+  { Payment_id: 3, User_id: 3, CardName: 'Mr Bob Builder', CardNo: '4758302830403928', CardCVV: '654'},
+  { Payment_id: 4, User_id: 1, CardName: 'Mr Hugh Mann', CardNo: '4859392017443328', CardCVV: '775'},
+]);
