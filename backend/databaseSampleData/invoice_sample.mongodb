@@ -1,0 +1,19 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Invoice.drop();
+
+// Insert a few documents into the invoice collection, if the collection doesnt exist, this will create it.
+db.Invoice.insertMany([
+  { Invoice_id: 1, Order_id: 1, Date: new Date('2014-03-01T08:00:00Z')},
+  { Invoice_id: 2, Order_id: 2, Date: new Date('2014-03-01T09:00:00Z')},
+  { Invoice_id: 3, Order_id: 3, Date: new Date('2014-04-04T11:21:39.736Z')},
+  { Invoice_id: 4, Order_id: 4, Date: new Date('2014-04-04T21:23:13.331Z')},
+  { Invoice_id: 5, Order_id: 5, Date: new Date('2014-04-04T21:23:13.331Z')},
+]);

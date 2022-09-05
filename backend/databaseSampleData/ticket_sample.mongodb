@@ -1,0 +1,18 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Ticket.drop();
+
+// Insert a few documents into the ticket collection, if the collection doesnt exist, this will create it.
+db.Ticket.insertMany([
+  { Ticket_id: 1, User_id: 1, ProbDescription: 'Order did not arrive', Status: 'FIXED'},
+  { Ticket_id: 2, User_id: 3, ProbDescription: 'Received incorrect burgerm plz fix', Status: 'PENDING'},
+  { Ticket_id: 3, User_id: 1, ProbDescription: 'My payment will not go through!', Status: 'PENDING'},
+  { Ticket_id: 4, User_id: 2, ProbDescription: 'I can not view my payment details', Status: 'UNDER REVIEW'},
+]);
