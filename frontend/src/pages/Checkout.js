@@ -4,7 +4,7 @@ import CheckoutBar from "../components/CheckoutBar";
 
 const Checkout = () => {
     return ( 
-        <div class="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark">
+        <div class="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark rounded">
             <div class="row">
             <CheckoutBar/>
                 <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */class="col py-5 p-5 rounded-2" tabindex="0">
@@ -20,8 +20,8 @@ const Checkout = () => {
 
 
                     {/*Checkout: Payment Options & Details*/}
-                    <h3 id="PaymentInput" class="p-2 mt-5 text-white">Payment Options/Details</h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 bg-light m-2 p-2 rounded">
+                    <h3 id="PaymentInput" class="p-2 mt-3 text-white">Payment Options/Details</h3>
+                    <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
                         
                         <div class="gap-2  pb-3">
                             <div class="border p-2 rounded-top">
@@ -89,21 +89,73 @@ const Checkout = () => {
                     {/* End of Payment Options & Details */}
 
                     {/*Checkout: Address Details*/}
-                    <h3 id="AddressInput" class="p-3 mt-5 text-white">Address Details</h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 m-2 bg-light">
-                        <p>line 1</p>
-                        <p>line 2</p>
-                        <p>line 3</p>
-                        <p>line 4</p>
+                    <h3 id="AddressInput" class="p-3 mt-3 text-white">Address Details</h3>
+                    <div class="row row-cols-1 row-cols-md-2 g-4 m-2 p-2 bg-light rounded">
+                        <div>
+                            <div class="p-2">
+                                <label for="AddressLine1">Street Address 1</label>
+                                <br></br>
+                                <input type="text" id="AddressLine1" size="40" class=""></input>
+                            </div>
+                            
+                            <div class="p-2">
+                                <label for="AddressLine2">Street Address 2</label>
+                                <br></br>
+                                <input type="text" id="AddressLine2" size="40" class=""></input><br></br>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="p-2">
+                                <label for="CityLine">City</label>
+                                <br></br>
+                                <input type="text" id="CityLine" class=""></input>
+                            </div>
+                            
+                            <div class="p-2">
+                                <label for="CountryLine">Country</label>
+                                <br></br>
+                                <input type="text" id="CountryLine" class=""></input><br></br>
+                            </div>
+                        </div>
                     </div>
                      {/*End of Address Details*/}
-                     
-                     {/*Checkout: Order*/}
-                    <h3 id="Order" class="p-4 mt-5 text-white m-2">Order</h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4 m-2">
-                        <form>
-                            <button>Order</button>
-                        </form>
+
+                     {/*Contact Details*/}
+                     <h3 id="ContactInput" class="p-3 mt-3 text-white">Contact Details</h3>
+                    <div class="row row-cols-1 row-cols-md-2 m-2 p-2 bg-light rounded">
+                    <div>
+                            <div class="p-2">
+                                <label for="FName">First Name</label>
+                                <br></br>
+                                <input type="text" id="FName" class=""></input>
+                            </div>
+                            
+                            <div class="p-2">
+                            <label for="LName">Last Name</label>
+                                <br></br>
+                                <input type="text" id="LName" class=""></input>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="p-2">
+                                <label for="EmailLine">Email</label>
+                                <br></br>
+                                <input type="text" id="EmailLine" size="40" class=""></input>
+                            </div>
+                            
+                            <div class="p-2">
+                                <label for="PhoneLine">Phone</label>
+                                <br></br>
+                                <input type="text" maxLength="10" id="PhoneLine" class=""></input><br></br>
+                            </div>
+                        </div>
+                    </div>
+                    {/*End of Contact Details*/}
+
+                     {/*Checkout: Order*/} 
+                    
+                    <div class="row row-cols-1 g-2 m-1">
+                            <button class="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
                     </div>
                      {/*End of Order*/}
                 </div>
