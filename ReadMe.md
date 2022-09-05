@@ -13,4 +13,6 @@ Steps for getting the project running
 5. Within the frontend folder run npm start (which will build the application on your local machine)
 6. Within the backend folder, run npm start (which will build the backend api on your local machine)
 
+> .env file is needed in the frontend folder containing the auth0 settings.
+
 ### Branching Strategy
