@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+
 import CartItem from "../components/CartItem";
 import OrderOptions from "../components/OrderOptions";
+import Checkout from "./Checkout";
 
 //Cart page
 const Cart = () => {
@@ -21,7 +24,7 @@ const Cart = () => {
               </button>
               <OrderOptions />
               <p className="fw-bold text-warning mt-3">Total: $41.96</p>
-              <button className="btn btn-warning">Checkout</button>
+              <Link className="btn btn-warning" to="/checkout">Checkout</Link>
             </div>
             <form className="col form-group">
               {/* Coupon */}
