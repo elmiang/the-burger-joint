@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 
 import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
+import Checkout from './pages/Checkout';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -29,6 +30,10 @@ function App() {
             <Route 
               path="/cart" 
               element={<Cart />}
+            />
+            <Route 
+              path="/checkout"
+              element={<Checkout/>}
             />
             <Route 
               path="/"
