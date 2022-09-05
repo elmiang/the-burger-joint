@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
+import Callback from './pages/Callback';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -39,6 +40,7 @@ function App() {
               path="/"
               element={<Navigate replace to="/menu"/>}
             />
+            <Route path="/callback" element={<Callback/>}/>
             {/* <p>{!data ? "Loading..." : data}</p> */}
         </Routes>
       </BrowserRouter>
