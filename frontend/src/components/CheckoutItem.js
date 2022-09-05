@@ -11,8 +11,8 @@ const CheckoutItem = () => {
                      <p class="card-text">Price: $10</p>
                      <p class="fw-bold">Quantity: 1</p>
                      <div>
-                        <button type="button" class="btn btn-secondary">+</button>
-                        <button className="btn btn-sm btn-outline-danger">-</button>
+                        <button className="btn btn-outline-success rounded-circle">+</button>
+                        <button className="btn btn-outline-danger rounded-circle m-3">-</button>
                      </div>
                  </div>
          </div>
