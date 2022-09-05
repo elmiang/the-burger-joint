@@ -2,6 +2,7 @@ import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 
 const Navbar = () => {
   return(
@@ -32,6 +33,10 @@ const Navbar = () => {
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Cart</a> */}
               <Link className="nav-link" to="/cart">Cart</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Checkout</a> */}
+              <Link className="nav-link" to="/checkout">Checkout</Link>
             </li>
           </ul>
         </div>
