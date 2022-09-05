@@ -38,6 +38,10 @@ const Navbar = () => {
               {/* <a className="nav-link" href="#">Checkout</a> */}
               <Link className="nav-link" to="/checkout">Checkout</Link>
             </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Products</a> */}
+              <Link className="nav-link" to="/products">Product Management</Link>
+            </li>
           </ul>
         </div>
       </div>
