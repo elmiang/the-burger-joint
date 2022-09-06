@@ -9,6 +9,7 @@ import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
 import Callback from './pages/Callback';
+import Products from './pages/Products';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -35,6 +36,10 @@ function App() {
             <Route 
               path="/checkout"
               element={<Checkout/>}
+            />
+            <Route 
+              path="/products"
+              element={<Products/>}
             />
             <Route 
               path="/"
