@@ -1,0 +1,17 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.User.drop();
+
+// Insert a few documents into the user collection, if the collection doesnt exist, this will create it.
+db.User.insertMany([
+  { User_id: 1, FirstName: 'Hugh', SirName: 'Mann', Email: 'hmann@email.com', Address: '123 Street Rd, Sydney', PhoneNo: '0428394054'},
+  { User_id: 2, FirstName: 'Kath', SirName: 'Person', Email: 'kperson@gmail.com', Address: '1 Road St, Sydney', PhoneNo: '0423666392'},
+  { User_id: 3, FirstName: 'Bob', SirName: 'Builder', Email: 'bbuilder@email.com', Address: '3 Building Cre, Sydney', PhoneNo: '0437200274'}
+]);

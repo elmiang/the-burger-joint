@@ -1,0 +1,21 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.OrderLine.drop();
+
+// Insert a few documents into the orderline collection, if the collection doesnt exist, this will create it.
+db.OrderLine.insertMany([
+  { Order_id: 1, Dish_id: 1, OrderQuantity: 2},
+  { Order_id: 1, Dish_id: 4, OrderQuantity: 1},
+  { Order_id: 2, Dish_id: 3, OrderQuantity: 1},
+  { Order_id: 3, Dish_id: 1, OrderQuantity: 2},
+  { Order_id: 4, Dish_id: 1, OrderQuantity: 1},
+  { Order_id: 5, Dish_id: 5, OrderQuantity: 3},
+  { Order_id: 5, Dish_id: 2, OrderQuantity: 2},
+]);
