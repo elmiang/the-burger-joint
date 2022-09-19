@@ -21,7 +21,7 @@ const CartItem = (props) => {
 
   useEffect(() => {
     updatePrice();
-  }, [props.quantity])
+  }, [props.quantity, props.price])
 
   return (
     <div className="container-fluid">

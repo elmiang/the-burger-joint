@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import CartItem from "../components/CartItem";
+
 import OrderOptions from "../components/OrderOptions";
 import currencyFormat from '../utility/Functions';
 
@@ -34,6 +35,19 @@ const Cart = () => {
     }
   ]);
 
+  const [coupons, setCoupons] = useState([
+    {
+      id: 1,
+      code: '15off',
+      rate: 0.15,
+      isValid: true
+    }
+  ]);
+
+  const [couponResponse, setCouponResponse] = useState("");
+
+  const [inputCode, setInputCode] = useState();
+
   const [totalPrice, setTotalPrice] = useState(0);
 
   function updateTotalPrice() {
@@ -44,8 +58,16 @@ const Cart = () => {
     setTotalPrice(currencyFormat(total));
   }
 
+  function handleCouponPrice(coupon) {
+    var items = [...cartItems];
+    items.forEach((item) => {
+      item.price = item.price * (1 - coupon.rate);
+    })
+    setCartItems(items);
+  }
+
   function updateItemQuantity(id, num) {
-    var items = [...cartItems]
+    var items = [...cartItems];
     items.find(item => item.id === id).quantity = num;
     setCartItems(items);
   }
@@ -55,13 +77,26 @@ const Cart = () => {
     setCartItems(items);
   }
 
+  function handleCouponCode(e) {
+    setInputCode(e.target.value);
+  }
+
+  function handleCouponSubmit() {
+    let coupon = coupons.find(coupon => coupon.code === inputCode);
+    if (coupon != null && coupon.isValid) {
+      handleCouponPrice(coupon);
+      coupon.isValid = false;
+      setCouponResponse('valid');
+    }
+    else {
+      setCouponResponse('invalid');
+    }
+  }
+
+  //Update the total price when an item quantity is updated
   useEffect(() => {
     updateTotalPrice();
   }, [cartItems.map(item => item.quantity)]);
-
-  // useEffect(() => {
-  //   setCartItems(cartItems);
-  // }, [cartItems]);
 
   return (
     <div className="cart bg-secondary">
@@ -87,8 +122,13 @@ const Cart = () => {
             <form className="col form-group">
               {/* Coupon */}
               <div className="form-row my-3 ms-5">
-                <input className="form-control-sm me-2" type="text" name="coupon" placeholder="Coupon"/>
-                <button className="btn btn-sm btn-success">Submit</button>
+                <input className="form-control-sm me-2" type="text" name="coupon" onChange={handleCouponCode} value={inputCode} placeholder="Coupon"/>
+                <button className="btn btn-sm btn-success" type="button" onClick={handleCouponSubmit}>Submit</button>
+                {/* <CouponResponse couponResponse={couponResponse}></CouponResponse> */}
+                <div className='pt-3'>
+                  {couponResponse==='valid' && <p className='text-primary fw-bold'>Coupon successfully applied</p>}
+                  {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}
+                </div>
               </div>
             </form>
           </div>
