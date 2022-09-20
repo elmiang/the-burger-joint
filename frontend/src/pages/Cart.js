@@ -11,25 +11,25 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: "beef burger",
+      name: "Beef Burger",
       quantity: 1,
       price: 15
     },
     {
       id: 2,
-      name: "chicken burger",
+      name: "Chicken Burger",
       quantity: 1,
       price: 14
     },
     {
       id: 3,
-      name: "cheese burger",
+      name: "Cheese Burger",
       quantity: 1,
       price: 12.99
     },
     {
       id: 4,
-      name: "veggie burger",
+      name: "Veggie Burger",
       quantity: 1,
       price: 13.99
     }
@@ -112,10 +112,10 @@ const Cart = () => {
             {/* Checkout */}
             <div className="col d-block ms-3 mt-3">
               {/* Order Options Test */}
-              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#orderOptions">
+              {/* <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#orderOptions">
                 Order Options
               </button>
-              <OrderOptions />
+              <OrderOptions /> */}
               <p className="fw-bold text-warning mt-3">{totalPrice}</p>
               <Link className="btn btn-warning" to="/checkout">Checkout</Link>
             </div>
