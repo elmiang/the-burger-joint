@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import OrderExtra from "./OrderExtra";
 import OrderIngredient from "./OrderIngredient";
@@ -7,11 +7,22 @@ import currencyFormat from "../utility/Functions";
 
 const OrderOptions = (props) => {
   const [servingSize, setServingSize] = useState("regular");
+  const [cost, setCost] = useState(props.price);
 
   function handleServingSize(e) {
     setServingSize(e.target.value);
   }
 
+  function handleUpdateCost(e) {
+    setCost((prev) => {
+      if (e.target.checked) {
+        return prev + parseFloat(e.target.value);
+      }
+      else {
+        return prev - parseFloat(e.target.value);
+      }
+    });
+  }
 
   return (
     <div className="modal fade" id={`orderOptions-${props.id}`} tabIndex="-1">
@@ -49,19 +60,19 @@ const OrderOptions = (props) => {
             </section>
             <section className="p-2">
               <h4 className="border-1 border-bottom text-warning pb-2">Extras</h4>
-              <OrderExtra name="Patty" price="$4.00"/>
-              <OrderExtra name="Cheese" price="$2.00"/>
-              <OrderExtra name="Pickles" price="$1.00"/>
-              <OrderExtra name="Olives" price="$1.00"/>
-              <OrderExtra name="Jalapenos" price="$1.00"/>
+              <OrderExtra name="Patty" price={4} handleUpdateCost={handleUpdateCost}/>
+              <OrderExtra name="Cheese" price={2} handleUpdateCost={handleUpdateCost}/>
+              <OrderExtra name="Pickles" price={1} handleUpdateCost={handleUpdateCost}/>
+              <OrderExtra name="Olives" price={1} handleUpdateCost={handleUpdateCost}/>
+              <OrderExtra name="Jalapenos" price={1} handleUpdateCost={handleUpdateCost}/>
             </section>
             <section className="px-2 pt-2">
-              <p className="text-warning fw-bold text-end">Total: {currencyFormat(props.price)}</p>
+              <p className="text-warning fw-bold text-end">Total: {currencyFormat(cost)}</p>
             </section>
           </div>
-          <div class="modal-footer border-top border-warning border-2">
+          <div className="modal-footer border-top border-warning border-2">
             <button type="button" className="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" className="btn btn-warning" data-bs-dismiss="modal">Add</button>
+            <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={() => props.updatePrice(props.id, cost)}>Add</button>
           </div>
         </div>
       </div>

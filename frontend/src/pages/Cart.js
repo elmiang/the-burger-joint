@@ -58,6 +58,12 @@ const Cart = () => {
     setTotalPrice(currencyFormat(total));
   }
 
+  function updateItemPrice(id, num) {
+    var items = [...cartItems];
+    items.find(item => item.id === id).price = num;
+    setCartItems(items);
+  }
+
   function handleCouponPrice(coupon) {
     var items = [...cartItems];
     items.forEach((item) => {
@@ -104,18 +110,13 @@ const Cart = () => {
         <h2 className="display-6 text-warning pb-3 fw-bold border-3 border-bottom border-warning">Cart</h2>
           {
             cartItems.map((item) => 
-              <CartItem item={item.name} price={item.price} quantity={item.quantity} id={item.id} 
-              updateItemQuantity={updateItemQuantity} deleteItem={deleteItem}/>
+              <CartItem key={item.name} item={item.name} price={item.price} quantity={item.quantity} id={item.id} 
+              updateItemQuantity={updateItemQuantity} deleteItem={deleteItem} updateItemPrice={updateItemPrice}/>
             )
           }
           <div className="row">
             {/* Checkout */}
             <div className="col d-block ms-3 mt-3">
-              {/* Order Options Test */}
-              {/* <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#orderOptions">
-                Order Options
-              </button>
-              <OrderOptions /> */}
               <p className="fw-bold text-warning mt-3">{totalPrice}</p>
               <Link className="btn btn-warning" to="/checkout">Checkout</Link>
             </div>
@@ -124,7 +125,6 @@ const Cart = () => {
               <div className="form-row my-3 ms-5">
                 <input className="form-control-sm me-2" type="text" name="coupon" onChange={handleCouponCode} value={inputCode} placeholder="Coupon"/>
                 <button className="btn btn-sm btn-success" type="button" onClick={handleCouponSubmit}>Submit</button>
-                {/* <CouponResponse couponResponse={couponResponse}></CouponResponse> */}
                 <div className='pt-3'>
                   {couponResponse==='valid' && <p className='text-primary fw-bold'>Coupon successfully applied</p>}
                   {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}

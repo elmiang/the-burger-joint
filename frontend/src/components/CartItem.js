@@ -54,7 +54,7 @@ const CartItem = (props) => {
 				c17.947,0,32.491-14.543,32.491-32.491V85.333h60.07c2.17,0,3.925,1.755,3.925,3.925V465.408z" />
           </svg>
           </button>
-          <OrderOptions price={props.price} name={props.item} id={props.id}/>
+          <OrderOptions price={props.price} name={props.item} id={props.id} updatePrice={props.updateItemPrice}/>
       </div>
     </div>
   )
