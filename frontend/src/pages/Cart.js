@@ -8,32 +8,34 @@ import currencyFormat from '../utility/Functions';
 
 //Cart page
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Beef Burger",
-      quantity: 1,
-      price: 15
-    },
-    {
-      id: 2,
-      name: "Chicken Burger",
-      quantity: 1,
-      price: 14
-    },
-    {
-      id: 3,
-      name: "Cheese Burger",
-      quantity: 1,
-      price: 12.99
-    },
-    {
-      id: 4,
-      name: "Veggie Burger",
-      quantity: 1,
-      price: 13.99
-    }
-  ]);
+  // const [cartItems, setCartItems] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Beef Burger",
+  //     quantity: 1,
+  //     price: 15
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Chicken Burger",
+  //     quantity: 1,
+  //     price: 14
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Cheese Burger",
+  //     quantity: 1,
+  //     price: 12.99
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Veggie Burger",
+  //     quantity: 1,
+  //     price: 13.99
+  //   }
+  // ]);
+
+  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItems")));
 
   const [coupons, setCoupons] = useState([
     {
@@ -72,6 +74,25 @@ const Cart = () => {
     setCartItems(items);
   }
 
+  function handleAddDummyItem(name, price) {
+    var items = [...cartItems];
+
+    const findItem = items.find(item => item.name === name);
+    if (findItem === undefined) {
+      items.push({
+        id: items.length + 1,
+        name: name,
+        quantity: 1,
+        price: price
+      });
+    }
+    else {
+      findItem.quantity += 1;
+    }
+    setCartItems(items);
+    console.log(items);
+  }
+
   function updateItemQuantity(id, num) {
     var items = [...cartItems];
     items.find(item => item.id === id).quantity = num;
@@ -99,6 +120,20 @@ const Cart = () => {
     }
   }
 
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('cartItems'));
+    if (items === undefined) {
+      localStorage.setItem('cartItems', JSON.stringify([]));
+    }
+    console.log(items);
+  }, []);
+
+  //Update cartItems in local storage when cart items is updated
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    console.log("Local storage updated");
+  }, [cartItems, cartItems.map(item => item.quantity), cartItems.map(item => item.price)]);
+
   //Update the total price when an item quantity is updated
   useEffect(() => {
     updateTotalPrice();
@@ -108,6 +143,11 @@ const Cart = () => {
     <div className="cart bg-secondary">
       <div className="container-fluid bg-secondary w-50 mt-3 p-3 border border-dark">
         <h2 className="display-6 text-warning pb-3 fw-bold border-3 border-bottom border-warning">Cart</h2>
+        {/* Test Cart Persistence */}
+        <button onClick={() => handleAddDummyItem("Chicken Burger", 14)}>Add Chicken Burger</button>
+        <button onClick={() => handleAddDummyItem("Beef Burger", 15)}>Add Beef Burger</button>
+        <button onClick={() => handleAddDummyItem("Cheese Burger", 12.99)}>Add Cheese Burger</button>
+        <button onClick={() => handleAddDummyItem("Veggie Burger", 13.99)}>Add Veggie Burger</button>
           {
             cartItems.map((item) => 
               <CartItem key={item.name} item={item.name} price={item.price} quantity={item.quantity} id={item.id} 
