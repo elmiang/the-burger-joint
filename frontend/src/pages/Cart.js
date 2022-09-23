@@ -120,14 +120,6 @@ const Cart = () => {
     }
   }
 
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('cartItems'));
-    if (items === undefined) {
-      localStorage.setItem('cartItems', JSON.stringify([]));
-    }
-    console.log(items);
-  }, []);
-
   //Update cartItems in local storage when cart items is updated
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));

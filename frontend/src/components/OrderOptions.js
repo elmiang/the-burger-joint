@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import OrderExtra from "./OrderExtra";
 import OrderIngredient from "./OrderIngredient";
@@ -6,6 +7,7 @@ import OrderIngredient from "./OrderIngredient";
 import currencyFormat from "../utility/Functions";
 
 const OrderOptions = (props) => {
+  const [extras, setExtras] = useState([]);
   const [servingSize, setServingSize] = useState("regular");
   const [cost, setCost] = useState(props.price);
 
@@ -23,6 +25,18 @@ const OrderOptions = (props) => {
       }
     });
   }
+
+  useEffect(() => {
+    const fetchExtras = async () => {
+      const response = await axios.get("http://localhost:3000/api/cart/")
+      
+      if (response.status == 200) {
+        setExtras(response.data)
+      }
+    }
+
+    fetchExtras();
+  }, []);
 
   return (
     <div className="modal fade" id={`orderOptions-${props.id}`} tabIndex="-1">
@@ -60,11 +74,16 @@ const OrderOptions = (props) => {
             </section>
             <section className="p-2">
               <h4 className="border-1 border-bottom text-warning pb-2">Extras</h4>
-              <OrderExtra name="Patty" price={4} handleUpdateCost={handleUpdateCost}/>
+              {
+                extras.map((extra) => 
+                  <OrderExtra key={extra.Extra_id} name={extra.item} price={extra.price} handleUpdateCost={handleUpdateCost}/>
+                )
+              }
+              {/* <OrderExtra name="Patty" price={4} handleUpdateCost={handleUpdateCost}/>
               <OrderExtra name="Cheese" price={2} handleUpdateCost={handleUpdateCost}/>
               <OrderExtra name="Pickles" price={1} handleUpdateCost={handleUpdateCost}/>
               <OrderExtra name="Olives" price={1} handleUpdateCost={handleUpdateCost}/>
-              <OrderExtra name="Jalapenos" price={1} handleUpdateCost={handleUpdateCost}/>
+              <OrderExtra name="Jalapenos" price={1} handleUpdateCost={handleUpdateCost}/> */}
             </section>
             <section className="px-2 pt-2">
               <p className="text-warning fw-bold text-end">Total: {currencyFormat(cost)}</p>
