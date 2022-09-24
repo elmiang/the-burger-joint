@@ -8,33 +8,6 @@ import currencyFormat from '../utility/Functions';
 
 //Cart page
 const Cart = () => {
-  // const [cartItems, setCartItems] = useState([
-  //   {
-  //     id: 1,
-  //     name: "Beef Burger",
-  //     quantity: 1,
-  //     price: 15
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Chicken Burger",
-  //     quantity: 1,
-  //     price: 14
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Cheese Burger",
-  //     quantity: 1,
-  //     price: 12.99
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Veggie Burger",
-  //     quantity: 1,
-  //     price: 13.99
-  //   }
-  // ]);
-
   const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItems")));
 
   const [coupons, setCoupons] = useState([
