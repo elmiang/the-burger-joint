@@ -28,7 +28,7 @@ const OrderOptions = (props) => {
 
   useEffect(() => {
     const fetchExtras = async () => {
-      const response = await axios.get("http://localhost:3000/api/cart/")
+      const response = await axios.get("/api/cart/")
       
       if (response.status == 200) {
         setExtras(response.data)
@@ -76,14 +76,9 @@ const OrderOptions = (props) => {
               <h4 className="border-1 border-bottom text-warning pb-2">Extras</h4>
               {
                 extras.map((extra) => 
-                  <OrderExtra key={extra.Extra_id} name={extra.item} price={extra.price} handleUpdateCost={handleUpdateCost}/>
+                  <OrderExtra key={extra.Extra_id} name={extra.item} price={extra.price} item={extra} handleUpdateCost={handleUpdateCost}/>
                 )
               }
-              {/* <OrderExtra name="Patty" price={4} handleUpdateCost={handleUpdateCost}/>
-              <OrderExtra name="Cheese" price={2} handleUpdateCost={handleUpdateCost}/>
-              <OrderExtra name="Pickles" price={1} handleUpdateCost={handleUpdateCost}/>
-              <OrderExtra name="Olives" price={1} handleUpdateCost={handleUpdateCost}/>
-              <OrderExtra name="Jalapenos" price={1} handleUpdateCost={handleUpdateCost}/> */}
             </section>
             <section className="px-2 pt-2">
               <p className="text-warning fw-bold text-end">Total: {currencyFormat(cost)}</p>
