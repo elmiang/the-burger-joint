@@ -47,6 +47,10 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/products">Product Management</Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/sales">Sales Management</Link>
+            </li>
           </ul>
         </div>
       </div>
