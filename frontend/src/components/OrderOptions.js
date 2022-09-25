@@ -6,6 +6,8 @@ import OrderIngredient from "./OrderIngredient";
 
 import currencyFormat from "../utility/Functions";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;      
+
 const OrderOptions = (props) => {
   const [extras, setExtras] = useState([]);
   const [servingSize, setServingSize] = useState("regular");
@@ -28,7 +30,8 @@ const OrderOptions = (props) => {
 
   useEffect(() => {
     const fetchExtras = async () => {
-      const response = await axios.get("/api/cart/")
+      console.log(`calling backend: ${baseurl}`);
+      const response = await axios.get(`${baseurl}/api/cart/`)
       
       if (response.status == 200) {
         setExtras(response.data)

@@ -2,14 +2,14 @@ import React from "react";
 
 const AddProduct = () => {
   return (
-    <div className="modal fade" tabindex="-1" id="addProduct">
+    <div className="modal fade" tabIndex="-1" id="addProduct">
       <div className="modal-dialog">
         <div className="modal-content bg-dark">
           <div className="modal-header">
             <h5 className="modal=title">Add Product</h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
             ></button>
           </div>
@@ -49,12 +49,12 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="modal-footer bg-dark">
-            <button type="button" class="btn btn-warning m-1">
+            <button type="button" className="btn btn-warning m-1">
               Add
             </button>
             <button
               type="button"
-              class="btn btn-secondary m-1"
+              className="btn btn-secondary m-1"
               data-bs-dismiss="modal"
             >
               Close

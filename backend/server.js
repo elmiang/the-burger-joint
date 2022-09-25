@@ -5,11 +5,16 @@ const mongoose = require('mongoose')
 
 const extrasRoutes = require('./routes/extras');
 
+const cors = require('cors');
+
 const app = express();
 const port = process.env.PORT || 8888;
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin: '*'
+}));
 
 // Routes
 app.use('/api/cart', extrasRoutes);

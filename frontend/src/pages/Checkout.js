@@ -4,13 +4,13 @@ import CheckoutBar from "../components/CheckoutBar";
 
 const Checkout = () => {
     return ( 
-        <div class="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
-            <div class="row">
+        <div className="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
+            <div className="row">
             <CheckoutBar/>
-                <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */class="col py-5 p-5 rounded-2" tabindex="0">
+                <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */className="col py-5 p-5 rounded-2" tabIndex="0">
                     {/*Checkout: Cart Items */}
-                    <h3 id="CheckoutItems" class="p-1 text-white">Cart Items</h3>
-                    <div class="row row-cols-1 row-cols-md-4 g-3">
+                    <h3 id="CheckoutItems" className="p-1 text-white">Cart Items</h3>
+                    <div className="row row-cols-1 row-cols-md-4 g-3">
                         <CheckoutItem/>
                         <CheckoutItem/>
                         <CheckoutItem/>
@@ -20,34 +20,34 @@ const Checkout = () => {
 
 
                     {/*Checkout: Payment Options & Details*/}
-                    <h3 id="PaymentInput" class="p-2 mt-3 text-white">Payment Options/Details</h3>
-                    <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
+                    <h3 id="PaymentInput" className="p-2 mt-3 text-white">Payment Options/Details</h3>
+                    <div className="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
                         
-                        <div class="gap-2  pb-3">
-                            <div class="border p-2 rounded-top">
+                        <div className="gap-2  pb-3">
+                            <div className="border p-2 rounded-top">
                                 <input type="radio" id="Visa" name="payment_type"></input>
-                                <label class="p-1" for="Visa">Visa</label>
-                                <img src="./Visa_Img.png" alt="Visa Image" class="w-25 h-25"></img>
+                                <label className="p-1" for="Visa">Visa</label>
+                                <img src="./Visa_Img.png" alt="Visa Image" className="w-25 h-25"></img>
                             </div>
                             
-                            <div class="border  border-top-0 border-bottom-0 p-2">
+                            <div className="border  border-top-0 border-bottom-0 p-2">
                                 <input type="radio" id="Mastercard" name="payment_type"></input>
-                                <label class="p-1" for="Mastercard">Mastercard</label>
-                                <img src="./Mastercard_Img.jpeg" alt="Mastercard Image" class="w-25 h-25"></img>
+                                <label className="p-1" for="Mastercard">Mastercard</label>
+                                <img src="./Mastercard_Img.jpeg" alt="Mastercard Image" className="w-25 h-25"></img>
                             </div>
-                            <div class="border p-2 rounded-bottom">
+                            <div className="border p-2 rounded-bottom">
                                 <input type="radio" id="Paypal" name="payment_type"></input>
-                                <label class="p-1" for="Paypal">Paypal</label>
-                                <img src="./Paypal_Img.png" alt="Mastercard Image" class="w-25 h-25"></img>
+                                <label className="p-1" for="Paypal">Paypal</label>
+                                <img src="./Paypal_Img.png" alt="Mastercard Image" className="w-25 h-25"></img>
                             </div>
                         </div> 
-                        <div class="">
-                            <div class="p-3">
-                                <label for="CardNo" class="">Card Number</label><br></br>
+                        <div className="">
+                            <div className="p-3">
+                                <label for="CardNo" className="">Card Number</label><br></br>
                                 <input type="text" id="CardNo"></input>
                             </div>
-                            <div class="p-3">
-                                <label class="">Expiration Date</label>
+                            <div className="p-3">
+                                <label className="">Expiration Date</label>
                                 <br></br>
                                 <select id="ExpirationDay">
                                     <option value="01">01</option>
@@ -63,7 +63,7 @@ const Checkout = () => {
                                     <option value="11">11</option>
                                     <option value="12">12</option>
                                 </select>
-                                <label class="p-1">/</label>
+                                <label className="p-1">/</label>
                                 <select id="ExpirationYear">
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
@@ -79,9 +79,9 @@ const Checkout = () => {
                                     <option value="2033">2033</option>
                                 </select>
                             </div>
-                            <div class="pt-2">
+                            <div className="pt-2">
                                 <label for="CardNo">CSV</label>
-                                <input type="text" size="3" maxLength="3" id="CardNo" class="m-2"></input>
+                                <input type="text" size="3" maxLength="3" id="CardNo" className="m-2"></input>
                             </div>
                             
                         </div>
@@ -89,64 +89,64 @@ const Checkout = () => {
                     {/* End of Payment Options & Details */}
 
                     {/*Checkout: Address Details*/}
-                    <h3 id="AddressInput" class="p-3 mt-3 text-white">Address Details</h3>
-                    <div class="row row-cols-1 row-cols-md-2 g-4 m-2 p-2 bg-light rounded">
+                    <h3 id="AddressInput" className="p-3 mt-3 text-white">Address Details</h3>
+                    <div className="row row-cols-1 row-cols-md-2 g-4 m-2 p-2 bg-light rounded">
                         <div>
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="AddressLine1">Street Address 1</label>
                                 <br></br>
-                                <input type="text" id="AddressLine1" size="40" class=""></input>
+                                <input type="text" id="AddressLine1" size="40" className=""></input>
                             </div>
                             
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="AddressLine2">Street Address 2</label>
                                 <br></br>
-                                <input type="text" id="AddressLine2" size="40" class=""></input><br></br>
+                                <input type="text" id="AddressLine2" size="40" className=""></input><br></br>
                             </div>
                         </div>
                         <div>
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="CityLine">City</label>
                                 <br></br>
-                                <input type="text" id="CityLine" class=""></input>
+                                <input type="text" id="CityLine" className=""></input>
                             </div>
                             
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="CountryLine">Country</label>
                                 <br></br>
-                                <input type="text" id="CountryLine" class=""></input><br></br>
+                                <input type="text" id="CountryLine" className=""></input><br></br>
                             </div>
                         </div>
                     </div>
                      {/*End of Address Details*/}
 
                      {/*Contact Details*/}
-                     <h3 id="ContactInput" class="p-3 mt-3 text-white">Contact Details</h3>
-                    <div class="row row-cols-1 row-cols-md-2 m-2 p-2 bg-light rounded">
+                     <h3 id="ContactInput" className="p-3 mt-3 text-white">Contact Details</h3>
+                    <div className="row row-cols-1 row-cols-md-2 m-2 p-2 bg-light rounded">
                     <div>
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="FName">First Name</label>
                                 <br></br>
-                                <input type="text" id="FName" class=""></input>
+                                <input type="text" id="FName" className=""></input>
                             </div>
                             
-                            <div class="p-2">
+                            <div className="p-2">
                             <label for="LName">Last Name</label>
                                 <br></br>
-                                <input type="text" id="LName" class=""></input>
+                                <input type="text" id="LName" className=""></input>
                             </div>
                         </div>
                         <div>
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="EmailLine">Email</label>
                                 <br></br>
-                                <input type="text" id="EmailLine" size="40" class=""></input>
+                                <input type="text" id="EmailLine" size="40" className=""></input>
                             </div>
                             
-                            <div class="p-2">
+                            <div className="p-2">
                                 <label for="PhoneLine">Phone</label>
                                 <br></br>
-                                <input type="text" maxLength="10" id="PhoneLine" class=""></input><br></br>
+                                <input type="text" maxLength="10" id="PhoneLine" className=""></input><br></br>
                             </div>
                         </div>
                     </div>
@@ -154,8 +154,8 @@ const Checkout = () => {
 
                      {/*Checkout: Order*/} 
                     
-                    <div class="row row-cols-1 g-2 m-1">
-                            <button class="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
+                    <div className="row row-cols-1 g-2 m-1">
+                            <button className="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
                     </div>
                      {/*End of Order*/}
                 </div>

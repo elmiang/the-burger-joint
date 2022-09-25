@@ -12,13 +12,6 @@ import Callback from './pages/Callback';
 import Products from './pages/Products';
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
 
   return (
     <div className="App">
@@ -46,7 +39,6 @@ function App() {
               element={<Navigate replace to="/menu"/>}
             />
             <Route path="/callback" element={<Callback/>}/>
-            {/* <p>{!data ? "Loading..." : data}</p> */}
         </Routes>
       </BrowserRouter>
       <Footer />
