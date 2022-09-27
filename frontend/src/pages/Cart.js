@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 
 import CartItem from "../components/CartItem";
 
-import OrderOptions from "../components/OrderOptions";
 import currencyFormat from '../utility/Functions';
+import { setItems } from '../redux/cart';
 
 //Cart page
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(JSON.parse(localStorage.getItem("cartItems")));
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const [coupons, setCoupons] = useState([
     {
@@ -27,16 +29,17 @@ const Cart = () => {
 
   function updateTotalPrice() {
     let initial = 0;
+    
+
     let total = cartItems.reduce(
-      (prev, curr) => { return prev + (curr.price * curr.quantity) }, initial
+      (prev, curr) => {
+        var extrasPrice = 0;
+        if (curr.extra !== undefined) {
+          curr.extra.forEach(extra => extrasPrice += extra.price); 
+        }
+        return prev + ((curr.price + extrasPrice) * curr.quantity) }, initial
     );
     setTotalPrice(currencyFormat(total));
-  }
-
-  function updateItemPrice(id, num) {
-    var items = [...cartItems];
-    items.find(item => item.id === id).price = num;
-    setCartItems(items);
   }
 
   function handleCouponPrice(coupon) {
@@ -44,7 +47,7 @@ const Cart = () => {
     items.forEach((item) => {
       item.price = item.price * (1 - coupon.rate);
     })
-    setCartItems(items);
+    dispatch(setItems(items));
   }
 
   function handleAddDummyItem(name, price) {
@@ -62,19 +65,7 @@ const Cart = () => {
     else {
       findItem.quantity += 1;
     }
-    setCartItems(items);
-    console.log(items);
-  }
-
-  function updateItemQuantity(id, num) {
-    var items = [...cartItems];
-    items.find(item => item.id === id).quantity = num;
-    setCartItems(items);
-  }
-
-  function deleteItem(id) {
-    const items = cartItems.filter(item => item.id !== id);
-    setCartItems(items);
+    dispatch(setItems(items));
   }
 
   function handleCouponCode(e) {
@@ -93,16 +84,16 @@ const Cart = () => {
     }
   }
 
-  //Update cartItems in local storage when cart items is updated
-  useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    console.log("Local storage updated");
-  }, [cartItems, cartItems.map(item => item.quantity), cartItems.map(item => item.price)]);
+  // Update cartItems in local storage when cart items is updated
+  // useEffect(() => {
+  //   localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  //   console.log("Local storage updated");
+  // }, [cartItems, cartItems.map(item => item.quantity), cartItems.map(item => item.price), cartItems.map(item => item.extra)]);
 
-  //Update the total price when an item quantity is updated
+  //Update the total price when an item quantity or extra is updated
   useEffect(() => {
     updateTotalPrice();
-  }, [cartItems.map(item => item.quantity)]);
+  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
 
   return (
     <div className="cart bg-secondary">
@@ -116,7 +107,7 @@ const Cart = () => {
           {
             cartItems.map((item) => 
               <CartItem key={item.name} item={item.name} price={item.price} quantity={item.quantity} id={item.id} 
-              updateItemQuantity={updateItemQuantity} deleteItem={deleteItem} updateItemPrice={updateItemPrice}/>
+              extra={item.extra}/>
             )
           }
           <div className="row">

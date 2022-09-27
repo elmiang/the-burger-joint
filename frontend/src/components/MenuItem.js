@@ -3,14 +3,14 @@ import React from "react";
 const MenuItem = () => {
     return ( 
          
-         <div class="col">
-         <div class="card h-100 w-100">
-             <img src="./Placeholder.png" class="card-img-top" alt="..."></img>
-                 <div class="card-body">
-                     <h5 class="card-title">Title</h5>
-                     <p class="card-text">Food Information</p>
-                     <p class="fw-bold">$ Price</p>
-                     <button type="button" class="btn btn-secondary">Add to Cart</button>
+         <div className="col">
+         <div className="card h-100 w-100">
+             <img src="./Placeholder.png" className="card-img-top" alt="..."></img>
+                 <div className="card-body">
+                     <h5 className="card-title">Title</h5>
+                     <p className="card-text">Food Information</p>
+                     <p className="fw-bold">$ Price</p>
+                     <button type="button" className="btn btn-secondary">Add to Cart</button>
                  </div>
          </div>
         </div>

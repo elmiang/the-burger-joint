@@ -1,29 +1,44 @@
-import '../index.css'
-import React, { useEffect, useState } from 'react'
+import '../index.css';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import currencyFormat from '../utility/Functions';
 
 import OrderOptions from './OrderOptions';
+import { deleteItem, updateItemQuantity } from '../redux/cart';
 
 const CartItem = (props) => {
+  const cItems = useSelector((state) => state.cart); 
+  const dispatch = useDispatch();
 
-  // const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
+  const [modalOpened, setModalOpened] = useState(0);
 
   function handleQuantity (e) {
-    props.updateItemQuantity(props.id, e.target.value);
+    dispatch(updateItemQuantity({id: props.id, num: e.target.value}));
   }
 
   function handleDelete () {
-    props.deleteItem(props.id);
+    dispatch(deleteItem(props.id));
+  }
+
+  function handleModalOpened(e) {
+    setModalOpened(modalOpened + 1);
   }
 
   function updatePrice() {
-    setPrice(props.quantity * props.price);
+    const extras = cItems.find(item => item.id === props.id).extra;
+    var extrasPrice = 0;
+    if (extras !== undefined) {
+      extras.forEach(extra => {
+        extrasPrice += extra.price;
+      });
+    }
+    setPrice(props.quantity * (props.price + extrasPrice));
   }
 
   useEffect(() => {
     updatePrice();
-  }, [props.quantity, props.price])
+  }, [props.quantity, cItems.find(item => item.id === props.id).extra])
 
   return (
     <div className="container-fluid">
@@ -41,7 +56,7 @@ const CartItem = (props) => {
           <p className="col text-warning fw-bold text-end">{currencyFormat(price)}</p>
         </div>
         <button className="btn btn-sm btn-outline-danger" onClick={handleDelete}>Delete</button>
-        <button className="bg-secondary ms-3" style={{ width: "2rem", height: "2rem"}} data-bs-toggle="modal" data-bs-target={`#orderOptions-${props.id}`}>
+        <button className="bg-secondary ms-3" style={{ width: "2rem", height: "2rem"}} data-bs-toggle="modal" data-bs-target={`#orderOptions-${props.id}`} onClick={handleModalOpened}>
           <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -54,7 +69,7 @@ const CartItem = (props) => {
 				c17.947,0,32.491-14.543,32.491-32.491V85.333h60.07c2.17,0,3.925,1.755,3.925,3.925V465.408z" />
           </svg>
           </button>
-          <OrderOptions price={props.price} name={props.item} id={props.id} updatePrice={props.updateItemPrice}/>
+          <OrderOptions price={props.price} name={props.item} id={props.id} extra={props.extra} modalOpened={modalOpened}/>
       </div>
     </div>
   )
