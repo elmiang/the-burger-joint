@@ -19,3 +19,34 @@ db.OrderLine.insertMany([
   { Order_id: 5, Dish_id: 5, OrderQuantity: 3},
   { Order_id: 5, Dish_id: 2, OrderQuantity: 2},
 ]);
+
+db.OrderLine.aggregate(
+  [{
+    $lookup: {
+      from: 'Dish',
+      localField: 'Dish_id',
+      foreignField: 'Dish_id',
+      as: 'Dish'
+    }
+  }, {
+    $unwind: {
+      path: '$Dish'
+    }
+  }, {
+    $project: {
+      Order_id: 1,
+      Dish_id: 1,
+      OrderQuantity: 1,
+      TotalPrice: {
+        $multiply: [
+          '$Dish.Price',
+          '$OrderQuantity'
+        ]
+      }
+    }
+  }, {
+    $merge: {
+      into: 'OrderLine'
+    }
+  }]
+)

@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import axios from "axios";
 
  const Menu = () => {
-    const [dishes, setDishes, setCategory] = useState([]);
+    const [dishes, setDishes] = useState([]);
     
     useEffect(() => {
       const fetchDishes = async () => {
