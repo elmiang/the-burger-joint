@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 
 const extrasRoutes = require('./routes/extras');
+const profileRoutes = require('./routes/profile');
 
 const cors = require('cors');
 
@@ -18,6 +19,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/cart', extrasRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Test routes
 // app.get("/", (req, res) => {
