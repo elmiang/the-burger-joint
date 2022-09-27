@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose')
 
 const extrasRoutes = require('./routes/extras');
+const dishesRoutes = require('./routes/dishes');
 
 const app = express();
 const port = process.env.PORT || 8888;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/cart', extrasRoutes);
+app.use('/api/menu', dishesRoutes);
 
 // Test routes
 // app.get("/", (req, res) => {
