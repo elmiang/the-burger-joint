@@ -11,13 +11,15 @@ const MenuItem = (props) => {
 
         const findItem = items.find(item => item.name === props.name);
         if (findItem === undefined) {
-          items.push({
-            id: items.length + 1,
-            name: props.name,
-            quantity: 1,
-            price: props.price,
-            category: props.category
-          });
+          var item = {id: items.length + 1, 
+                      name: props.name, quantity: 1, 
+                      price: props.price, 
+                      category: props.category};
+
+          if (props.ingredients !== undefined) {
+            item.ingredients = props.ingredients;
+          }
+          items.push(item);
         }
         else {
           findItem.quantity += 1;

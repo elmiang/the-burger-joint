@@ -47,7 +47,7 @@ import axios from "axios";
                         
                     {
                         burger.map((item) => 
-                            <MenuItem key={item._id} name={item.DishName} description={item.Description} price={item.Price} category={item.Category}/>
+                            <MenuItem key={item._id} name={item.DishName} description={item.Description} price={item.Price} category={item.Category} ingredients={item.ingredients}/>
                         )
                     }
                     

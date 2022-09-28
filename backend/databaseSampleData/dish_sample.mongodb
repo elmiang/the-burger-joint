@@ -11,11 +11,11 @@ db.Dish.drop();
 
 // Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
 db.Dish.insertMany([
-  { Dish_id: 1, Category: 'Burger', DishName: 'Cheese Burger', Price: 10, Description: 'Yum'},
-  { Dish_id: 2, Category: 'Burger', DishName: 'Meat Burger', Price: 11, Description: 'Also yum'},
-  { Dish_id: 3, Category: 'Burger', DishName: 'Veggie Burger', Price: 13, Description: 'Healthy'},
-  { Dish_id: 4, Category: 'Burger', DishName: 'Steak Burger', Price: 17, Description: 'Fancy'},
-  { Dish_id: 5, Category: 'Burger', DishName: 'Edible Burger', Price: 9, Description: 'Its really edible!'},
+  { Dish_id: 1, Category: 'Burger', DishName: 'Cheese Burger', Price: 10, Description: 'Yum', ingredients: ['Beef Patty', 'Cheese', 'Pickles']},
+  { Dish_id: 2, Category: 'Burger', DishName: 'Meat Burger', Price: 11, Description: 'Also yum', ingredients: ['Beef Patty', 'Cheese', 'Lettuce', 'Tomato', 'Onion']},
+  { Dish_id: 3, Category: 'Burger', DishName: 'Veggie Burger', Price: 13, Description: 'Healthy', ingredients: ['Veggie Patty', 'Cheese', 'Lettuce', 'Tomato', 'Onion']},
+  { Dish_id: 4, Category: 'Burger', DishName: 'Steak Burger', Price: 17, Description: 'Fancy', ingredients: ['Steak', 'Cheese', 'Pickles', 'Tomato', 'Onion']},
+  { Dish_id: 5, Category: 'Burger', DishName: 'Edible Burger', Price: 9, Description: 'Its really edible!', ingredients: ['Edible Patty', 'Cheese', 'Pickles']},
   { Dish_id: 6, Category: 'Drink', DishName: 'Water', Price: 3, Description: 'Refreshing'},
   { Dish_id: 7, Category: 'Drink', DishName: 'Soft Drink', Price: 4, Description: 'Sweet'},
   { Dish_id: 8, Category: 'Drink', DishName: 'Juice', Price: 3, Description: 'Healthy'},

@@ -6,7 +6,7 @@ import OrderExtra from "./OrderExtra";
 import OrderIngredient from "./OrderIngredient";
 
 import currencyFormat from "../utility/Functions";
-import { updateItemExtras, updateItemPrice } from '../redux/cart';
+import { updateItemExtras, updateItemIngredients } from '../redux/cart';
 
 const OrderOptions = (props) => {
   const cartItems = useSelector((state) => state.cart);
@@ -17,6 +17,7 @@ const OrderOptions = (props) => {
   const [servingSize, setServingSize] = useState("regular");
 
   const [ingredients, setIngredients] = useState([]);
+  const [storedIngredients, setStoredIngredients] = useState([]);
 
   const [cost, setCost] = useState(props.price);
 
@@ -35,6 +36,24 @@ const OrderOptions = (props) => {
     setStoredExtras(items);
   }
 
+  function handleUpdateIngredients(e) {
+    var items = [...storedIngredients];
+    if (e.target.checked && !storedIngredients.includes(e.target.value)) {
+      items.push(ingredients.find(ingredient => ingredient === e.target.value));
+    } 
+    else {
+      items = items.filter(item => item !== e.target.value);
+      console.log("Filtered");
+    }
+    console.log(items);
+    setStoredIngredients(items);
+  }
+
+  function handleAllUpdates() {
+    dispatch(updateItemExtras({id: props.id, extra: storedExtras}));
+    dispatch(updateItemIngredients({id: props.id, ingredients: storedIngredients}));
+  }
+
   useEffect(() => {
     const currentItem = cartItems.find(item => item.id === props.id);
     //Retrieve all extras from the database and save it to the extras state
@@ -42,25 +61,29 @@ const OrderOptions = (props) => {
       const response = await axios.get("/api/cart/")
       
       if (response.status === 200) {
-        if (currentItem.category === 'Burger')
-        setExtras(response.data)
+        if (currentItem.category === 'Burger') {
+          setExtras(response.data);
+        }
       }
     }
-
-    //Temp array of ingredients
-    //Later include ingredients in the menu items
-    if (currentItem.category === 'Burger') {
-      setIngredients(['Beef Patty', 'Cheese', 'Tomato', 'Onion']);
+    if (currentItem.ingredients !== undefined) {
+      setIngredients(currentItem.ingredients);
     }
     fetchExtras();
   }, []);
 
-  //Update local stored extras to match those stored in cart
+  //Update local stored extras && ingredients to match those stored in cart
   useEffect(() => {
     let extras = cartItems.find(item => item.id === props.id).extra;
+    let ingredients = cartItems.find(item => item.id === props.id).ingredients;
+
     if (extras !== undefined) {
       setStoredExtras(extras);
     }
+    if (ingredients !== undefined) {
+      setStoredIngredients(ingredients);
+    }
+
   }, [props.modalOpened])
 
   // Update local cost based on extra ingredients in storedExtras
@@ -107,7 +130,7 @@ const OrderOptions = (props) => {
               <h4 className="border-1 border-bottom text-warning pb-2">Ingredients</h4>
               {
                 ingredients.map((ingredient) => 
-                  <OrderIngredient name={ingredient}/>
+                  <OrderIngredient name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
                 )
               }
             </section>
@@ -125,7 +148,7 @@ const OrderOptions = (props) => {
           </div>
           <div className="modal-footer border-top border-warning border-2">
             <button type="button" className="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={() => dispatch(updateItemExtras({id: props.id, extra: storedExtras}))}>Save</button>
+            <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={handleAllUpdates}>Save</button>
           </div>
         </div>
       </div>
