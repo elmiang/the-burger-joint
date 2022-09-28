@@ -50,24 +50,6 @@ const Cart = () => {
     dispatch(setItems(items));
   }
 
-  function handleAddDummyItem(name, price) {
-    var items = [...cartItems];
-
-    const findItem = items.find(item => item.name === name);
-    if (findItem === undefined) {
-      items.push({
-        id: items.length + 1,
-        name: name,
-        quantity: 1,
-        price: price
-      });
-    }
-    else {
-      findItem.quantity += 1;
-    }
-    dispatch(setItems(items));
-  }
-
   function handleCouponCode(e) {
     setInputCode(e.target.value);
   }
@@ -99,11 +81,6 @@ const Cart = () => {
     <div className="cart bg-secondary">
       <div className="container-fluid bg-secondary w-50 mt-3 p-3 border border-dark">
         <h2 className="display-6 text-warning pb-3 fw-bold border-3 border-bottom border-warning">Cart</h2>
-        {/* Test Cart Persistence */}
-        <button onClick={() => handleAddDummyItem("Chicken Burger", 14)}>Add Chicken Burger</button>
-        <button onClick={() => handleAddDummyItem("Beef Burger", 15)}>Add Beef Burger</button>
-        <button onClick={() => handleAddDummyItem("Cheese Burger", 12.99)}>Add Cheese Burger</button>
-        <button onClick={() => handleAddDummyItem("Veggie Burger", 13.99)}>Add Veggie Burger</button>
           {
             cartItems.map((item) => 
               <CartItem key={item.name} item={item.name} price={item.price} quantity={item.quantity} id={item.id} 
