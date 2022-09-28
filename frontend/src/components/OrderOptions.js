@@ -16,6 +16,8 @@ const OrderOptions = (props) => {
   const [storedExtras, setStoredExtras] = useState([]);
   const [servingSize, setServingSize] = useState("regular");
 
+  const [ingredients, setIngredients] = useState([]);
+
   const [cost, setCost] = useState(props.price);
 
   function handleServingSize(e) {
@@ -33,16 +35,23 @@ const OrderOptions = (props) => {
     setStoredExtras(items);
   }
 
-  //Retrieve all extras from the database and save it to the extras state
   useEffect(() => {
+    const currentItem = cartItems.find(item => item.id === props.id);
+    //Retrieve all extras from the database and save it to the extras state
     const fetchExtras = async () => {
       const response = await axios.get("/api/cart/")
       
       if (response.status === 200) {
+        if (currentItem.category === 'Burger')
         setExtras(response.data)
       }
     }
 
+    //Temp array of ingredients
+    //Later include ingredients in the menu items
+    if (currentItem.category === 'Burger') {
+      setIngredients(['Beef Patty', 'Cheese', 'Tomato', 'Onion']);
+    }
     fetchExtras();
   }, []);
 
@@ -96,10 +105,11 @@ const OrderOptions = (props) => {
             </section>
             <section className="p-2">
               <h4 className="border-1 border-bottom text-warning pb-2">Ingredients</h4>
-              <OrderIngredient name="Beef Patty"/>
-              <OrderIngredient name="Cheese"/>
-              <OrderIngredient name="Tomato"/>
-              <OrderIngredient name="Onion"/>
+              {
+                ingredients.map((ingredient) => 
+                  <OrderIngredient name={ingredient}/>
+                )
+              }
             </section>
             <section className="p-2">
               <h4 className="border-1 border-bottom text-warning pb-2">Extras</h4>

@@ -15,7 +15,8 @@ const MenuItem = (props) => {
             id: items.length + 1,
             name: props.name,
             quantity: 1,
-            price: props.price
+            price: props.price,
+            category: props.category
           });
         }
         else {
