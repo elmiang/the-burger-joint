@@ -14,10 +14,6 @@ const OrderLineSchema = new Schema({
   OrderQuantity: {
     type: Number,
     required: true
-  },
-  TotalPrice: {
-    type: Number,
-    required: true
   }
   
 });
