@@ -18,36 +18,50 @@ const Cart = () => {
       code: '15off',
       rate: 0.15,
       isValid: true
+    },
+    {
+      id: 2,
+      code: '50off',
+      rate: 0.5,
+      isValid: true
+    },
+    {
+      id: 3,
+      code: '25off',
+      rate: 0.25,
+      isValid: true
+    },
+    {
+      id: 4,
+      code: 'nocoupon',
+      rate: 0,
+      isValid: true
     }
   ]);
 
+  //Coupon states
   const [couponResponse, setCouponResponse] = useState("");
 
-  const [inputCode, setInputCode] = useState();
+  const [inputCode, setInputCode] = useState("");
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  function updateTotalPrice() {
+  function updateTotalPrice(coupon) {
     let initial = 0;
     
-
     let total = cartItems.reduce(
       (prev, curr) => {
         var extrasPrice = 0;
         if (curr.extra !== undefined) {
           curr.extra.forEach(extra => extrasPrice += extra.price); 
         }
-        return prev + ((curr.price + extrasPrice) * curr.quantity) }, initial
+        if (coupon) {
+          return prev + (((curr.price + extrasPrice) * (1 - coupon.rate)) * curr.quantity);
+        }
+        return prev + ((curr.price + extrasPrice) * curr.quantity);
+      }, initial
     );
     setTotalPrice(currencyFormat(total));
-  }
-
-  function handleCouponPrice(coupon) {
-    var items = [...cartItems];
-    items.forEach((item) => {
-      item.price = item.price * (1 - coupon.rate);
-    })
-    dispatch(setItems(items));
   }
 
   function handleCouponCode(e) {
@@ -56,25 +70,21 @@ const Cart = () => {
 
   function handleCouponSubmit() {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
-    if (coupon != null && coupon.isValid) {
-      handleCouponPrice(coupon);
+    if (coupon != undefined && coupon.isValid) {
       coupon.isValid = false;
       setCouponResponse('valid');
+      localStorage.setItem('coupon', JSON.stringify(coupon));
     }
     else {
       setCouponResponse('invalid');
     }
   }
 
-  // Update cartItems in local storage when cart items is updated
-  // useEffect(() => {
-  //   localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  //   console.log("Local storage updated");
-  // }, [cartItems, cartItems.map(item => item.quantity), cartItems.map(item => item.price), cartItems.map(item => item.extra)]);
-
   //Update the total price when an item quantity or extra is updated
   useEffect(() => {
-    updateTotalPrice();
+    const coupon = JSON.parse(localStorage.getItem('coupon'));
+
+    updateTotalPrice(coupon);
   }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
 
   return (

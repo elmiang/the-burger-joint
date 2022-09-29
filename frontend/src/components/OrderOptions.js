@@ -43,9 +43,7 @@ const OrderOptions = (props) => {
     } 
     else {
       items = items.filter(item => item !== e.target.value);
-      console.log("Filtered");
     }
-    console.log(items);
     setStoredIngredients(items);
   }
 
@@ -66,9 +64,20 @@ const OrderOptions = (props) => {
         }
       }
     }
-    if (currentItem.ingredients !== undefined) {
-      setIngredients(currentItem.ingredients);
+
+    //Retrieve all ingredients from the current item in the database and save it to the ingredients state
+    const fetchIngredients = async () => {
+      const response = await axios.get("/api/menu/");
+
+      if (response.status === 200) {
+        if (currentItem.ingredients !== undefined) {
+          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+          setIngredients(ingredients);
+        }
+      }
     }
+
+    fetchIngredients();
     fetchExtras();
   }, []);
 
