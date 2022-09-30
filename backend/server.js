@@ -1,19 +1,37 @@
-var express = require('express');
-var app = express();
+require('dotenv').config()
+
+const express = require('express');
+const mongoose = require('mongoose');
+
+// const
+const reciptsRoutes = require('./routes/recipts');
+
+const app = express();
 const port = process.env.PORT || 8888;
 
-var server = app.listen(port, function () {
-  var host = server.address().address
-  var port = server.address().port
+// Middleware
+app.use(express.json());
 
-  console.log("Example app listening at http://%s:%s", host, port);
-})
+// Routes
+app.use('./api/recipts', reciptsRoutes)
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-})
+// Test routes
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// })
 
 app.get('/api', function (req, res) {
   res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
 })
-//Test
+
+// Connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    // Listen for requests
+    app.listen(port, () => {
+      console.log('Connected to mongodb & listening on port', port);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
