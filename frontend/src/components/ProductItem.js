@@ -1,21 +1,34 @@
 import React from "react";
+import { useProductsContext } from "../hooks/useProductsContext";
 
-const ProductItem = (props) => {
+const ProductItem = ({ product }) => {
+  const { dispatch } = useProductsContext();
+
+  const handleClick = async () => {
+    const response = await fetch("/api/products/" + product.Dish_id, {
+      method: "DELETE",
+    });
+    const json = await response.json();
+
+    if (response.ok) {
+      dispatch({ type: "DELETE_PRODUCT", payload: json });
+    }
+  };
+
   return (
-    <a class="list-group-item  align-items-start list-group-item-action">
-      <input
-        class="form-check-input me-1"
-        type="checkbox"
-        value=""
-        id={props.id}
-      ></input>
-      <label class="stretched-link" for={props.id}>
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{props.name}</h5>
-        </div>
-      </label>
-      <p class="mb-1">Burger description</p>
-    </a>
+    <div className="product-items align-items-start">
+      <div className="d-flex w-100 justify-content-between">
+        <h5 className="mb-1">{product.DishName}</h5>
+        <span>
+          <button className="btn btn-warning m-1">Edit</button>
+          <button className="btn btn-danger" onClick={handleClick}>
+            Delete
+          </button>
+        </span>
+      </div>
+      <p className="mb-1">{product.Description}</p>
+      <small>${product.Price}</small>
+    </div>
   );
 };
 
