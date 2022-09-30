@@ -54,7 +54,6 @@ import { BarChart, Bar, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend
                         <CartesianGrid strokeDasharray="5 5" />
                         <XAxis dataKey="Dish_id" />
                         <YAxis/>
-                        <Tooltip/>
                         <Legend/>
                         <Bar dataKey="OrderQuantity" fill="#4FC8D1" />
                     </BarChart>

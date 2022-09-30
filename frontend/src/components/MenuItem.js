@@ -5,7 +5,9 @@ const MenuItem = (props) => {
 
         <div class="col"> 
             <div class="card h-100 w-100" >
-                <img src="./Placeholder.png" class="card-img-top" alt="..."></img>
+                <div className="card-image">
+                    <img src={props.url} class="card-img-top" alt="..."></img>
+                </div>
                     <div class="card-body">
                         <h5 class="card-title">{props.name}</h5>
                         <p class="card-text">{props.description}</p>

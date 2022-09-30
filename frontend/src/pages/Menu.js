@@ -47,7 +47,7 @@ import axios from "axios";
                         
                     {
                         burger.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
                         )
                     }
                     
@@ -61,7 +61,7 @@ import axios from "axios";
 
                     {
                         drink.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
                         )
                     }
 
@@ -74,7 +74,7 @@ import axios from "axios";
 
                     {
                         sides.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
                         )
                     }
                     
