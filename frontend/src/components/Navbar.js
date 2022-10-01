@@ -5,6 +5,14 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 
 const Navbar = () => {
+  function initialiseCart() {
+    const items = JSON.parse(localStorage.getItem('cartItems'));
+    if (items === undefined || items === null) {
+      localStorage.setItem('cartItems', JSON.stringify([]));
+    }
+  }
+
+
   return(
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid justify-content-end">
@@ -14,7 +22,7 @@ const Navbar = () => {
           </span>
         </a>
         {/* Cart  */}
-        <a href="/cart" className="btn bg-dark rounded-circle me-2" style={{ width: "3.5rem", height: "3rem"}}>
+        <a href="/cart" className="btn bg-dark rounded-circle me-2" style={{ width: "3.5rem", height: "3rem"}} onClick={initialiseCart}>
           <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -38,14 +46,15 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/menu">Menu</Link>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/cart">Cart</Link>
-            </li> */}
             <li className="nav-item">
               <Link className="nav-link" to="/checkout">Checkout</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/products">Product Management</Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/sales">Sales Management</Link>
             </li>
           </ul>
         </div>

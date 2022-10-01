@@ -11,9 +11,14 @@ db.Dish.drop();
 
 // Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
 db.Dish.insertMany([
-  { Dish_id: 1, DishName: 'Cheese Burger', Price: 10, Description: 'Yum'},
-  { Dish_id: 2, DishName: 'Meat Burger', Price: 11, Description: 'Also yum'},
-  { Dish_id: 3, DishName: 'Veggie Burger', Price: 13, Description: 'Healthy'},
-  { Dish_id: 4, DishName: 'Steak Burger', Price: 17, Description: 'Fancy'},
-  { Dish_id: 5, DishName: 'Edible Burger', Price: 9, Description: 'Its really edible!'}
+  { Dish_id: 1, Category: 'Burger', DishName: 'Cheese Burger', Price: 10, Description: 'Yum', ingredients: ['Beef Patty', 'Cheese', 'Pickles'], imageURL: 'https://www.foodrepublic.com/wp-content/uploads/2012/03/033_FR11785.jpg'},
+  { Dish_id: 2, Category: 'Burger', DishName: 'Meat Burger', Price: 11, Description: 'Also yum', ingredients: ['Beef Patty', 'Cheese', 'Lettuce', 'Tomato', 'Onion'], imageURL: 'https://assets.bonappetit.com/photos/5b919cb83d923e31d08fed17/1:1/w_2560%2Cc_limit/basically-burger-1.jpg'},
+  { Dish_id: 3, Category: 'Burger', DishName: 'Veggie Burger', Price: 13, Description: 'Healthy', ingredients: ['Veggie Patty', 'Cheese', 'Lettuce', 'Tomato', 'Onion'], imageURL:'https://assets.bonappetit.com/photos/57acae2d1b33404414975121/4:3/w_3235,h_2426,c_limit/ultimate-veggie-burger.jpg'},
+  { Dish_id: 4, Category: 'Burger', DishName: 'Steak Burger', Price: 17, Description: 'Fancy', ingredients: ['Steak', 'Cheese', 'Pickles', 'Tomato', 'Onion'], imageURL:'https://oursaltykitchen.com/wp-content/uploads/2019/07/rosemary-steak-sandwich.jpg'},
+  { Dish_id: 5, Category: 'Burger', DishName: 'Edible Burger', Price: 9, Description: 'Its really edible!', ingredients: ['Edible Patty', 'Cheese', 'Pickles'], imageURL:'https://assets.epicurious.com/photos/5c745a108918ee7ab68daf79/5:4/w_3129,h_2503,c_limit/Smashburger-recipe-120219.jpg'},
+  { Dish_id: 6, Category: 'Drink', DishName: 'Water', Price: 3, Description: 'Refreshing', imageURL:'https://hips.hearstapps.com/ame-prod-goodhousekeeping-assets.s3.amazonaws.com/main/embedded/25836/glass_water.jpg'},
+  { Dish_id: 7, Category: 'Drink', DishName: 'Soft Drink', Price: 4, Description: 'Sweet', imageURL:'https://cdn0.woolworths.media/content/wowproductimages/large/032731.jpg'},
+  { Dish_id: 8, Category: 'Drink', DishName: 'Juice', Price: 3, Description: 'Healthy', imageURL:'https://www.nudie.com.au/wp-content/uploads/2020/10/juice.jpg'},
+  { Dish_id: 9, Category: 'Sides', DishName: 'Fries', Price: 4, Description: 'Crispy', imageURL:'https://img.taste.com.au/ol2Jq8ZQ/taste/2016/11/rachel-87711-2.jpeg'},
+  { Dish_id: 10, Category: 'Sides', DishName: 'Onion Rings', Price: 6, Description: 'Soft', imageURL:'https://sweetsimplevegan.com/wp-content/uploads/2022/03/close_up_Vegan_beer_battered_crispy_onion_rings_sweet_simple_vegan_2.jpg'},
 ]);
