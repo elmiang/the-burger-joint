@@ -7,7 +7,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "recharts";
 import { Auth0Provider } from '@auth0/auth0-react';
 import { store } from "./redux/store";
-import { hydrate } from './redux/cart';
 import { Provider } from 'react-redux';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
