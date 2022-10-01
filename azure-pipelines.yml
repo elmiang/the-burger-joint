@@ -37,6 +37,7 @@ steps:
 - task: Npm@1
   displayName: 'npm build'
   inputs:
+    workingDir: frontend/
     command: custom
     customCommand: run build
     
