@@ -42,14 +42,14 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                 <div className="col-2 bg-dark"></div>
                 {/* Menu */}
                 <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" className="col py-5 p-5 scrollspy-example rounded-2" tabIndex="0">
-                    
+                                       
                     {/* Menu: Burgers */}
                     <h3 id="section-1" className="p-2 text-white">Burgers </h3>
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
                         burger.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                         )
                     }
                     
@@ -63,7 +63,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
                     {
                         drink.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
                         )
                     }
 

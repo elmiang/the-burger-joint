@@ -100,7 +100,7 @@ const Cart = () => {
           <div className="row">
             {/* Checkout */}
             <div className="col d-block ms-3 mt-3">
-              <p className="fw-bold text-warning mt-3">{totalPrice}</p>
+              <p className="fw-bold text-warning mt-3" data-testid='checkoutPrice'>{totalPrice}</p>
               <Link className="btn btn-warning" to="/checkout">Checkout</Link>
             </div>
             <form className="col form-group">
