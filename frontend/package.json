@@ -27,7 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "jest-preview": "jest-preview",
-    "ci:unit": "npm run test -- --watchAll=false"
+    "ci:unit": "npm run test -- --watchAll=false --reporters=default --reporters=jest-junit"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +49,12 @@
   },
   "proxy": "http://localhost:8888",
   "devDependencies": {
+    "jest-junit": "^14.0.1",
     "jest-preview": "^0.3.1"
+  },
+  "jest-junit": {
+    "suiteNameTemplate": "{filepath}",
+    "outputDirectory": ".",
+    "outputName": "junit.xml"
   }
 }

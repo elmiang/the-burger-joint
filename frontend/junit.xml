@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="1.827">
+  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-01T08:00:26" time="1.192" tests="3">
+    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.085">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.045">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.031">
+    </testcase>
+  </testsuite>
+</testsuites>
