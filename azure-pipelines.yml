@@ -26,7 +26,8 @@ steps:
     cd frontend
     npm install
     npm run build
-  displayName: 'npm install and build'
+    npm run test --watch=false
+  displayName: 'npm install, build and run tests'
 
 # - task: Npm@1
 #   inputs:
