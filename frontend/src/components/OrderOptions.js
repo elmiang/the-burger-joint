@@ -59,9 +59,11 @@ const OrderOptions = (props) => {
       const response = await axios.get("/api/cart/")
         .catch(e => { console.log(e) });
       
-      if (response.status === 200) {
-        if (currentItem.category === 'Burger') {
-          setExtras(response.data);
+      if (response) {
+        if (response.status === 200) {
+          if (currentItem.category === 'Burger') {
+            setExtras(response.data);
+          }
         }
       }
     }
@@ -71,10 +73,12 @@ const OrderOptions = (props) => {
       const response = await axios.get("/api/menu/")
         .catch(e => { console.log(e) });
 
-      if (response.status === 200) {
-        if (currentItem.ingredients !== undefined) {
-          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
-          setIngredients(ingredients);
+      if (response) {
+        if (response.status === 200) {
+          if (currentItem.ingredients !== undefined) {
+            const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+            setIngredients(ingredients);
+          }
         }
       }
     }
