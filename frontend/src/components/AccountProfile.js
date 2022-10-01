@@ -4,6 +4,8 @@ import { NavDropdown } from 'react-bootstrap';
 import { FaUserCircle } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
+import { ProfileDetails} from './ProfileDetails'
+
 const AccountProfile = () => {
     const { user, logout, isAuthenticated, loginWithRedirect} = useAuth0();
     if (!isAuthenticated) {

@@ -9,6 +9,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+const audience = process.env.REACT_APP_AUTH0_API;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,9 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={redirectUri}  
+      redirectUri={redirectUri}
+      audience={audience}
+      scope='openid profile email'
     >
       <App />
     </Auth0Provider>

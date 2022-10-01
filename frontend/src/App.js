@@ -10,6 +10,9 @@ import Menu from './pages/Menu';
 import Checkout from './pages/Checkout';
 import Callback from './pages/Callback';
 import Products from './pages/Products';
+import ProfileDetails from './components/ProfileDetails';
+import OrderHistory from './components/OrderHistory';
+
 
 function App() {
 
@@ -34,6 +37,14 @@ function App() {
               path="/products"
               element={<Products/>}
             />
+            <Route 
+              path="/profile"
+              element={<ProfileDetails/>}
+            />            
+            <Route 
+              path="/orderhistory"
+              element={<OrderHistory/>}
+            />                        
             <Route 
               path="/"
               element={<Navigate replace to="/menu"/>}
