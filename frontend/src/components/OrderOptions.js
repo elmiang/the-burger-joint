@@ -59,7 +59,7 @@ const OrderOptions = (props) => {
     //Retrieve all extras from the database and save it to the extras state
     const fetchExtras = async () => {
       console.log(`calling backend: ${baseurl}`);
-      const response = await axios.get(`${baseurl}/api/cart/`)
+      const response = await axios.get(`${baseurl}/api/cart/`);
       
       if (response.status === 200) {
         if (currentItem.category === 'Burger') {
@@ -70,7 +70,7 @@ const OrderOptions = (props) => {
 
     //Retrieve all ingredients from the current item in the database and save it to the ingredients state
     const fetchIngredients = async () => {
-      const response = await axios.get("/api/menu/");
+      const response = await axios.get(`${baseurl}/api/menu/`);
 
       if (response.status === 200) {
         if (currentItem.ingredients !== undefined) {

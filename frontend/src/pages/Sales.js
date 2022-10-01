@@ -3,13 +3,15 @@ import SalesTable from '../components/SalesTable';
 import SalesGraph from '../components/SalesGraph';
 import axios from "axios";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
 const Sales = () => {
     //Fetch orderlines from db into "orderLines"
     const [orderLines, setOrderLines,] = useState([]);
 
     useEffect(() => {
         const fetchOrderLines = async () => {
-            const response = await axios.get('/api/sales');
+            const response = await axios.get(`${baseurl}/api/sales/`);
 
             if (response.status == 200) {
                 setOrderLines(response.data)
@@ -23,7 +25,7 @@ const Sales = () => {
     
     useEffect(() => {
       const fetchDishes = async () => {
-        const response = await axios.get("/api/menu");
+        const response = await axios.get(`${baseurl}/api/menu/`);
 
         if (response.status == 200) {
             setDishes(response.data)
@@ -34,19 +36,19 @@ const Sales = () => {
 
     return ( 
         
-        <div class="container-fluid p-5 ">  
-             <h2 class="text-warning text-center">Sales Statistics</h2>   
-             {/* <h3 class="text-white text-center">Date</h3>   */}
-                <div class="col mx-auto mt-4 p-5">
+        <div className="container-fluid p-5 ">  
+             <h2 className="text-warning text-center">Sales Statistics</h2>   
+             {/* <h3 className="text-white text-center">Date</h3>   */}
+                <div className="col mx-auto mt-4 p-5">
                     {/* Sales Statistics */}
                     
                     <SalesGraph orderData={orderLines} dishData={dishes}/> 
                     
                 </div>
 
-            <h2 class="text-warning text-center">Sales History</h2> 
-            {/* <h3 class="text-white text-center">Date</h3>    */}
-                <div class="col mx-auto mt-5">
+            <h2 className="text-warning text-center">Sales History</h2> 
+            {/* <h3 className="text-white text-center">Date</h3>    */}
+                <div className="col mx-auto mt-5">
                     {/* Sales History */}
                     <SalesTable orderDetails={orderLines} dishData={dishes}/>
                 </div>
