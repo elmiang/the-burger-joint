@@ -41,6 +41,12 @@ steps:
     command: custom
     customCommand: run ci:unit
 
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results junit.xml'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: 'frontend/junit.xml'
+
 # - task: Npm@1
 #   inputs:
 #     command: 'publish'
