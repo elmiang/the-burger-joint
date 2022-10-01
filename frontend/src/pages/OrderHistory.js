@@ -63,9 +63,9 @@ const OrderHistory = () => {
     })
 
     return (
-        <div className="container-fluid p-5 ">  
-            <h2 className="text-warning text-center">Order History</h2>          
-            <Accordion defaultActiveKey="0">
+        <div className="container-fluid p-5">  
+            <h2 className="text-warning text-center mb-3">Order History</h2>          
+            <Accordion defaultActiveKey="0" className="mx-auto" style={{ width: "60%" }}>
                 {
                     orders.map((item, index) => 
                         <Accordion.Item eventKey={index}>

@@ -1,9 +1,4 @@
 // Profile Details Component
-// Component will contain an form that will be populated with
-// account details of the user
-// Will have options to enable the user to:
-// Edit and Delete their account
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -14,14 +9,13 @@ import { FaTrash, FaPen, FaSave, FaHome, FaMobile, FaWindowClose } from "react-i
 
 const ProfileDetails = () => {
   const { user, isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
-  const [ userMetadata, setUserMetadata ] = useState(null);
+  const navigate = useNavigate();
   const [ editMode, setEditMode ] = useState(false);
 
   const [ firstName, setFirstName ] = useState('');
   const [ lastName, setLastName ] = useState('');
   const [ residentialAddress, setResidentialAddress ] = useState('');
   const [ phoneNumber, setPhoneNumber ] = useState('');
-  const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
 
@@ -65,7 +59,7 @@ const ProfileDetails = () => {
   }, [getAccessTokenSilently, user?.sub]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     const domain = process.env.REACT_APP_BACKEND_API_URL;
     const audience = process.env.REACT_APP_AUTH0_API;
@@ -136,20 +130,12 @@ const ProfileDetails = () => {
   
   return (
     isAuthenticated && (
-      <div style={{ color:"white"}}>
-        <img src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-        <h3>User Metadata</h3>
-        {userMetadata ? (
-          <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-        ) : (
-          "No user metadata defined"
-        )}
-        <div>
+      <div className="container-fluid p-5" style={{ color:"white"}}>  
+        <h2 className="text-warning text-center">Account Profile</h2>          
+        <div className="mx-auto" style={{ width: "60%" }}>
           <ButtonGroup>
-            <Button variant="primary" type="submit" onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaPen/></IconContext.Provider></Button>
-            <Button variant="danger" type="submit" onClick={handleShow}>Delete Account<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
+            <Button variant="primary" type="submit" hidden={editMode} onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaPen/></IconContext.Provider></Button>
+            <Button variant="primary" type="submit" hidden={!editMode} onClick={() => handleSubmit()}>Save Details<IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaSave/></IconContext.Provider></Button>
           </ButtonGroup>
 
           <Modal
@@ -166,14 +152,13 @@ const ProfileDetails = () => {
               Once it is deleted, it can not be retrieved?
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="primary" type="submit" onClick={handleClose}>Close<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaWindowClose/></IconContext.Provider></Button>
-              <Button variant="danger" type="submit" onClick={handleDelete}>Delete Account<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
+              <Button variant="primary" onClick={handleClose}>Close<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaWindowClose/></IconContext.Provider></Button>
+              <Button variant="danger" onClick={handleDelete}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
             </Modal.Footer>
           </Modal>          
                   
-          <Form onSubmit={handleSubmit}>
-            <h2>Account Details for: {user.name}</h2>
-            <Row className="me-1">
+          <Form className="">
+            <Row className="">
               <Form.Group as={Col}  controlId="formBasicName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control type="name" placeholder="First Name" disabled={!editMode} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
@@ -186,15 +171,15 @@ const ProfileDetails = () => {
             </Row>
 
             <Form.Group className="me-1" controlId="formBasicName">
-              <Form.Label>Residential Address<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaHome /></IconContext.Provider></Form.Label>
+              <Form.Label>Residential Address<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaHome /></IconContext.Provider></Form.Label>
               <Form.Control type="name" placeholder="Residential Address" disabled={!editMode} value={residentialAddress} onChange={(e) => setResidentialAddress(e.target.value)}/>
             </Form.Group>          
 
             <Form.Group className="me-1" controlId="formBasicName">
-              <Form.Label>Phone Number<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaMobile /></IconContext.Provider></Form.Label>
+              <Form.Label>Phone Number<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaMobile /></IconContext.Provider></Form.Label>
               <Form.Control type="phone number" placeholder="Phone Number" disabled={!editMode} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
             </Form.Group>                  
-            <Button variant="primary" type="submit" onClick={() => setEditMode(false)}>Save Details<IconContext.Provider value={{ color: "gray", size: "32px", className: "me-1" }}><FaSave/></IconContext.Provider></Button>
+            <Button className="m-2 float-end" variant="danger" onClick={handleShow}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
           </Form>          
         </div>
       </div>
