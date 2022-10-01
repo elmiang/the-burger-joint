@@ -13,6 +13,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import moment from 'moment';
 
 import { Accordion } from "react-bootstrap"
 
@@ -68,7 +69,7 @@ const OrderHistory = () => {
                 {
                     orders.map((item, index) => 
                         <Accordion.Item eventKey={index}>
-                            <Accordion.Header>{item.order.Date} - Order #{item.order.Order_id}</Accordion.Header>
+                            <Accordion.Header>{moment(item.order.Date).fromNow()} - Order #{item.order.Order_id}</Accordion.Header>
                             <Accordion.Body>
                                 <table className="table table-dark table-striped">
                                     <thead>
