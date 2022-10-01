@@ -12,6 +12,8 @@ const jwksRsa = require('jwks-rsa');
 
 const extrasRoutes = require('./routes/extras');
 const profileRoutes = require('./routes/profile');
+const dishesRoutes = require('./routes/dishes');
+const orderLinesRoutes = require('./routes/orderLines');
 
 const port = process.env.PORT || 8888;
 
@@ -62,6 +64,8 @@ const checkJwt = jwt({
 app.use('/api/cart', extrasRoutes);
 app.use('/api/profile', profileRoutes);
 // app.use('/api/profile', checkJwt, profileRoutes);
+app.use('/api/menu', dishesRoutes);
+app.use('/api/sales', orderLinesRoutes);
 
 // Test routes
 // app.get("/", (req, res) => {

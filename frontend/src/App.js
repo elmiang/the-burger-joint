@@ -4,15 +4,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // pages & components
 import Navbar from './components/Navbar';
 import Footer from "./components/Footer";
-
-import Cart from "./pages/Cart"
-import Menu from './pages/Menu';
-import Checkout from './pages/Checkout';
-import Callback from './pages/Callback';
-import Products from './pages/Products';
 import ProfileDetails from './components/ProfileDetails';
 import OrderHistory from './components/OrderHistory';
 
+import Cart from "./pages/Cart"
+import Menu from './pages/Menu';
+import Sales from './pages/Sales';
+import Callback from './pages/Callback';
 
 function App() {
 
@@ -30,12 +28,8 @@ function App() {
               element={<Cart />}
             />
             <Route 
-              path="/checkout"
-              element={<Checkout/>}
-            />
-            <Route 
-              path="/products"
-              element={<Products/>}
+              path="/sales" 
+              element={<Sales />}
             />
             <Route 
               path="/profile"

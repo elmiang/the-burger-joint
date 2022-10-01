@@ -4,7 +4,11 @@ import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "recharts";
 import { Auth0Provider } from '@auth0/auth0-react';
+import { store } from "./redux/store";
+import { hydrate } from './redux/cart';
+import { Provider } from 'react-redux';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -21,7 +25,9 @@ root.render(
       audience={audience}
       scope='openid profile email'
     >
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </Auth0Provider>
   </React.StrictMode>
 );

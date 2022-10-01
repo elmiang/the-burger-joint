@@ -7,7 +7,7 @@ const Checkout = () => {
         <div className="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
             <div className="row">
             <CheckoutBar/>
-                <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */className="col py-5 p-5 rounded-2" tabIndex="0">
+                <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */className="col py-5 p-5 rounded-2" tabindex="0">
                     {/*Checkout: Cart Items */}
                     <h3 id="CheckoutItems" className="p-1 text-white">Cart Items</h3>
                     <div className="row row-cols-1 row-cols-md-4 g-3">
