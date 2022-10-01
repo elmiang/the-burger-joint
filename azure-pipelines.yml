@@ -29,8 +29,8 @@ steps:
 
 - task: Npm@1
   displayName: 'npm run test'
-  workingDirectory: frontend/
   inputs:
+    workingDir: frontend/
     command: custom
     customCommand: run ci:unit
 
