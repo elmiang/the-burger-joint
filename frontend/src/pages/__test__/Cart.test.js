@@ -7,6 +7,8 @@ import { debug } from 'jest-preview';
 
 import Cart from '../Cart';
 
+console.log = jest.fn()
+
 const MockCart = () => {
   return(
     <BrowserRouter>
