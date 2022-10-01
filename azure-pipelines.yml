@@ -25,9 +25,20 @@ steps:
 - script: |
     cd frontend
     npm install
-    npm run build
-    npm run test --watch=false
-  displayName: 'npm install, build and run tests'
+  displayName: 'npm install'
+
+- task: Npm@1
+  displayName: 'npm run test'
+  inputs:
+    command: custom
+    customCommand: run ci:unit
+
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    command: custom
+    customCommand: run build
+    
 
 # - task: Npm@1
 #   inputs:
