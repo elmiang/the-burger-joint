@@ -28,19 +28,18 @@ steps:
   displayName: 'npm install'
 
 - task: Npm@1
-  displayName: 'npm run test'
-  inputs:
-    workingDir: frontend/
-    command: custom
-    customCommand: run ci:unit
-
-- task: Npm@1
   displayName: 'npm build'
   inputs:
     workingDir: frontend/
     command: custom
     customCommand: run build
-    
+  
+- task: Npm@1
+  displayName: 'npm run test'
+  inputs:
+    workingDir: frontend/
+    command: custom
+    customCommand: run ci:unit
 
 # - task: Npm@1
 #   inputs:
