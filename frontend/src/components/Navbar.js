@@ -1,5 +1,7 @@
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import AccountProfile from './AccountProfile';
+
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
@@ -21,6 +23,9 @@ const Navbar = () => {
             The Burger Joint
           </span>
         </a>
+        {/* Account Profile */}
+        <AccountProfile/>
+
         {/* Cart  */}
         <a href="/cart" className="btn bg-dark rounded-circle me-2" style={{ width: "3.5rem", height: "3rem"}} onClick={initialiseCart}>
           <svg
@@ -39,10 +44,6 @@ const Navbar = () => {
         {/* Navigation items */}
         <div className="collapse navbar-collapse navbar-dark" id="main-nav">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <LoginButton/>
-              <LogoutButton/>
-            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/menu">Menu</Link>
             </li>

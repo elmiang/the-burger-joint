@@ -8,15 +8,11 @@ import Footer from "./components/Footer";
 import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
 import Sales from './pages/Sales';
+import Callback from './pages/Callback';
+import ProfileDetails from './pages/ProfileDetails';
+import OrderHistory from './pages/OrderHistory';
 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
 
   return (
     <div className="App">
@@ -36,10 +32,18 @@ function App() {
               element={<Sales />}
             />
             <Route 
+              path="/profile"
+              element={<ProfileDetails/>}
+            />            
+            <Route 
+              path="/orderhistory"
+              element={<OrderHistory/>}
+            />                        
+            <Route 
               path="/"
               element={<Navigate replace to="/menu"/>}
             />
-            {/* <p>{!data ? "Loading..." : data}</p> */}
+            <Route path="/callback" element={<Callback/>}/>
         </Routes>
       </BrowserRouter>
       <Footer />
