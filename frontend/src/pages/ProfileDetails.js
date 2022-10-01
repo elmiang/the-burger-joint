@@ -5,17 +5,11 @@
 // Edit and Delete their account
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Button, ButtonGroup, Form, Col, Row, Modal } from 'react-bootstrap';
 import { IconContext } from "react-icons";
 import { FaTrash, FaPen, FaSave, FaHome, FaMobile, FaWindowClose } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import { ButtonGroup } from "react-bootstrap";
-import Modal from 'react-bootstrap/Modal';
-import { useNavigate } from "react-router-dom";
 
 
 const ProfileDetails = () => {
@@ -44,8 +38,6 @@ const ProfileDetails = () => {
         // const accessToken = await getAccessTokenSilently({
         //   audience: audience
         // });
-  
-        console.log(user);
 
         const profileURL = `${domain}/api/profile/${user.email}`;
   

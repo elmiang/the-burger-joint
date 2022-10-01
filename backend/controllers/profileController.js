@@ -1,15 +1,13 @@
 // Profile Controller
-// Profile controller will contain the backend logic needed for:
-/**
- * Enabling the user to retrieve their account information
- * Edit their account information
- * View their corresponding order history
- * Delete / Close their account
- */
+ const mongoose =  require('mongoose');
 
 // Importing the mongoose and Profile Schema
 const Profile = require('../models/accountModel');
-const mongoose =  require('mongoose');
+const Order = require('../models/orderModel');
+const OrderLine = require('../models/orderLineModel');
+const Dish = require('../models/dishModel');
+
+
 
 // Get the user profile
 const getUserProfile = async (req, res) => {
@@ -61,18 +59,30 @@ const deleteUserProfile  = async (req, res) => {
 
 // View the order history of a user's account
 const userOrderHistory  = async (req, res) => {
-    // Get the email
-    const email = req.params.id;
+    // Get the user ID
+    const userId = req.params.id;
 
-    // Retrieve the details of the account
-    Profile.findOne({email: email}, function(err, data) {
-        if (err) {
-            console.log(err);
-            return res.status(404).json({error: 'No such account exists'})
-        }
-        res.status(200).json(data);
-    });
+    // Retrieve the orders for the specified account
+    const orderHistory = [];
 
+    const orders = await Order.find({User_id: userId});
+
+    // Loop through each order and retrieve order lines
+    await Promise.all(
+        orders.map( async (order) => {  
+            // Retrieve order lines for this order
+            const orderLines = await OrderLine.find({Order_id: order.Order_id});
+
+            // Add order and order lines to order history
+            orderHistory.push({
+                order: order,
+                orderLines: orderLines
+            });
+        })
+    );
+
+    // Return orders
+    res.status(200).json(orderHistory);
 }
 
 // Exporting the functions

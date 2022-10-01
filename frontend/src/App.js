@@ -4,13 +4,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // pages & components
 import Navbar from './components/Navbar';
 import Footer from "./components/Footer";
-import ProfileDetails from './components/ProfileDetails';
-import OrderHistory from './components/OrderHistory';
 
 import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
 import Sales from './pages/Sales';
 import Callback from './pages/Callback';
+import ProfileDetails from './pages/ProfileDetails';
+import OrderHistory from './pages/OrderHistory';
 
 function App() {
 
