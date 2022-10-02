@@ -74,41 +74,35 @@ const Cart = () => {
 
   function handleCouponSubmit() {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
-    const couponStatus = localStorage.getItem('couponUsed');
-
-    if (!couponStatus) {
-      if (coupon && coupon.isValid) {
-        coupon.isValid = false;
-        setCouponResponse('valid');
-        localStorage.setItem('coupon', JSON.stringify(coupon));
-        localStorage.setItem('couponUsed', true);
-      }
-      else {
-        setCouponResponse('invalid');
-      }
+    if (coupon && coupon.isValid) {
+      setCouponResponse('valid');
+      localStorage.setItem('coupon', JSON.stringify(coupon));
+      localStorage.setItem('couponUsed', true);
+      setDiscountMessage("%" + coupon.rate * 100 + " discount applied to $" + ((1 / (1-coupon.rate)) * totalPrice.replace(/[^\d.]/g, '')));
     }
     else {
-      setCouponResponse('couponApplied');
+      setCouponResponse('invalid');
     }
   }
 
   //Update the total price when an item quantity or extra is updated
   useEffect(() => {
     const coupon = JSON.parse(localStorage.getItem('coupon'));
+    console.log(coupon.rate);
 
     updateTotalPrice(coupon);
-  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
+  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra), JSON.parse(localStorage.getItem('coupon')).rate]);
 
-
+  //Update coupon message whenever the total price is updated
   useEffect(() => {
     const couponStatus = localStorage.getItem('couponUsed');
     const coupon = JSON.parse(localStorage.getItem('coupon'));
 
     if (couponStatus && coupon && totalPrice) {
-      setDiscountMessage("%" + coupon.rate * 100 + " discount applied to $" + ((1 / coupon.rate) * totalPrice.replace(/[^\d.]/g, '')));
+      setDiscountMessage("%" + coupon.rate * 100 + " discount applied to $" + ((1 / (1-coupon.rate)) * totalPrice.replace(/[^\d.]/g, '')));
     }
 
-  }, [localStorage.getItem('couponUsed'), totalPrice])
+  }, [totalPrice])
 
   return (
     <div className="cart bg-secondary">
@@ -137,7 +131,7 @@ const Cart = () => {
                 <div className='pt-2'>
                   {couponResponse==='valid' && <p className='text-warning fw-bold'>Coupon successfully applied</p>}
                   {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}
-                  {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>A coupon is already applied</p>}
+                  {/* {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>A coupon is already applied</p>} */}
                 </div>
               </div>
             </form>
