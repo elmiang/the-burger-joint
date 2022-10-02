@@ -76,7 +76,7 @@ describe('Profile Service', () => {
         });        
     });
     describe('Update User Profile', () => {
-        it ('Should return a user profile for a given ID', async () => 
+        it ('Should Update a user profile for a given ID', async () => 
         {
             // Arrange
             const doc = {
@@ -106,7 +106,62 @@ describe('Profile Service', () => {
             
             const data = res.json.mock.calls[0][0];
 
-console.log(data);            
+            expect(data.email).toEqual(doc.email);
+            expect(data.firstName).toEqual(doc.firstName);
+            expect(data.lastName).toEqual(doc.lastName);
+            expect(data.residentialAddress).toEqual(doc.residentialAddress);
+            expect(data.phoneNumber).toEqual(doc.phoneNumber);          
+            
+        });
+        it ('Should return 404 when a user profile does not exist', async () => 
+        {
+            // Arrange
+            mockingoose(Profile).toReturn(null, 'findOneAndUpdate');            
+
+            const req = mockRequest('PATCH', { id: 'i.am.not.here@domain.com' });
+            const res = mockResponse();
+
+            // Act
+            await updateUserProfile(req,res);
+
+            // Assert
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.json).toHaveBeenCalled();
+            
+            const data = res.json.mock.calls[0][0];
+
+            expect(data.error).toEqual('No such account exists');
+            
+        });        
+    });
+    describe('Delete User Profile', () => {
+        it ('Should Delete a user profile for a given ID', async () => 
+        {
+            // Arrange
+            const doc = {
+                "_id": "633958b6fe630dff5f057751",
+                "email": "chuck.norris@domain.com",
+                "firstName": "Chuck",
+                "lastName": "Norris",
+                "residentialAddress": "123 ABC Street",
+                "phoneNumber": 12345678
+            };
+
+            mockingoose(Profile).toReturn(doc, 'findOneAndDelete');            
+
+            const req = mockRequest(
+                'DELETE', 
+                { id: 'chuck.norris@domain.com' });
+            const res = mockResponse();
+
+            // Act
+            await deleteUserProfile(req,res);
+
+            // Assert
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalled();
+            
+            const data = res.json.mock.calls[0][0];
 
             expect(data.email).toEqual(doc.email);
             expect(data.firstName).toEqual(doc.firstName);
@@ -118,13 +173,13 @@ console.log(data);
         it ('Should return 404 when a user profile does not exist', async () => 
         {
             // Arrange
-            mockingoose(Profile).toReturn(null, 'findOne');            
+            mockingoose(Profile).toReturn(null, 'findOneAndDelete');            
 
-            const req = mockRequest('GET', { id: 'i.am.not.here@domain.com' });
+            const req = mockRequest('DELETE', { id: 'i.am.not.here@domain.com' });
             const res = mockResponse();
 
             // Act
-            await getUserProfile(req,res);
+            await deleteUserProfile(req,res);
 
             // Assert
             expect(res.status).toHaveBeenCalledWith(404);
@@ -135,5 +190,5 @@ console.log(data);
             expect(data.error).toEqual('No such account exists');
             
         });        
-    });    
+    });            
 });

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "ci:unit": "jest --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "jest": "^29.1.2",
+    "jest-junit": "^14.0.1",
     "mockingoose": "^2.15.2"
   }
 }
