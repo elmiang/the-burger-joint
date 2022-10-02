@@ -85,6 +85,7 @@ const OrderOptions = (props) => {
   }, []);
 
   //Update local stored extras && ingredients to match those stored in cart
+  //Fired whenever the order options menu is opened
   useEffect(() => {
     let extras = cartItems.find(item => item.id === props.id).extra;
     let ingredients = cartItems.find(item => item.id === props.id).ingredients;
@@ -108,6 +109,9 @@ const OrderOptions = (props) => {
         cost += extra.price;
         setCost(cost);
       })
+    }
+    else {
+      setCost(cost);
     }
   }, [storedExtras]);
 
