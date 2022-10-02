@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
@@ -21,5 +21,9 @@
     "express-oauth2-jwt-bearer": "^1.1.0",
     "jwks-rsa": "^2.1.4",
     "mongoose": "^6.6.1"
+  },
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "mockingoose": "^2.15.2"
   }
 }
