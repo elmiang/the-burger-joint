@@ -4,25 +4,32 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // const
-const reciptsRoutes = require('./routes/recipts');
+const reciptsRoutes = require('./routes/recipts')
+const ticketRoutes = require('./routes/tickets')
 
-const app = express();
+const app = express()
 const port = process.env.PORT || 8888;
 
 // Middleware
-app.use(express.json());
+app.use(express.json())
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
+})
 
 // Routes
-app.use('./api/recipts', reciptsRoutes)
+app.use('/api/recipts', reciptsRoutes)
+app.use('/api/tickets', ticketRoutes)
 
 // Test routes
 // app.get("/", (req, res) => {
 //   res.send("Hello");
 // })
 
-app.get('/api', function (req, res) {
-  res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
-})
+//app.get('/api', function (req, res) {
+//  res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
+//})
 
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)

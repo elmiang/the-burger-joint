@@ -22,7 +22,6 @@ const Checkout = () => {
                     {/*Checkout: Payment Options & Details*/}
                     <h3 id="PaymentInput" class="p-2 mt-3 text-white">Payment Options/Details</h3>
                     <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
-                        
                         <div class="gap-2  pb-3">
                             <div class="border p-2 rounded-top">
                                 <input type="radio" id="Visa" name="payment_type"></input>
@@ -40,7 +39,7 @@ const Checkout = () => {
                                 <label class="p-1" for="Paypal">Paypal</label>
                                 <img src="./Paypal_Img.png" alt="Mastercard Image" class="w-25 h-25"></img>
                             </div>
-                        </div> 
+                        </div>
                         <div class="">
                             <div class="p-3">
                                 <label for="CardNo" class="">Card Number</label><br></br>
@@ -117,11 +116,11 @@ const Checkout = () => {
                                 <input type="text" id="CountryLine" class=""></input><br></br>
                             </div>
                         </div>
-                    </div>
-                     {/*End of Address Details*/}
-
-                     {/*Contact Details*/}
-                     <h3 id="ContactInput" class="p-3 mt-3 text-white">Contact Details</h3>
+                    </div> 
+                    {/*End of Address Details*/}
+                    
+                    {/*Contact Details*/}
+                    <h3 id="ContactInput" class="p-3 mt-3 text-white">Contact Details</h3>
                     <div class="row row-cols-1 row-cols-md-2 m-2 p-2 bg-light rounded">
                     <div>
                             <div class="p-2">
@@ -152,7 +151,7 @@ const Checkout = () => {
                     </div>
                     {/*End of Contact Details*/}
 
-                     {/*Checkout: Order*/} 
+                    {/*Checkout: Order*/} 
                     
                     <div class="row row-cols-1 g-2 m-1">
                             <button class="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
