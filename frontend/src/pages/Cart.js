@@ -39,8 +39,10 @@ const Cart = () => {
     }
   ]);
 
-  //Coupon states
+  //Coupon-related states
   const [couponResponse, setCouponResponse] = useState("");
+
+  const [discountMessage, setDiscountMessage] = useState("");
 
   const [inputCode, setInputCode] = useState("");
 
@@ -52,9 +54,11 @@ const Cart = () => {
     let total = cartItems.reduce(
       (prev, curr) => {
         var extrasPrice = 0;
+        // Add pricing of extras to the calculation
         if (curr.extra !== undefined) {
           curr.extra.forEach(extra => extrasPrice += extra.price); 
         }
+        // Handle application of coupon on total price
         if (coupon) {
           return prev + (((curr.price + extrasPrice) * (1 - coupon.rate)) * curr.quantity);
         }
@@ -70,13 +74,21 @@ const Cart = () => {
 
   function handleCouponSubmit() {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
-    if (coupon != undefined && coupon.isValid) {
-      coupon.isValid = false;
-      setCouponResponse('valid');
-      localStorage.setItem('coupon', JSON.stringify(coupon));
+    const couponStatus = localStorage.getItem('couponUsed');
+
+    if (!couponStatus) {
+      if (coupon && coupon.isValid) {
+        coupon.isValid = false;
+        setCouponResponse('valid');
+        localStorage.setItem('coupon', JSON.stringify(coupon));
+        localStorage.setItem('couponUsed', true);
+      }
+      else {
+        setCouponResponse('invalid');
+      }
     }
     else {
-      setCouponResponse('invalid');
+      setCouponResponse('couponApplied');
     }
   }
 
@@ -86,6 +98,17 @@ const Cart = () => {
 
     updateTotalPrice(coupon);
   }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
+
+
+  useEffect(() => {
+    const couponStatus = localStorage.getItem('couponUsed');
+    const coupon = JSON.parse(localStorage.getItem('coupon'));
+
+    if (couponStatus && coupon && totalPrice) {
+      setDiscountMessage("%" + coupon.rate * 100 + " discount applied to $" + ((1 / coupon.rate) * totalPrice.replace(/[^\d.]/g, '')));
+    }
+
+  }, [localStorage.getItem('couponUsed'), totalPrice])
 
   return (
     <div className="cart bg-secondary">
@@ -101,6 +124,9 @@ const Cart = () => {
             {/* Checkout */}
             <div className="col d-block ms-3 mt-3">
               <p className="fw-bold text-warning mt-3" data-testid='checkoutPrice'>{totalPrice}</p>
+              <span>
+                <p className='text-warning font-italic'>{discountMessage}</p>
+              </span>
               <Link className="btn btn-warning" to="/checkout">Checkout</Link>
             </div>
             <form className="col form-group">
@@ -108,9 +134,10 @@ const Cart = () => {
               <div className="form-row my-3 ms-5">
                 <input className="form-control-sm me-2" type="text" name="coupon" onChange={handleCouponCode} value={inputCode} placeholder="Coupon"/>
                 <button className="btn btn-sm btn-success" type="button" onClick={handleCouponSubmit}>Submit</button>
-                <div className='pt-3'>
-                  {couponResponse==='valid' && <p className='text-primary fw-bold'>Coupon successfully applied</p>}
+                <div className='pt-2'>
+                  {couponResponse==='valid' && <p className='text-warning fw-bold'>Coupon successfully applied</p>}
                   {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}
+                  {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>A coupon is already applied</p>}
                 </div>
               </div>
             </form>
