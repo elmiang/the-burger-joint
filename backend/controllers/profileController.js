@@ -1,26 +1,22 @@
 // Profile Controller
- const mongoose =  require('mongoose');
+const mongoose = require('mongoose');
 
 // Importing the mongoose and Profile Schema
 const Profile = require('../models/accountModel');
 const Order = require('../models/orderModel');
 const OrderLine = require('../models/orderLineModel');
-const Dish = require('../models/dishModel');
-
-
 
 // Get the user profile
 const getUserProfile = async (req, res) => {
     // Get the email from the JWT token in the request
     const email = req.params.id;
-    // Find 
-    Profile.findOne({email: email}, function(err, data) {
-        if (err) {
-            console.log(err);
-            return res.status(404).json({error: 'No such account exists'})
-        }
-        res.status(200).json(data);
-    });
+
+    // Find the specified profile 
+    const data = await Profile.findOne({email: email}); 
+    if (!data) {
+        return res.status(404).json({error: 'No such account exists'});
+    }
+    res.status(200).json(data);
 }
 
 // Edit the user profile

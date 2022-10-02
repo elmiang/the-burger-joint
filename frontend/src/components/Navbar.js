@@ -1,5 +1,3 @@
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
 import AccountProfile from './AccountProfile';
 
 import { Link } from 'react-router-dom'
