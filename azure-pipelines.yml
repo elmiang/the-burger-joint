@@ -44,9 +44,16 @@ steps:
   task: Npm@1
   displayName: 'npm run test backend'
   inputs:
-    workingDir: backend/
-    command: custom
-    customCommand: run ci:unit
+   workingDir: backend/
+   command: custom
+   customCommand: run ci:unit
+
+  # task: Npm@1
+  # displayName: 'npm run test backend'
+  # inputs:
+  #   workingDir: backend/
+  #   command: custom
+  #   customCommand: run ci:unit
 
 - task: PublishTestResults@2
   displayName: 'Publish Test Results junit.xml'
