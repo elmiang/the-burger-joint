@@ -1,7 +1,7 @@
 import '../../index.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import currencyFormat from '../../utility/Functions';
+import { currencyFormat, handleCategoryPrice } from '../../utility/Functions';
 
 import OrderOptions from './OrderOptions';
 import { deleteItem, updateItemQuantity } from '../../redux/cart';
@@ -33,21 +33,29 @@ const CartItem = (props) => {
   //Update the price for the current item (accounts for extras and quantity)
   function updatePrice() {
     const extras = cItems.find(item => item.id === props.id).extra;
+    const servingSize = cItems.find(item => item.id === props.id).servingSize;
+
     var extrasPrice = 0;
-    if (extras !== undefined) {
+
+    if (extras) {
       extras.forEach(extra => {
         extrasPrice += extra.price;
       });
     }
+    if (servingSize === 'large') {
+      extrasPrice += handleCategoryPrice(cItems.find(item => item.id === props.id));
+    }
+
     setPrice(props.quantity * (props.price + extrasPrice));
   }
 
   //Update the price display whenever the quantity or item's extras are updated
   const currentItemExtras = cItems.find(item => item.id === props.id).extra;
+  const currentItemServing = cItems.find(item => item.id === props.id).servingSize;
   useEffect(() => {
     updatePrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.quantity, currentItemExtras])
+  }, [props.quantity, currentItemExtras, currentItemServing])
 
   return (
     <div className="container-fluid">

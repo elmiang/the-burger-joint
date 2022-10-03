@@ -67,7 +67,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                         drink.map((item) => 
                             <div>  
                                 
-                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                                 
                             </div>
                         )
@@ -83,7 +83,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     {
                         sides.map((item) => 
                             <div>
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
                             </div>
                         )
                     }

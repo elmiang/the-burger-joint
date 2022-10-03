@@ -34,9 +34,14 @@ const cartSlice = createSlice({
       const items = [...state];
       items.find(item => item.id === action.payload.id).ingredients = action.payload.ingredients;
       state = items;
+    },
+    updateServingSize(state, action) {
+      const items = [...state];
+      items.find(item => item.id === action.payload.id).servingSize = action.payload.servingSize;
+      state = items;
     }
   },
 })
 
-export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients } = cartSlice.actions
+export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients, updateServingSize } = cartSlice.actions
 export default cartSlice.reducer

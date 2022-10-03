@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import CartItem from "../components/Cart/CartItem";
 
-import currencyFormat from '../utility/Functions';
+import { currencyFormat, handleCategoryPrice } from '../utility/Functions';
 
 //Cart page
 const Cart = () => {
@@ -52,8 +52,15 @@ const Cart = () => {
     let total = cartItems.reduce(
       (prev, curr) => {
         var extrasPrice = 0;
+
+        if (curr.servingSize) {
+          if (curr.servingSize === 'large') {
+            extrasPrice += handleCategoryPrice(curr);
+          }
+        }
+
         // Update a seperate variables that includes the pricing of extras for each cart item to the calculation
-        if (curr.extra !== undefined) {
+        if (curr.extra) {
           curr.extra.forEach(extra => extrasPrice += extra.price); 
         }
         // Handle application of coupon on total price
@@ -86,15 +93,16 @@ const Cart = () => {
     }
   }
 
-  //Update the total price when an item quantity or extra is updated
+  //Update the total price when an item quantity, extra or serving size is updated
   const cartQuantities = cartItems.map(item => item.quantity);
   const cartExtras = cartItems.map(item => item.extra)
+  const cartItemServing = cartItems.map(item => item.servingSize);
   useEffect(() => {
     const coupon = JSON.parse(localStorage.getItem('coupon'));
 
     updateTotalPrice(coupon);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartQuantities, cartExtras]);
+  }, [cartQuantities, cartExtras, cartItemServing]);
 
   //Update coupon message (message under total price) whenever the total price is updated
   useEffect(() => {

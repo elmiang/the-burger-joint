@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import currencyFormat from "../../utility/Functions";
+import { currencyFormat } from "../../utility/Functions";
 
 const OrderExtra = (props) => {
   const cartItems = useSelector((state) => state.cart);
