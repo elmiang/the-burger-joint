@@ -27,6 +27,7 @@ const OrderExtra = (props) => {
   const currentItemExtras = cartItems.find(item => item.id === props.itemId).extra;
   useEffect(() => {
     updateCheckedStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItemExtras, props.modalOpened]); 
 
   return (

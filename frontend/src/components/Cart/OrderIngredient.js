@@ -25,6 +25,7 @@ const OrderIngredient = (props) => {
   const currentItemIngredients = cartItems.find(item => item.id === props.itemId).ingredients;
   useEffect(() => {
     updateCheckedStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentItemIngredients, props.modalOpened]); 
 
   return (

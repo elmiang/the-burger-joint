@@ -46,6 +46,7 @@ const CartItem = (props) => {
   const currentItemExtras = cItems.find(item => item.id === props.id).extra;
   useEffect(() => {
     updatePrice();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.quantity, currentItemExtras])
 
   return (

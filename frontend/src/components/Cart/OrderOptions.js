@@ -90,6 +90,7 @@ const OrderOptions = (props) => {
 
     fetchIngredients();
     fetchExtras();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Update local stored extras && ingredients to match those stored in cart
@@ -104,7 +105,7 @@ const OrderOptions = (props) => {
     if (ingredients !== undefined) {
       setStoredIngredients(ingredients);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.modalOpened])
 
   // Update local cost based on extra ingredients selected in storedExtras
@@ -121,6 +122,7 @@ const OrderOptions = (props) => {
     else {
       setCost(cost);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storedExtras]);
 
   return (
