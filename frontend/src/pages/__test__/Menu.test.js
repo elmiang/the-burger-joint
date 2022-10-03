@@ -1,19 +1,32 @@
 import '@testing-library/jest-dom';
-import { render, fireEvent, screen, within } from '@testing-library/react';
+import { render, fireEvent, screen} from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 
 import Menu from "../Menu";
 import Sidebar from '../../components/Sidebar';
 import { renderWithProviders } from '../../utility/test-utils';
 
-const MockMenu = () => {
-    return (
-        <BrowserRouter>
-            <Menu/>
-        </BrowserRouter>
-    )
-}
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
+const response = rest.get(`${baseurl}/api/menu/`, (req, res, ctx) => {
+    return res(ctx.json([{id: 1, Dish_id: 1, DishName: 'Test Burger', Category: 'Burger'}]))
+});
+
+const server = new setupServer(response);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+describe('Menu Items', () => {
+    test("should fetch menu items from db and be displayed", async () => {
+        renderWithProviders(<Menu />);
+        const menuItem = await screen.findByTestId('menu-item-0');
+        expect(menuItem).toBeInTheDocument();
+    });
+})
 
 describe('Sidebar navigation', () => {
     test('should navigate to Burger section when button is clicked', () => {
@@ -34,46 +47,5 @@ describe('Sidebar navigation', () => {
         expect(screen.getByText('Sides').closest('a')).toHaveAttribute('href', '#section-3');
     });
 
-
 });
 
-describe('Display Menu Items', () => {
-    test('should display burger items', async() => {
-        const testMenuItem = {id: 1, name: 'Test Burger', description: 'test test', price: 10};
-        
-        renderWithProviders(<MockMenu/>, {
-            preloadedState: {
-                dishes: testMenuItem
-            }
-        });
-
-        const burgerDiv = await screen.findByTestId("burger-item-0");
-        expect(burgerDiv).toBeInTheDocument();
-    });
-
-    test('should display drink items', async() => {
-        const testMenuItem = {id: 1, name: 'Test Burger', description: 'test test', price: 10};
-        
-        renderWithProviders(<MockMenu/>, {
-            preloadedState: {
-                dishes: testMenuItem
-            }
-        });
-
-        const burgerDiv = await screen.findByTestId("drink-item-0");
-        expect(burgerDiv).toBeInTheDocument();
-    });
-
-    test('should display side items', async() => {
-        const testMenuItem = {id: 1, name: 'Test Burger', description: 'test test', price: 10};
-        
-        renderWithProviders(<MockMenu/>, {
-            preloadedState: {
-                dishes: testMenuItem
-            }
-        });
-
-        const burgerDiv = await screen.findByTestId("side-item-0");
-        expect(burgerDiv).toBeInTheDocument();
-    });
-})
