@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const reciptSchema = new Schema ({
-    Recipt_ID: {
-        type: String,
-        required: true
-    },
 
     User_ID: {
         type: String,

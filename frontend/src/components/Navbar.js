@@ -3,6 +3,7 @@ import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
+import OrderHistory from "../pages/OrderHistory";
 
 const Navbar = () => {
   return(
@@ -41,6 +42,10 @@ const Navbar = () => {
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Products</a> */}
               <Link className="nav-link" to="/products">Product Management</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Tickets</a> */}
+              <Link className="nav-link" to="/orderhistory">Order History</Link>
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}

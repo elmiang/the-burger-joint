@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const ticketSchema = new Schema ({
-    ticket_id: {
-        type: String,
-        required: true
-    },
 
     ticket_title: {
         type: String,

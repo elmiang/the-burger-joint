@@ -26,10 +26,10 @@ const getTicket = async (req, res) => {
 
 // Create a new ticket
 const createTicket = async (req, res) => {
-    const {ticket_id, ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body} = req.body
+    const {ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body} = req.body
 
     try {
-        const ticket = await Ticket.create({ticket_id, ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body})
+        const ticket = await Ticket.create({ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body})
         res.status(200).json(ticket)
     }
     catch (error){
