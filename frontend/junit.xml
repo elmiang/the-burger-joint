@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="7" failures="0" errors="0" time="3.256">
-  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T08:48:49" time="1.437" tests="3">
-    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.066">
-    </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.037">
-    </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.033">
-    </testcase>
-  </testsuite>
-  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T08:48:49" time="1.819" tests="4">
-    <testcase classname="Menu Items should fetch menu items from db and be displayed" name="Menu Items should fetch menu items from db and be displayed" time="0.046">
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="2.629">
+  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T09:09:16" time="1.393" tests="4">
+    <testcase classname="Menu Items should fetch menu items from db and be displayed" name="Menu Items should fetch menu items from db and be displayed" time="0.048">
     </testcase>
     <testcase classname="Sidebar navigation should navigate to Burger section when button is clicked" name="Sidebar navigation should navigate to Burger section when button is clicked" time="0.007">
     </testcase>
     <testcase classname="Sidebar navigation should navigate to Drinks section when button is clicked" name="Sidebar navigation should navigate to Drinks section when button is clicked" time="0.003">
     </testcase>
     <testcase classname="Sidebar navigation should navigate to Sides section when button is clicked" name="Sidebar navigation should navigate to Sides section when button is clicked" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T09:09:16" time="1.442" tests="3">
+    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.065">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.037">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.042">
     </testcase>
   </testsuite>
 </testsuites>
