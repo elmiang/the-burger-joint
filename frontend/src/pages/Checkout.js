@@ -253,6 +253,6 @@ const Checkout = () => {
                 </form>
             </div>
         </div>
-    );
+    ); 
 };
 export default Checkout;

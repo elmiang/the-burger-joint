@@ -7,12 +7,14 @@ import Footer from "./components/Footer";
 
 import Cart from "./pages/Cart"
 import Menu from './pages/Menu';
-import Checkout from './pages/Checkout';
+import Sales from './pages/Sales';
 import Callback from './pages/Callback';
 import Products from './pages/Products';
 import Tickets from './pages/Tickets';
 import ReciptHistory from './pages/ReciptHistory';
 import AdminTickets from './pages/AdminTickets';
+import ProfileDetails from './pages/ProfileDetails';
+import OrderHistory from './pages/OrderHistory';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -41,9 +43,21 @@ function App() {
               element={<Checkout/>}
             />
             <Route 
+              path="/sales" 
+              element={<Sales />}
+            />
+            <Route 
               path="/products"
               element={<Products/>}
             />
+            <Route 
+              path="/profile"
+              element={<ProfileDetails/>}
+            />            
+            <Route 
+              path="/orderhistory"
+              element={<OrderHistory/>}
+            />             
             <Route 
               path="/recipthistory"
               element={<ReciptHistory/>}
