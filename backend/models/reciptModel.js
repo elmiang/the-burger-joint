@@ -67,7 +67,13 @@ const reciptSchema = new Schema ({
     Contact_Phone: {
         type: String,
         required: false
+    },
+
+    total_price: {
+        type: String,
+        required: true
     }
+
 }, { timestamps: true})
 
 module.exports = mongoose.model('reciptModel', reciptSchema);

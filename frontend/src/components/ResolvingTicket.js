@@ -7,10 +7,18 @@ const ActiveTicket = ({ ticket }) => {
     const [error, setError] = useState(null)
 
     const handleClick = async () => {
-        const tickets = {resolution_body}
+        //const tickets = {resolution_body}
+        const tickets = {
+            ticket_resolved: true,
+            resolution_body: resolution_body
+          };
+
         const response = await fetch('/api/tickets/' + ticket._id, {
             method: 'PATCH',
-            body: JSON.stringify(tickets)
+            body: JSON.stringify(tickets),
+            headers: {
+                "Content-Type": "application/json"
+              },
         })
 
 

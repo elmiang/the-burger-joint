@@ -26,10 +26,10 @@ const getRecipt = async (req, res) => {
 
 // Create a new recipt
 const createRecipt = async (req, res) => {
-    const {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone} = req.body
+    const {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price} = req.body
 
     try {
-        const recipt = await Recipt.create({User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone})
+        const recipt = await Recipt.create({User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price})
         res.status(200).json(recipt)
     }
     catch (error){

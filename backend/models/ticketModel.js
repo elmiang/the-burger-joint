@@ -27,7 +27,7 @@ const ticketSchema = new Schema ({
     resolution_body: {
         type: String,
         required: false
-}
+    }
 
 }, { timestamps: true})
 

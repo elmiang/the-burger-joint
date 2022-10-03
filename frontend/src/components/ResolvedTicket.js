@@ -13,7 +13,7 @@ const ResolvedTicket = ({ticket}) => {
                         
                     </div>
                     <p class=""> {ticket.ticket_body}</p>
-                    <p class="fw-bold"> placeholder resolved text {ticket.resolution_body}</p>
+                    <p class="fw-bold">{ticket.resolution_body}</p>
                 </div>
             </div>
         </div>

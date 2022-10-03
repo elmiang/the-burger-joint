@@ -2,9 +2,16 @@ import React from "react";
 import { useState } from "react"
 import CheckoutItem from "../components/CheckoutItem";
 import CheckoutBar from "../components/CheckoutBar";
+import { useSelector } from 'react-redux';
 //import { set } from "mongoose";
 
 const Checkout = () => {
+    const cartItems = useSelector((state) => state.cart);
+
+    
+
+
+
     const [User_ID, setUserID] = useState('')
     const [Payment_Type, setPaymentType] = useState('')
     const [Card_No, setCardNo] = useState('')
@@ -24,10 +31,10 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        let total_price = localStorage.getItem("total");
         //temp hardcode
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
-        const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone}
+        const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price}
 
         const response = await fetch('/api/recipts', {
             method: 'POST',

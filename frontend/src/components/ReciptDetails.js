@@ -6,7 +6,7 @@ const ReciptDetails = ({ recipt }) => {
                 <div class="card-body bg-light">
                     <h4>Recipt</h4>
                     <p><strong>Billing Items</strong></p>
-                    <p>Total Cost:</p>
+                    <p>Total Cost: {recipt.total_price}</p>
                     <br/>
                     <p><strong>Payment Details</strong></p>
                     <p>Payment Type: {recipt.Payment_Type}</p>
