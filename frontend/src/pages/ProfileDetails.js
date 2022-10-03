@@ -58,20 +58,15 @@ const ProfileDetails = () => {
     getUserMetadata();
   }, [getAccessTokenSilently, user?.email]);
 
-  useEffect(() => {
-    const form = document.getElementById("formAccountDetails");    
-    form?.checkValidity();
-  }, [phoneNumber]);
+  // useEffect(() => {
+  //   const form = document.getElementById("formAccountDetails");    
+  //   form?.checkValidity();
+  // }, [phoneNumber]);
 
-  const handleSubmit = async (e) => {
-    // e.preventDefault();    
-    const form = e.currentTarget;
-console.log(e);
-console.log(form);
+  const handleSubmit = async (e) => { 
+    const form = document.getElementById("formAccountDetails"); 
     if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-console.log('notvalid');
+      console.log('form is invalid');
       return;
     }
 
@@ -150,7 +145,10 @@ console.log('notvalid');
       <div className="container-fluid p-5" style={{ color:"white"}}>  
         <h2 className="text-warning text-center">Account Profile</h2>          
         <div className="mx-auto" style={{ width: "60%" }}>
-
+          <div className="">
+            <Button variant="primary" hidden={editMode} onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "white", size: "28px", className: "ms-1" }}><FaPen/></IconContext.Provider></Button>
+            <Button variant="primary" hidden={!editMode} onClick={() => handleSubmit()}>Save Details<IconContext.Provider value={{ color: "white", size: "28px", className: "ms-1" }}><FaSave/></IconContext.Provider></Button>
+          </div>
           <Modal
             show={show}
             onHide={handleClose}
@@ -170,13 +168,7 @@ console.log('notvalid');
             </Modal.Footer>
           </Modal>          
                   
-          <Form id="formAccountDetails" className="" noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row className="">
-              <ButtonGroup>
-                <Button variant="primary" type="button" hidden={editMode} onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaPen/></IconContext.Provider></Button>
-                <Button variant="primary" type="submit" hidden={!editMode}>Save Details<IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaSave/></IconContext.Provider></Button>
-              </ButtonGroup>
-            </Row>
+          <Form id="formAccountDetails" className="mt-2" noValidate validated={validated}>
             <Row className="">
               <Form.Group as={Col} controlId="firstNameControl">
                 <Form.Label>First Name</Form.Label>
@@ -211,7 +203,7 @@ console.log('notvalid');
               </Form.Control.Feedback>                    
             </Form.Group>   
 
-            <Button className="m-2 float-end" variant="danger" onClick={handleShow}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
+            <Button className="m-2 float-end" variant="danger" onClick={handleShow}>Delete Account<IconContext.Provider value={{ color: "white", size: "28px", className: "ms-1" }}><FaTrash/></IconContext.Provider></Button>
 
           </Form>          
         </div>
