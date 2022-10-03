@@ -11,7 +11,8 @@ import Checkout from './pages/Checkout';
 import Callback from './pages/Callback';
 import Products from './pages/Products';
 import Tickets from './pages/Tickets';
-import OrderHistory from './pages/OrderHistory';
+import ReciptHistory from './pages/ReciptHistory';
+import AdminTickets from './pages/AdminTickets';
 
 function App() {
   const [data, setData] = React.useState(null);
@@ -44,12 +45,16 @@ function App() {
               element={<Products/>}
             />
             <Route 
-              path="/orderhistory"
-              element={<OrderHistory/>}
+              path="/recipthistory"
+              element={<ReciptHistory/>}
             />
             <Route 
               path="/tickets"
               element={<Tickets/>}
+            />
+            <Route 
+              path="/admintickets"
+              element={<AdminTickets/>}
             />
             <Route 
               path="/"

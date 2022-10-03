@@ -3,7 +3,7 @@ import LogoutButton from './LogoutButton';
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
-import OrderHistory from "../pages/OrderHistory";
+import OrderHistory from "../pages/ReciptHistory";
 
 const Navbar = () => {
   return(
@@ -45,11 +45,15 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
-              <Link className="nav-link" to="/orderhistory">Order History</Link>
+              <Link className="nav-link" to="/recipthistory">Recipts</Link>
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/tickets">Tickets</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Tickets</a> */}
+              <Link className="nav-link" to="/admintickets">Ticket Resolution</Link>
             </li>
           </ul>
         </div>

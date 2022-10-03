@@ -11,7 +11,7 @@ const Tickets = () => {
 
     useEffect(() => {
         const fetchTickets = async () => {
-            const response = await fetch('/api/tickets')
+            const response = await fetch('/api/tickets/')
             const json = await response.json() 
 
             if (response.ok) {
@@ -23,6 +23,19 @@ const Tickets = () => {
     }, [])
 
 
+    const [ticketsRes, setTicketsRes] = useState(null)
+    useEffect(() => {
+        const resFetchTickets = async () => {
+            const response = await fetch('/api/tickets/resolved/' + "10001")
+            const json = await response.json() 
+
+            if (response.ok) {
+                setTicketsRes(json)
+            }
+        }
+
+        resFetchTickets()
+    }, [])
 
 
     const [user_id, setUserID] = useState('')
@@ -30,9 +43,11 @@ const Tickets = () => {
     const [ticket_body, setTicketBody] = useState('')
     const [ticket_resolved, setTicketResolved] = useState(Boolean)
     const [error, setError] = useState(null)
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        
 
         //temp hardcode
         setUserID("10001")
@@ -56,6 +71,7 @@ const Tickets = () => {
             setTicketBody('')
             setError(null)
             console.log('new ticket added', json)
+            //dispatch({type: 'CREATE_TICKET', payload: json})
         }
     }
 
@@ -70,13 +86,13 @@ const Tickets = () => {
                         ))}
                     </div>
             </div>
-            <h3 id="CreateTicket" class="p-2 mt-3 text-white">Resolved Tickets</h3>
-                <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
-                    <ResolvedTicket/>
-                    <ResolvedTicket/>
-                    <ResolvedTicket/>
-                    <ResolvedTicket/>
-                </div>
+            <h3 id="ResolvedTicket" class="p-2 mt-3 text-white">Resolved Tickets</h3>
+            <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
+                {ticketsRes && ticketsRes.map((ticket) => (
+                    <ResolvedTicket key={ticket._id} ticket={ticket}/>
+                ))}
+            </div>
+            
             
             <h3 id="CreateTicket" class="p-2 mt-3 text-white">Create Tickets</h3>
             <form className="create" onSubmit={handleSubmit}>
@@ -87,7 +103,7 @@ const Tickets = () => {
                         value={ticket_title}
                     /><br/>
                     <label for="TicketBody" class="">Description of problem</label>
-                    <input id="TicketBody" type="text" class="w-75"
+                    <textarea rows = "10" cols="100" id="TicketBody" class="m-2"
                         onChange={(e) => setTicketBody(e.target.value)}
                         value={ticket_body}
                     />
@@ -123,3 +139,7 @@ export default Tickets;
                         onChange={(e) => setTicketBody(e.target.value)}
                         value={ticket_body}
                     />*/
+
+                   /* <input id="TicketBody" type="text" class="w-75"
+                        onChange={(e) => setTicketBody(e.target.value)}
+                        value={ticket_body}*/

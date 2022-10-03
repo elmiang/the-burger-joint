@@ -26,7 +26,6 @@ const Checkout = () => {
         e.preventDefault()
 
         //temp hardcode
-        setUserID("10001")
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
         const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone}
 

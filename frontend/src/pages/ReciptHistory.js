@@ -9,7 +9,7 @@ const OrderHistory = () => {
 
     useEffect(() => {
         const fetchRecipts = async () => {
-            const response = await fetch('/api/recipts')
+            const response = await fetch('/api/recipts/')
             const json = await response.json() 
 
             if (response.ok) {

@@ -32,7 +32,8 @@ app.use('/api/tickets', ticketRoutes)
 //})
 
 // Connect to db
-mongoose.connect(process.env.MONGO_URI)
+// Connect to db
+mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     // Listen for requests
     app.listen(port, () => {
@@ -42,3 +43,4 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((error) => {
     console.log(error);
   });
+

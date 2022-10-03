@@ -24,6 +24,24 @@ const getTicket = async (req, res) => {
     res.status(200).json(ticket)
 }
 
+// GET a ticket
+const getUserTickets = async (req, res) => {
+    const {id} = req.params
+
+    /*if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'no such ticket'})
+    }*/
+
+    const ticket = await Ticket.find({user_id: id}).sort({createdAt: -1})
+
+
+    if (!ticket) {
+        return res.status(404).json({error: 'no such ticket'})
+    }
+
+    res.status(200).json(ticket)
+}
+
 // Create a new ticket
 const createTicket = async (req, res) => {
     const {user_id, ticket_title, ticket_body, ticket_resolved, resolution_body} = req.body
@@ -46,6 +64,7 @@ const updateTicket = async (req, res) => {
     }
 
     const ticket = await Ticket.findOneAndUpdate({_id: id}, {
+        ticket_resolved: true,
         ...req.body
     })
 
@@ -73,10 +92,48 @@ const deleteTicket = async (req, res) => {
     res.status(200).json(ticket)
 }
 
+const getUnresolvedTicket = async (req, res) => {
+
+    /*if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'no such ticket'})
+    }*/
+
+    const ticket = await Ticket.find({ticket_resolved: false}).sort({createdAt: -1})
+
+
+    if (!ticket) {
+        return res.status(404).json({error: 'no unresloved tickets'})
+    }
+
+    res.status(200).json(ticket)
+}
+
+const getResolvedTicket = async (req, res) => {
+    const {id} = req.params
+    /*if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'no such ticket'})
+    }*/
+
+    const ticket = await Ticket.find({ $and: [
+        { "ticket_resolved": "true"},
+        { "user_id": id}
+     ]}).sort({createdAt: -1})
+
+
+    if (!ticket) {
+        return res.status(404).json({error: 'no resolved tickets'})
+    }
+
+    res.status(200).json(ticket)
+}
+
 module.exports = {
     getTickets,
     getTicket,
     createTicket,
     updateTicket,
-    deleteTicket
+    deleteTicket,
+    getUserTickets,
+    getUnresolvedTicket,
+    getResolvedTicket
 }

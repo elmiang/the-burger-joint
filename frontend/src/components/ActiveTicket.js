@@ -2,7 +2,7 @@ import React from "react";
 const ActiveTicket = ({ ticket }) => {
 
     const handleClick = async () => {
-        const response = await fetch('/api/tickets/' + tickets._id, {
+        const response = await fetch('/api/tickets/' + ticket._id, {
             method: 'DELETE'
         })
         const json = await response.json()
