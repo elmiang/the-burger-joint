@@ -67,25 +67,32 @@ const OrderOptions = (props) => {
     const currentItem = cartItems.find(item => item.id === props.id);
     //Retrieve all extras from the database and save it to the extras state
     const fetchExtras = async () => {
-      console.log(`calling backend: ${baseurl}`);
-      const response = await axios.get(`${baseurl}/api/cart/`);
+      try {
+        const response = await axios.get(`${baseurl}/api/cart/`);
       
-      if (response.status === 200) {
-        if (currentItem.category === 'Burger') {
-          setExtras(response.data);
+        if (response.status === 200) {
+          if (currentItem.category === 'Burger') {
+            setExtras(response.data);
+          }
         }
+      } catch (err) {
+        console.log(err);
       }
     }
 
     //Retrieve all ingredients from the current item in the database and save it to the ingredients state
     const fetchIngredients = async () => {
-      const response = await axios.get(`${baseurl}/api/menu/`);
+      try {
+        const response = await axios.get(`${baseurl}/api/menu/`);
 
-      if (response.status === 200) {
-        const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
-        if (ingredients) {
-          setIngredients(ingredients);
+        if (response.status === 200) {
+          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+          if (ingredients) {
+            setIngredients(ingredients);
+          }
         }
+      } catch (err) {
+        console.log(err);
       }
     }
 
