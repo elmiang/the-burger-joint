@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const { dispatch } = useProductsContext();
 
   const [Dish_id, setDish_id] = useState("");
@@ -27,7 +27,7 @@ const AddProduct = () => {
       imageURL,
     };
     const response = await fetch("/api/products", {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify(product),
       headers: {
         "Content-Type": "application/json",
@@ -49,24 +49,24 @@ const AddProduct = () => {
       setImageURL("");
       setError(null);
       setEmptyFields([]);
-      console.log("new product added", json);
-      dispatch({ type: "CREATE_PRODUCT", payload: json });
+      console.log("product updated", json);
+      dispatch({ type: "EDIT_PRODUCT", payload: json });
     }
   };
 
   return (
-    <div className="modal fade" tabIndex="-1" id="addProduct">
+    <div className="modal fade" tabIndex="-1" id="editProduct">
       <div className="modal-dialog">
         <div className="modal-content bg-dark">
           <div className="modal-header">
-            <h5 className="modal=title">Add Product</h5>
+            <h5 className="modal=title text-warning">Edit Product</h5>
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
             ></button>
           </div>
-          <form className="create" onSubmit={handleSubmit}>
+          <form className="edit" onSubmit={handleSubmit}>
             <div className="modal-body">
               <div className="form-floating mb-3">
                 <input
@@ -82,7 +82,7 @@ const AddProduct = () => {
                   value={Dish_id}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="idInput">
-                  ID
+                  Dish_id
                 </label>
               </div>
               <div className="form-floating mb-3">
@@ -189,9 +189,9 @@ const AddProduct = () => {
               </div>
             </div>
             <div className="modal-footer bg-dark">
-              {error && <div className="error">{error}</div>}
+              {error && <div className="error text-warning">{error}</div>}
               <button type="submit" className="btn btn-warning m-1">
-                Add
+                Save
               </button>
             </div>
           </form>
@@ -201,4 +201,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

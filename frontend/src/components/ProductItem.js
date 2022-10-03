@@ -1,5 +1,6 @@
 import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import EditProduct from "../components/EditProduct";
 
 const ProductItem = ({ product }) => {
   const { dispatch } = useProductsContext();
@@ -18,16 +19,26 @@ const ProductItem = ({ product }) => {
   return (
     <div className="product-items align-items-start">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">{product.DishName}</h5>
+        <h5 className="mb-1">{product.dishname}</h5>
         <span>
-          <button className="btn btn-warning m-1">Edit</button>
-          <button className="btn btn-danger" onClick={handleClick}>
-            Delete
-          </button>
+          <span
+            className="material-symbols-outlined m-1"
+            data-bs-toggle="modal"
+            data-bs-target="#editProduct"
+          >
+            edit
+          </span>
+          <EditProduct />
+          <span
+            className="material-symbols-outlined m-1 text-danger"
+            onClick={handleClick}
+          >
+            delete_forever
+          </span>
         </span>
       </div>
-      <p className="mb-1">{product.Description}</p>
-      <small>${product.Price}</small>
+      <p className="mb-1">{product.description}</p>
+      <small>${product.price}</small>
     </div>
   );
 };

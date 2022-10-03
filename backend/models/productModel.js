@@ -8,21 +8,27 @@ const productSchema = new Schema({
     required: true,
     unique: true,
   },
-  Category: {
+  category: {
     type: String,
     required: true,
   },
-  DishName: {
+  dishname: {
     type: String,
     required: true,
   },
-  Price: {
+  price: {
     type: Number,
     required: true,
   },
-  Description: {
+  description: {
+    type: String,
+  },
+  ingredients: {
+    type: Array,
+  },
+  imageURL: {
     type: String,
   },
 });
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Dish", productSchema, "Dish");

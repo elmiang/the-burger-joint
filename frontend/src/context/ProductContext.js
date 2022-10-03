@@ -18,11 +18,9 @@ export const productsReducer = (state, action) => {
           (p) => p.Dish_id !== action.payload.Dish_id
         ),
       };
-    case "DELETE_PRODUCT":
+    case "EDIT_PRODUCT":
       return {
-        products: state.products.filter(
-          (p) => p.Dish_id !== action.payload.Dish_id
-        ),
+        products: [...state.products, action.payload],
       };
     default:
       return state;

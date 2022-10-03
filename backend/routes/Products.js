@@ -2,6 +2,7 @@ var express = require("express");
 const {
   getProducts,
   getProduct,
+  getProductsByType,
   createProduct,
   deleteProduct,
   updateProduct,
@@ -14,6 +15,9 @@ router.get("/", getProducts);
 
 // Get a product
 router.get("/:id", getProduct);
+
+// Get products by type
+router.get("/:category", getProductsByType);
 
 // Post new product
 router.post("/", createProduct);
