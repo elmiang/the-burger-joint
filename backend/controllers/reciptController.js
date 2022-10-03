@@ -11,11 +11,11 @@ const getRecipts = async (req, res) => {
 const getRecipt = async (req, res) => {
     const {id} = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    /*if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'no such recipt'})
-    }
+    }*/
 
-    const recipt = await Recipt.findById(id)
+    const recipt = await Recipt.find({User_ID: id}).sort({createdAt: -1})
 
     if (!recipt) {
         return res.status(404).json({error: 'no such recipt'})
