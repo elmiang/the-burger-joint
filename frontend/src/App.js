@@ -15,6 +15,7 @@ import ReciptHistory from './pages/ReciptHistory';
 import AdminTickets from './pages/AdminTickets';
 import ProfileDetails from './pages/ProfileDetails';
 import OrderHistory from './pages/OrderHistory';
+import Checkout from './pages/Checkout';
 
 function App() {
   const [data, setData] = React.useState(null);
