@@ -3,7 +3,7 @@ import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
 const ProductItem = ({ product }) => {
-  const { dispatch } = useProductsContext();
+  const { products, dispatch } = useProductsContext();
 
   const handleClick = async () => {
     const response = await fetch("/api/products/" + product.Dish_id, {
@@ -19,7 +19,7 @@ const ProductItem = ({ product }) => {
   return (
     <div className="product-items align-items-start">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">{product.dishname}</h5>
+        <h5 className="mb-1">{product.DishName}</h5>
         <span>
           <span
             className="material-symbols-outlined m-1"
@@ -28,7 +28,11 @@ const ProductItem = ({ product }) => {
           >
             edit
           </span>
-          <EditProduct />
+          {products &&
+            products.map((product) => (
+              <EditProduct key={product.Dish_id} product={product} />
+            ))}
+
           <span
             className="material-symbols-outlined m-1 text-danger"
             onClick={handleClick}
@@ -37,8 +41,8 @@ const ProductItem = ({ product }) => {
           </span>
         </span>
       </div>
-      <p className="mb-1">{product.description}</p>
-      <small>${product.price}</small>
+      <p className="mb-1">{product.Description}</p>
+      <small>${product.Price}</small>
     </div>
   );
 };

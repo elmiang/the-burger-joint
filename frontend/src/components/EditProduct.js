@@ -1,34 +1,61 @@
-import React from "react";
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
-const EditProduct = () => {
+const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
 
-  const [Dish_id, setDish_id] = useState("");
-  const [dishname, setDishName] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [ingredients, setIngredients] = useState([]);
-  const [imageURL, setImageURL] = useState("");
+  const [Dish_id, setDish_id] = useState(product.Dish_id);
+  const [DishName, setDishName] = useState(product.DishName);
+  const [Category, setCategory] = useState(product.Category);
+  const [Description, setDescription] = useState(product.Description);
+  const [Price, setPrice] = useState(product.Price);
+  const [ingredients, setIngredients] = useState(product.ingredients);
+  const [imageURL, setImageURL] = useState(product.imageURL);
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState("");
+  {
+    /*
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const response = await fetch("/api/products/" + product.Dish_id);
+        const json = await response.json();
 
+        if (response.ok) {
+          setDish_id(product.Dish_id);
+          setDishName(product.DishName);
+          setCategory(product.Category);
+          setDescription(product.Description);
+          setPrice(product.Price);
+          setIngredients(product.ingredients);
+          setImageURL(product.imageURL);
+          dispatch({ type: "EDIT_PRODUCTS", payload: json });
+        }
+      };
+      fetchProduct();
+    });
+  */
+  }
+  {
+    /*}
+  const getProduct = async (id) => {
+    
+  }
+*/
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const product = {
+    const editedProduct = {
       Dish_id,
-      dishname,
-      category,
-      description,
-      price,
+      DishName,
+      Category,
+      Description,
+      Price,
       ingredients,
       imageURL,
     };
-    const response = await fetch("/api/products", {
-      method: "PATCH",
-      body: JSON.stringify(product),
+    const response = await fetch("/api/products/" + editedProduct.Dish_id, {
+      method: "POST",
+      body: JSON.stringify(editedProduct),
       headers: {
         "Content-Type": "application/json",
       },
@@ -96,7 +123,7 @@ const EditProduct = () => {
                   placeholder="productName"
                   id="nameInput"
                   onChange={(e) => setDishName(e.target.value)}
-                  value={dishname}
+                  value={DishName}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="nameInput">
                   Product Name
@@ -112,10 +139,10 @@ const EditProduct = () => {
                         ? "error form-control"
                         : "form-control"
                     }
-                    placeholder="price"
+                    placeholder="Price"
                     id="priceInput"
                     onChange={(e) => setPrice(e.target.value)}
-                    value={price}
+                    value={Price}
                   ></input>
                   <label className="text-muted fs-6" htmlFor="priceInput">
                     Price
@@ -130,10 +157,10 @@ const EditProduct = () => {
                       ? "error form-control"
                       : "form-control"
                   }
-                  placeholder="category"
+                  placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
-                  value={category}
+                  value={Category}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="categoryInput">
                   Category
@@ -160,10 +187,10 @@ const EditProduct = () => {
                       ? "error form-control"
                       : "form-control"
                   }
-                  placeholder="description"
+                  placeholder="Description"
                   id="descriptionInput"
                   onChange={(e) => setDescription(e.target.value)}
-                  value={description}
+                  value={Description}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="descriptionInput">
                   Description

@@ -9,9 +9,13 @@ const getProducts = async (req, res) => {
 
 // get a single product
 const getProduct = async (req, res) => {
-  const { Dish_id: id } = req.params;
+  const { id } = req.params;
 
-  const product = await Dish.find(id);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No such product" });
+  }
+
+  const product = await Dish.findById(id);
 
   if (!product) {
     return res.status(404).json({ error: "No such product" });
@@ -33,10 +37,10 @@ const getProductsByType = async (req, res) => {
 const createProduct = async (req, res) => {
   const {
     Dish_id,
-    category,
-    dishname,
-    price,
-    description,
+    Category,
+    DishName,
+    Price,
+    Description,
     ingredients,
     imageURL,
   } = req.body;
@@ -46,16 +50,16 @@ const createProduct = async (req, res) => {
   if (!Dish_id) {
     emptyFields.push("Dish_id");
   }
-  if (!dishname) {
+  if (!DishName) {
     emptyFields.push("DishName");
   }
-  if (!category) {
+  if (!Category) {
     emptyFields.push("Category");
   }
-  if (!description) {
+  if (!Description) {
     emptyFields.push("Description");
   }
-  if (!price) {
+  if (!Price) {
     emptyFields.push("Price");
   }
   if (!imageURL) {
@@ -71,10 +75,10 @@ const createProduct = async (req, res) => {
   try {
     const product = await Dish.create({
       Dish_id,
-      category,
-      dishname,
-      price,
-      description,
+      Category,
+      DishName,
+      Price,
+      Description,
       ingredients,
       imageURL,
     });

@@ -6,10 +6,10 @@ const AddProduct = () => {
   const { dispatch } = useProductsContext();
 
   const [Dish_id, setDish_id] = useState("");
-  const [dishname, setDishName] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [DishName, setDishName] = useState("");
+  const [Category, setCategory] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Price, setPrice] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
@@ -19,10 +19,10 @@ const AddProduct = () => {
     e.preventDefault();
     const product = {
       Dish_id,
-      dishname,
-      category,
-      description,
-      price,
+      DishName,
+      Category,
+      Description,
+      Price,
       ingredients,
       imageURL,
     };
@@ -45,7 +45,7 @@ const AddProduct = () => {
       setCategory("");
       setDescription("");
       setPrice("");
-      setIngredients("");
+      setIngredients([]);
       setImageURL("");
       setError(null);
       setEmptyFields([]);
@@ -96,7 +96,7 @@ const AddProduct = () => {
                   placeholder="productName"
                   id="nameInput"
                   onChange={(e) => setDishName(e.target.value)}
-                  value={dishname}
+                  value={DishName}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="nameInput">
                   Product Name
@@ -112,10 +112,10 @@ const AddProduct = () => {
                         ? "error form-control"
                         : "form-control"
                     }
-                    placeholder="price"
+                    placeholder="Price"
                     id="priceInput"
                     onChange={(e) => setPrice(e.target.value)}
-                    value={price}
+                    value={Price}
                   ></input>
                   <label className="text-muted fs-6" htmlFor="priceInput">
                     Price
@@ -130,10 +130,10 @@ const AddProduct = () => {
                       ? "error form-control"
                       : "form-control"
                   }
-                  placeholder="category"
+                  placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
-                  value={category}
+                  value={Category}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="categoryInput">
                   Category
@@ -145,7 +145,7 @@ const AddProduct = () => {
                   className="form-control"
                   placeholder="ingredients"
                   id="ingredientsInput"
-                  onChange={(e) => setIngredients(e.target.value.split(", "))}
+                  onChange={(e) => setIngredients(e.target.value.split(","))}
                   value={ingredients}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="ingredientsInput">
@@ -160,10 +160,10 @@ const AddProduct = () => {
                       ? "error form-control"
                       : "form-control"
                   }
-                  placeholder="description"
+                  placeholder="Description"
                   id="descriptionInput"
                   onChange={(e) => setDescription(e.target.value)}
-                  value={description}
+                  value={Description}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="descriptionInput">
                   Description

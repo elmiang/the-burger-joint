@@ -10,7 +10,7 @@ export const productsReducer = (state, action) => {
       };
     case "CREATE_PRODUCT":
       return {
-        products: [...state.products, action.payload],
+        products: [action.payload, ...state.products],
       };
     case "DELETE_PRODUCT":
       return {
