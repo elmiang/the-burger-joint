@@ -12,8 +12,9 @@ const ResolvedTicket = ({ticket}) => {
                         <p class="card-text">Resolved Date: {ticket.updatedAt}</p>
                         
                     </div>
-                    <p class=""> {ticket.ticket_body}</p>
-                    <p class="fw-bold">{ticket.resolution_body}</p>
+                    <p class="border border-secondary rounded bg-light  p-2 text-muted"> {ticket.ticket_body}</p>
+                    <p><strong>Solution:</strong></p>
+                    <p class="text">{ticket.resolution_body}</p>
                 </div>
             </div>
         </div>

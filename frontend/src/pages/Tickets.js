@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
 import ActiveTicket from "../components/ActiveTicket"
 import ResolvedTicket from "../components/ResolvedTicket"
 
@@ -8,10 +9,11 @@ import ResolvedTicket from "../components/ResolvedTicket"
     
 const Tickets = () => {
     const [tickets, setTickets] = useState(null)
+    const { user } = useAuth0();
 
     useEffect(() => {
         const fetchTickets = async () => {
-            const response = await fetch('/api/tickets/')
+            const response = await fetch('/api/tickets/' + user.email)
             const json = await response.json() 
 
             if (response.ok) {
@@ -26,7 +28,7 @@ const Tickets = () => {
     const [ticketsRes, setTicketsRes] = useState(null)
     useEffect(() => {
         const resFetchTickets = async () => {
-            const response = await fetch('/api/tickets/resolved/' + "10001")
+            const response = await fetch('/api/tickets/resolved/' + user.email)
             const json = await response.json() 
 
             if (response.ok) {
@@ -49,8 +51,7 @@ const Tickets = () => {
 
         
 
-        //temp hardcode
-        setUserID("10001")
+        setUserID(user.email)
         setTicketResolved(false)
         const ticket = {user_id, ticket_title, ticket_body, ticket_resolved, ticket_body}
 
@@ -71,6 +72,7 @@ const Tickets = () => {
             setTicketBody('')
             setError(null)
             console.log('new ticket added', json)
+            window.location.href = "/menu"
             //dispatch({type: 'CREATE_TICKET', payload: json})
         }
     }

@@ -64,7 +64,7 @@ const updateTicket = async (req, res) => {
     }
 
     const ticket = await Ticket.findOneAndUpdate({_id: id}, {
-        ticket_resolved: true,
+        //ticket_resolved: true,
         ...req.body
     })
 

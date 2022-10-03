@@ -2,12 +2,12 @@ import React from "react";
 import { useState } from "react"
 import CheckoutItem from "../components/CheckoutItem";
 import CheckoutBar from "../components/CheckoutBar";
-import { useSelector } from 'react-redux';
-//import { set } from "mongoose";
+import { useAuth0 } from "@auth0/auth0-react";
+//import { useSelector } from 'react-redux';
 
 const Checkout = () => {
-    const cartItems = useSelector((state) => state.cart);
-
+    //const cartItems = useSelector((state) => state.cart);
+    const { user } = useAuth0();
     
 
 
@@ -32,7 +32,8 @@ const Checkout = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         let total_price = localStorage.getItem("total");
-        //temp hardcode
+        
+        setUserID(user.email)
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
         const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price}
 
@@ -49,6 +50,7 @@ const Checkout = () => {
             setError(json.error)
         }
         if (response.ok) {
+            setUserID('')
             setPaymentType('')
             setCardNo('')
             setCardExpMM('')
@@ -65,6 +67,8 @@ const Checkout = () => {
             setPhone('')
             setError(null)
             console.log('new recipt added', json)
+            window.location.href = "/menu"
+            
         }
     }
 
@@ -254,6 +258,7 @@ const Checkout = () => {
                         
                         <div class="row row-cols-1 g-2 m-1">
                                 <button class="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
+                                
                         </div>
                         {/*End of Order*/}
                     </div>

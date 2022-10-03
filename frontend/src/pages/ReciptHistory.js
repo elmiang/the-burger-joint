@@ -1,15 +1,17 @@
 //import { set } from "mongoose";
 import React from 'react'
 import { useEffect, useState } from 'react'
+import { useAuth0 } from "@auth0/auth0-react";
 import ReciptDetails from '../components/ReciptDetails'
 
 
 const OrderHistory = () => {
     const [recipts, setRecipts] = useState(null)
+    const { user } = useAuth0();
 
     useEffect(() => {
         const fetchRecipts = async () => {
-            const response = await fetch('/api/recipts/')
+            const response = await fetch('/api/recipts/' + user.email)
             const json = await response.json() 
 
             if (response.ok) {
