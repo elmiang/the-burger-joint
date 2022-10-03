@@ -48,8 +48,10 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
-                        burger.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                        burger.map((item, index) => 
+                        <div data-testid={`burger-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                            </div>
                         )
                     }
                     
@@ -62,8 +64,10 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        drink.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
+                        drink.map((item, index) => 
+                            <div data-testid={`drink-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
+                            </div>
                         )
                     }
 
@@ -75,8 +79,10 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        sides.map((item) => 
+                        sides.map((item, index) => 
+                            <div data-testid={`side-item-${index}`}>
                             <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                            </div>
                         )
                     }
                     
