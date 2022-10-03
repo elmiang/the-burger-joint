@@ -88,10 +88,9 @@ const Cart = () => {
   //Update the total price when an item quantity or extra is updated
   useEffect(() => {
     const coupon = JSON.parse(localStorage.getItem('coupon'));
-    console.log(coupon.rate);
-
+    
     updateTotalPrice(coupon);
-  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra), JSON.parse(localStorage.getItem('coupon')).rate]);
+  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
 
   //Update coupon message whenever the total price is updated
   useEffect(() => {
