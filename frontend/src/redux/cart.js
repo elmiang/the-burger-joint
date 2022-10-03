@@ -1,5 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit'
-import React, { onEffect } from 'react';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = JSON.parse(localStorage.getItem("cartItems"));
 
@@ -35,9 +34,14 @@ const cartSlice = createSlice({
       const items = [...state];
       items.find(item => item.id === action.payload.id).ingredients = action.payload.ingredients;
       state = items;
+    },
+    updateServingSize(state, action) {
+      const items = [...state];
+      items.find(item => item.id === action.payload.id).servingSize = action.payload.servingSize;
+      state = items;
     }
   },
 })
 
-export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients } = cartSlice.actions
+export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients, updateServingSize } = cartSlice.actions
 export default cartSlice.reducer

@@ -48,7 +48,7 @@ import { BarChart, Bar, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend
     return ( 
             
             <div>
-                <h3 class="text-white text-center">Total Sales: ${salesTotal}</h3> 
+                <h3 className="text-white text-center">Total Sales: ${salesTotal}</h3> 
                 <ResponsiveContainer width="100%" height = {500}>
                     <BarChart width={1000} height={500} data={sortedData} layout="horizontal">
                         <CartesianGrid strokeDasharray="5 5" />
