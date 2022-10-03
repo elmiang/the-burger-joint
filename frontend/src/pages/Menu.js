@@ -11,10 +11,13 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
     
     useEffect(() => {
       const fetchDishes = async () => {
-        const response = await axios.get(`${baseurl}/api/menu/`);
-
-        if (mounted) {
-            setDishes(response.data)
+        try {
+            const response = await axios.get(`${baseurl}/api/menu/`);
+            if (mounted) {
+                setDishes(response.data)
+            }
+        } catch (err) {
+            console.log(err);
         }
       }
       fetchDishes();
