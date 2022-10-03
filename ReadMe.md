@@ -28,15 +28,23 @@ The approach used is detailed below:
 
 ## Testing
 To ensure that the features developed are working as intended, we created corresponding unit tests for our features. 
-To create the unit tests
-1)
-2)
-3)
+To run the unit tests
+If the unit tests are related to frontend
+1) Cd into the frontend folder
+2) Run `npm install` (to install all of the required libraries)
+3) run `npm run test` OR `npm run ci:unit`
+3) After running, users should see the test results in the console as well as a generated XML of the test results.
+
+If the unit tests are related to backend
+1) Cd into the backend folder
+2) Run `npm install` (to install all of the required libraries)
+3) run `npm run test` OR `npm run ci:unit`
+3) After running, users should see the test results in the console as well as a generated XML of the test results.
 
 To run the unit tests
 1) To run the tests locally, simply run `npm run tests` which will run all the test files
 2) To run the tests within the pipeline, upon all code pushes, pull requests and merges, the pipeline will execute and run all the test files (as a part of the pipeline configuration)
 
 To view the results of the tests
-1) Locally, this will be displayed within the terminal, since after running the tests, members will be shown the results of the tests in a report based format.
-2) Within the pipeline, the results of the tests will be displayed within the `Test Run` section of the pipeline.
+1) Locally, this will be displayed within the terminal after running each test as well as the generated XML file.
+2) Within the pipeline, the results of the tests will be displayed within the `Test Run` section of the pipeline as well as within the `Test` Tab of each pipeline job.
