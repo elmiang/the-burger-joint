@@ -1,13 +1,13 @@
 const Ticket = require('../models/ticketModel')
 const mongoose = require ('mongoose')
 
-// get all tickets
+// GET all tickets
 const getTickets = async (req, res) => {
     const ticket = await Ticket.find({}).sort({createdAt: -1})
     res.status(200).json(ticket)
 }
 
-// get a ticket
+// GET a ticket
 const getTicket = async (req, res) => {
     const {id} = req.params
 
@@ -26,10 +26,10 @@ const getTicket = async (req, res) => {
 
 // Create a new ticket
 const createTicket = async (req, res) => {
-    const {ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body} = req.body
+    const {user_id, ticket_title, ticket_body, ticket_resolved, resolution_body} = req.body
 
     try {
-        const ticket = await Ticket.create({ticket_title, ticket_body, ticket_resolved, creation_date, resolved_date, resolution_body})
+        const ticket = await Ticket.create({user_id, ticket_title, ticket_body, ticket_resolved, resolution_body})
         res.status(200).json(ticket)
     }
     catch (error){
@@ -37,6 +37,7 @@ const createTicket = async (req, res) => {
     }
 }
 
+// PATCH ticket I.e. resolving them
 const updateTicket = async (req, res) => {
     const {id} = req.params
 
@@ -55,9 +56,27 @@ const updateTicket = async (req, res) => {
     res.status(200).json(ticket)
 }
 
+//DELETE Ticket
+const deleteTicket = async (req, res) => {
+    const {id} = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'no such ticket'})
+    }
+
+    const ticket = await Ticket.findOneAndDelete({_id: id})
+
+    if (!ticket) {
+        return res.status(404).json({error: 'no such ticket'})
+    }
+
+    res.status(200).json(ticket)
+}
+
 module.exports = {
     getTickets,
     getTicket,
     createTicket,
-    updateTicket
+    updateTicket,
+    deleteTicket
 }

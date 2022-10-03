@@ -4,6 +4,11 @@ const Schema = mongoose.Schema
 
 const ticketSchema = new Schema ({
 
+    user_id: {
+        type: String,
+        required: true 
+    },
+    
     ticket_title: {
         type: String,
         required: true
@@ -17,16 +22,6 @@ const ticketSchema = new Schema ({
     ticket_resolved: {
         type: Boolean,
         required: true
-    },
-
-    creation_date: {
-        type: String,
-        required: true
-    },
-
-    resolved_date: {
-        type: String,
-        required: false
     },
 
     resolution_body: {
