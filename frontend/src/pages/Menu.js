@@ -7,18 +7,18 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
  const Menu = () => {
     const [dishes, setDishes] = useState([]);
+    let mounted = true;
     
     useEffect(() => {
       const fetchDishes = async () => {
         const response = await axios.get(`${baseurl}/api/menu/`);
 
-        if (response.status == 200) {
+        if (mounted) {
             setDishes(response.data)
         }
       }
       fetchDishes();
     }, []);
-
 
     //Seperating "dishes" array into three categories
     const burger = dishes.filter(obj => {
@@ -33,7 +33,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
         return obj.Category === 'Sides';
       })
 
-
+    
     return ( 
         
         <div className="container-fluid ">
@@ -49,8 +49,8 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                         
                     {
                         burger.map((item, index) => 
-                        <div data-testid={`burger-item-${index}`}>
-                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                            <div key={item} data-testid={`menu-item-${index}`}>
+                                <MenuItem  name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                             </div>
                         )
                     }
@@ -64,9 +64,11 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        drink.map((item, index) => 
-                            <div data-testid={`drink-item-${index}`}>
-                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
+                        drink.map((item) => 
+                            <div>  
+                                
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                                
                             </div>
                         )
                     }
@@ -79,9 +81,9 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        sides.map((item, index) => 
-                            <div data-testid={`side-item-${index}`}>
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                        sides.map((item) => 
+                            <div>
+                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
                             </div>
                         )
                     }

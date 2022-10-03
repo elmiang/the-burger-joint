@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../utility/test-utils';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import CartItem from "../components/CartItem";
+import CartItem from "../components/Cart/CartItem";
 
-import currencyFormat from '../utility/Functions';
-import { setItems } from '../redux/cart';
+import { currencyFormat, handleCategoryPrice } from '../utility/Functions';
 
 //Cart page
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
 
   const [coupons, setCoupons] = useState([
     {
@@ -41,21 +39,28 @@ const Cart = () => {
 
   //Coupon-related states
   const [couponResponse, setCouponResponse] = useState("");
-
   const [discountMessage, setDiscountMessage] = useState("");
-
   const [inputCode, setInputCode] = useState("");
 
   const [totalPrice, setTotalPrice] = useState(0);
 
+  //Updates the total price of the cart
+  //Accounts for cart item extras and coupon application
   function updateTotalPrice(coupon) {
     let initial = 0;
     
     let total = cartItems.reduce(
       (prev, curr) => {
         var extrasPrice = 0;
-        // Add pricing of extras to the calculation
-        if (curr.extra !== undefined) {
+
+        if (curr.servingSize) {
+          if (curr.servingSize === 'large') {
+            extrasPrice += handleCategoryPrice(curr);
+          }
+        }
+
+        // Update a seperate variables that includes the pricing of extras for each cart item to the calculation
+        if (curr.extra) {
           curr.extra.forEach(extra => extrasPrice += extra.price); 
         }
         // Handle application of coupon on total price
@@ -68,10 +73,13 @@ const Cart = () => {
     setTotalPrice(currencyFormat(total));
   }
 
+  //Handles user entry into the coupon input field
   function handleCouponCode(e) {
     setInputCode(e.target.value);
   }
 
+  //Handles the coupon submission
+  //Checks if the coupon exists and is valid, then applies the coupon
   function handleCouponSubmit() {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
     if (coupon && coupon.isValid) {
@@ -85,14 +93,18 @@ const Cart = () => {
     }
   }
 
-  //Update the total price when an item quantity or extra is updated
+  //Update the total price when an item quantity, extra or serving size is updated
+  const cartQuantities = cartItems.map(item => item.quantity);
+  const cartExtras = cartItems.map(item => item.extra)
+  const cartItemServing = cartItems.map(item => item.servingSize);
   useEffect(() => {
     const coupon = JSON.parse(localStorage.getItem('coupon'));
-    
-    updateTotalPrice(coupon);
-  }, [cartItems.map(item => item.quantity), cartItems.map(item => item.extra)]);
 
-  //Update coupon message whenever the total price is updated
+    updateTotalPrice(coupon);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartQuantities, cartExtras, cartItemServing]);
+
+  //Update coupon message (message under total price) whenever the total price is updated
   useEffect(() => {
     const couponStatus = localStorage.getItem('couponUsed');
     const coupon = JSON.parse(localStorage.getItem('coupon'));

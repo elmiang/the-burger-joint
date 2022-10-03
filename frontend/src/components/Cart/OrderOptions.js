@@ -5,14 +5,17 @@ import axios from 'axios';
 import OrderExtra from "./OrderExtra";
 import OrderIngredient from "./OrderIngredient";
 
-import currencyFormat from "../utility/Functions";
-import { updateItemExtras, updateItemIngredients } from '../redux/cart';
+import { currencyFormat, handleCategoryPrice } from "../../utility/Functions";
+import { updateItemExtras, updateItemIngredients, updateServingSize } from '../../redux/cart';
 
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;      
 
 const OrderOptions = (props) => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  //extras/ingredients array to store all available options for the user
+  //storedExtras/storedIngredients array for options that the user has selected
 
   const [extras, setExtras] = useState([]);
   const [storedExtras, setStoredExtras] = useState([]);
@@ -23,10 +26,12 @@ const OrderOptions = (props) => {
 
   const [cost, setCost] = useState(props.price);
 
+  //Updates the serving size based on the user's selection
   function handleServingSize(e) {
     setServingSize(e.target.value);
   }
 
+  //Update the locally stored extras array based on options checked by the user
   function handleUpdateExtras(e) {
     var items = [...storedExtras];
     if (e.target.checked && !storedExtras.includes(e.target.value)) {
@@ -38,6 +43,7 @@ const OrderOptions = (props) => {
     setStoredExtras(items);
   }
 
+  //Update the locally stored ingredients array based on options checked by the user
   function handleUpdateIngredients(e) {
     var items = [...storedIngredients];
     if (e.target.checked && !storedIngredients.includes(e.target.value)) {
@@ -49,11 +55,14 @@ const OrderOptions = (props) => {
     setStoredIngredients(items);
   }
 
+  //Update the redux cart extras and ingredients state with the locally stored extras and ingredients
   function handleAllUpdates() {
     dispatch(updateItemExtras({id: props.id, extra: storedExtras}));
     dispatch(updateItemIngredients({id: props.id, ingredients: storedIngredients}));
+    dispatch(updateServingSize({id: props.id, servingSize: servingSize}));
   }
 
+  //Set the local available extras and ingredients for every item in the cart
   useEffect(() => {
     const currentItem = cartItems.find(item => item.id === props.id);
     //Retrieve all extras from the database and save it to the extras state
@@ -73,8 +82,8 @@ const OrderOptions = (props) => {
       const response = await axios.get(`${baseurl}/api/menu/`);
 
       if (response.status === 200) {
-        if (currentItem.ingredients !== undefined) {
-          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+        const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+        if (ingredients) {
           setIngredients(ingredients);
         }
       }
@@ -82,6 +91,7 @@ const OrderOptions = (props) => {
 
     fetchIngredients();
     fetchExtras();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Update local stored extras && ingredients to match those stored in cart
@@ -90,19 +100,31 @@ const OrderOptions = (props) => {
     let extras = cartItems.find(item => item.id === props.id).extra;
     let ingredients = cartItems.find(item => item.id === props.id).ingredients;
 
-    if (extras !== undefined) {
+    if (extras) {
       setStoredExtras(extras);
     }
-    if (ingredients !== undefined) {
+    if (ingredients) {
       setStoredIngredients(ingredients);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.modalOpened])
 
-  // Update local cost based on extra ingredients in storedExtras
+  //Update the serving size to match item in cart items when the modal is opened
+  useEffect(() => {
+    const selectedSize = cartItems.find(item => item.id === props.id).servingSize;
+    if (selectedSize) {
+      setServingSize(selectedSize);
+    }
+  }, [props.modalOpened])
+
+  // Update local cost based on extra ingredients selected in storedExtras
   useEffect(() => {
     var extras = [...storedExtras];
     var cost = props.price;
+
+    if (servingSize === 'large') {
+      cost += handleCategoryPrice(cartItems.find(item => item.id === props.id));
+    }
 
     if (extras.length > 0) {
       extras.forEach((extra) => {
@@ -113,7 +135,8 @@ const OrderOptions = (props) => {
     else {
       setCost(cost);
     }
-  }, [storedExtras]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storedExtras, servingSize]);
 
   return (
     <div className="modal fade" id={`orderOptions-${props.id}`} tabIndex="-1">

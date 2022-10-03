@@ -23,9 +23,6 @@ const MenuItem = (props) => {
             }
             items.push(item);
         }
-        else {
-          findItem.quantity += 1;
-        }
         dispatch(setItems(items));
       }
 
