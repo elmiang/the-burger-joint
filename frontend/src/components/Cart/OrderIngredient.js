@@ -5,6 +5,7 @@ const OrderIngredient = (props) => {
   const cartItems = useSelector((state) => state.cart);
   const [isChecked, setIsChecked] = useState(false);
 
+  //Dynamically sets the checked status of the ingredient based on whether the ingredient is present within the current item
   function updateCheckedStatus() {
     const ingredients = cartItems.find(item => item.id === props.itemId).ingredients;
     if (ingredients !== undefined) {
@@ -14,16 +15,17 @@ const OrderIngredient = (props) => {
     }
   }
 
+  //Updates the checked status whenever the checkbox is interacted with
   function handleUpdateIngredients(e) {
     setIsChecked(!isChecked);
     props.handleUpdateIngredients(e);
   }
 
-  //Update checked status based on if the extra ingredient is in the cart
-  //Also run update whenever the modal is opened
+  //Updates the checked status whenever the ingredients property changes or the modal is opened
+  const currentItemIngredients = cartItems.find(item => item.id === props.itemId).ingredients;
   useEffect(() => {
     updateCheckedStatus();
-  }, [cartItems.find(item => item.id === props.itemId).ingredients, props.modalOpened]); 
+  }, [currentItemIngredients, props.modalOpened]); 
 
   return (
     <div className="form-check py-2">

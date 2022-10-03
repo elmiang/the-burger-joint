@@ -1,30 +1,36 @@
-import '../index.css';
+import '../../index.css';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import currencyFormat from '../utility/Functions';
+import currencyFormat from '../../utility/Functions';
 
 import OrderOptions from './OrderOptions';
-import { deleteItem, updateItemQuantity } from '../redux/cart';
+import { deleteItem, updateItemQuantity } from '../../redux/cart';
 
 const CartItem = (props) => {
   const cItems = useSelector((state) => state.cart); 
   const dispatch = useDispatch();
 
   const [price, setPrice] = useState(0);
+  //Keeps track of the modal being opened (mimics an on open event)
+  //Is used by the OrderIngredient and OrderExtra components
   const [modalOpened, setModalOpened] = useState(0);
 
+  //Updates the item's quantity in the redux cart whenever the quantity is changed
   function handleQuantity (e) {
     dispatch(updateItemQuantity({id: props.id, num: e.target.value}));
   }
 
+  //Deletes the item from the redux cart when the item is deleted from the cart
   function handleDelete () {
     dispatch(deleteItem(props.id));
   }
 
+  //Updates modalOpened whenever the order options modal is opened
   function handleModalOpened(e) {
     setModalOpened(modalOpened + 1);
   }
 
+  //Update the price for the current item (accounts for extras and quantity)
   function updatePrice() {
     const extras = cItems.find(item => item.id === props.id).extra;
     var extrasPrice = 0;
@@ -36,14 +42,16 @@ const CartItem = (props) => {
     setPrice(props.quantity * (props.price + extrasPrice));
   }
 
+  //Update the price display whenever the quantity or item's extras are updated
+  const currentItemExtras = cItems.find(item => item.id === props.id).extra;
   useEffect(() => {
     updatePrice();
-  }, [props.quantity, cItems.find(item => item.id === props.id).extra])
+  }, [props.quantity, currentItemExtras])
 
   return (
     <div className="container-fluid">
       <div className="cartItem m-2 p-4 border-bottom border-white">
-        {/* Item name, price, quantity (dropdown?), remove item (button) */}
+        {/* Item name, price, quantity (dropdown), remove item (button) */}
         <div className="row justify-content-start align-items-start">
           <p className="col-2 text-white fw-bold me-3">{props.item}</p>
           <select className="col-2 col-xxl-1" name="quantity" value={props.quantity} onChange={handleQuantity}>

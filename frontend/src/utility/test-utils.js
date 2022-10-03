@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import cartReducer from '../redux/cart';
 
+//Renders a component with the redux store attached
 export function renderWithProviders(
   ui,
   {

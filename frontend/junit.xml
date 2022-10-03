@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="9" failures="0" errors="0" time="3.486">
-  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T01:54:41" time="1.703" tests="6">
-    <testcase classname="Sidebar navigation should navigate to Burger section when button is clicked" name="Sidebar navigation should navigate to Burger section when button is clicked" time="0.022">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="3.043">
+  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T02:02:21" time="1.649" tests="6">
+    <testcase classname="Sidebar navigation should navigate to Burger section when button is clicked" name="Sidebar navigation should navigate to Burger section when button is clicked" time="0.021">
     </testcase>
-    <testcase classname="Sidebar navigation should navigate to Drinks section when button is clicked" name="Sidebar navigation should navigate to Drinks section when button is clicked" time="0.006">
+    <testcase classname="Sidebar navigation should navigate to Drinks section when button is clicked" name="Sidebar navigation should navigate to Drinks section when button is clicked" time="0.005">
     </testcase>
     <testcase classname="Sidebar navigation should navigate to Sides section when button is clicked" name="Sidebar navigation should navigate to Sides section when button is clicked" time="0.003">
     </testcase>
-    <testcase classname="Display Menu Items should display burger items" name="Display Menu Items should display burger items" time="0.258">
+    <testcase classname="Display Menu Items should display burger items" name="Display Menu Items should display burger items" time="0.252">
     </testcase>
-    <testcase classname="Display Menu Items should display drink items" name="Display Menu Items should display drink items" time="0.152">
+    <testcase classname="Display Menu Items should display drink items" name="Display Menu Items should display drink items" time="0.15">
     </testcase>
     <testcase classname="Display Menu Items should display side items" name="Display Menu Items should display side items" time="0.148">
     </testcase>
   </testsuite>
-  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T01:54:41" time="1.926" tests="3">
-    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.071">
+  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-03T02:02:21" time="1.867" tests="3">
+    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.064">
     </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.038">
+    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.039">
     </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.03">
+    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.029">
     </testcase>
   </testsuite>
 </testsuites>

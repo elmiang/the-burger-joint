@@ -1,5 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit'
-import React, { onEffect } from 'react';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = JSON.parse(localStorage.getItem("cartItems"));
 
