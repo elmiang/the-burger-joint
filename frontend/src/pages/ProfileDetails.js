@@ -18,6 +18,7 @@ const ProfileDetails = () => {
   const [ phoneNumber, setPhoneNumber ] = useState('');
 
   const [show, setShow] = useState(false);
+  const [validated, setValidated] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -25,7 +26,7 @@ const ProfileDetails = () => {
   useEffect(() => {
     const getUserMetadata = async () => {
       const domain = process.env.REACT_APP_BACKEND_API_URL;
-      const audience = process.env.REACT_APP_AUTH0_API;
+      // const audience = process.env.REACT_APP_AUTH0_API;
 
       try {
         const accessToken = '';
@@ -42,12 +43,11 @@ const ProfileDetails = () => {
         });
   
         const user_metadata = await profileResponse.json();
-        console.log(user_metadata);
         const { firstName, lastName, residentialAddress, phoneNumber } = user_metadata;
         setFirstName(firstName);
         setLastName(lastName);
         setResidentialAddress(residentialAddress);
-        setPhoneNumber(phoneNumber);
+        setPhoneNumber(phoneNumber ?? '');
   
         //setUserMetadata(user_metadata);
       } catch (e) {
@@ -56,13 +56,29 @@ const ProfileDetails = () => {
     };
   
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently, user?.email]);
+
+  useEffect(() => {
+    const form = document.getElementById("formAccountDetails");    
+    form?.checkValidity();
+  }, [phoneNumber]);
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    // e.preventDefault();    
+    const form = e.currentTarget;
+console.log(e);
+console.log(form);
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+console.log('notvalid');
+      return;
+    }
 
+    setValidated(true);
+    
     const domain = process.env.REACT_APP_BACKEND_API_URL;
-    const audience = process.env.REACT_APP_AUTH0_API;
+    // const audience = process.env.REACT_APP_AUTH0_API;
 
     try {
       const profileURL = `${domain}/api/profile/${user.email}`;
@@ -90,11 +106,11 @@ const ProfileDetails = () => {
         },
       });
 
-      const rep = await profileResponse.json();
+      await profileResponse.json();
+
       // Set editMode to false
-      setEditMode(false)
-
-
+      setEditMode(false);
+      
     } catch (e) {
       console.log(e.message);
     }
@@ -104,7 +120,7 @@ const ProfileDetails = () => {
     e.preventDefault();
 
     const domain = process.env.REACT_APP_BACKEND_API_URL;
-    const audience = process.env.REACT_APP_AUTH0_API;
+    // const audience = process.env.REACT_APP_AUTH0_API;
 
     try {
       const profileURL = `${domain}/api/profile/${user.email}`;
@@ -113,7 +129,7 @@ const ProfileDetails = () => {
       //   audience: audience
       // });
 
-      const profileResponse = await fetch(profileURL, {
+      await fetch(profileURL, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -123,6 +139,7 @@ const ProfileDetails = () => {
       // Log the user out and navigate to the home page
       logout();
       return navigate("/");
+
     } catch (e) {
       console.log(e.message);
     }
@@ -133,10 +150,6 @@ const ProfileDetails = () => {
       <div className="container-fluid p-5" style={{ color:"white"}}>  
         <h2 className="text-warning text-center">Account Profile</h2>          
         <div className="mx-auto" style={{ width: "60%" }}>
-          <ButtonGroup>
-            <Button variant="primary" type="submit" hidden={editMode} onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaPen/></IconContext.Provider></Button>
-            <Button variant="primary" type="submit" hidden={!editMode} onClick={() => handleSubmit()}>Save Details<IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaSave/></IconContext.Provider></Button>
-          </ButtonGroup>
 
           <Modal
             show={show}
@@ -152,34 +165,54 @@ const ProfileDetails = () => {
               Once it is deleted, it can not be retrieved?
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" onClick={handleClose}>Close<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaWindowClose/></IconContext.Provider></Button>
-              <Button variant="danger" onClick={handleDelete}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
+              <Button variant="primary" onClick={handleClose}>Close<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaWindowClose/></IconContext.Provider></Button>
+              <Button variant="danger" onClick={handleDelete}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaTrash/></IconContext.Provider></Button>
             </Modal.Footer>
           </Modal>          
                   
-          <Form className="">
+          <Form id="formAccountDetails" className="" noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="">
-              <Form.Group as={Col}  controlId="formBasicName">
+              <ButtonGroup>
+                <Button variant="primary" type="button" hidden={editMode} onClick={() => setEditMode(!editMode)}>Edit Details <IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaPen/></IconContext.Provider></Button>
+                <Button variant="primary" type="submit" hidden={!editMode}>Save Details<IconContext.Provider value={{ color: "white", size: "28px", className: "m-1" }}><FaSave/></IconContext.Provider></Button>
+              </ButtonGroup>
+            </Row>
+            <Row className="">
+              <Form.Group as={Col} controlId="firstNameControl">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control type="name" placeholder="First Name" disabled={!editMode} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                <Form.Control type="name" placeholder="First Name" required disabled={!editMode} value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                <Form.Control.Feedback type="invalid">
+                  Please provide a First Name.
+                </Form.Control.Feedback>                
               </Form.Group>
 
-              <Form.Group as={Col} controlId="formBasicName">
+              <Form.Group as={Col} controlId="lastNameControl">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control type="name" placeholder="Last Name" disabled={!editMode} value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                <Form.Control type="name" placeholder="Last Name" required disabled={!editMode} value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                <Form.Control.Feedback type="invalid">
+                  Please provide a Last Name.
+                </Form.Control.Feedback>                      
               </Form.Group>
             </Row>
 
-            <Form.Group className="me-1" controlId="formBasicName">
+            <Form.Group className="me-1" controlId="residentialAddressControl">
               <Form.Label>Residential Address<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaHome /></IconContext.Provider></Form.Label>
-              <Form.Control type="name" placeholder="Residential Address" disabled={!editMode} value={residentialAddress} onChange={(e) => setResidentialAddress(e.target.value)}/>
+              <Form.Control type="name" placeholder="Residential Address" required disabled={!editMode} value={residentialAddress} onChange={(e) => setResidentialAddress(e.target.value)}/>
+              <Form.Control.Feedback type="invalid">
+                  Please provide a valid Residential Address.
+              </Form.Control.Feedback>                    
             </Form.Group>          
 
-            <Form.Group className="me-1" controlId="formBasicName">
+            <Form.Group className="me-1" controlId="phoneNumberControl">
               <Form.Label>Phone Number<IconContext.Provider value={{ color: "white", size: "32px", className: "ms-1" }}><FaMobile /></IconContext.Provider></Form.Label>
-              <Form.Control type="phone number" placeholder="Phone Number" disabled={!editMode} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
-            </Form.Group>                  
+              <Form.Control type="phone number" placeholder="Phone Number" required disabled={!editMode} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+              <Form.Control.Feedback type="invalid">
+                  Please provide a valid Phone Number.
+              </Form.Control.Feedback>                    
+            </Form.Group>   
+
             <Button className="m-2 float-end" variant="danger" onClick={handleShow}>Delete Account<IconContext.Provider value={{ color: "white", size: "32px", className: "me-1" }}><FaTrash/></IconContext.Provider></Button>
+
           </Form>          
         </div>
       </div>
