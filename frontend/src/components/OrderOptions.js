@@ -8,6 +8,8 @@ import OrderIngredient from "./OrderIngredient";
 import currencyFormat from "../utility/Functions";
 import { updateItemExtras, updateItemIngredients } from '../redux/cart';
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;      
+
 const OrderOptions = (props) => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -56,29 +58,24 @@ const OrderOptions = (props) => {
     const currentItem = cartItems.find(item => item.id === props.id);
     //Retrieve all extras from the database and save it to the extras state
     const fetchExtras = async () => {
-      const response = await axios.get("/api/cart/")
-        .catch(e => { console.log(e) });
+      console.log(`calling backend: ${baseurl}`);
+      const response = await axios.get(`${baseurl}/api/cart/`);
       
-      if (response) {
-        if (response.status === 200) {
-          if (currentItem.category === 'Burger') {
-            setExtras(response.data);
-          }
+      if (response.status === 200) {
+        if (currentItem.category === 'Burger') {
+          setExtras(response.data);
         }
       }
     }
 
     //Retrieve all ingredients from the current item in the database and save it to the ingredients state
     const fetchIngredients = async () => {
-      const response = await axios.get("/api/menu/")
-        .catch(e => { console.log(e) });
+      const response = await axios.get(`${baseurl}/api/menu/`);
 
-      if (response) {
-        if (response.status === 200) {
-          if (currentItem.ingredients !== undefined) {
-            const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
-            setIngredients(ingredients);
-          }
+      if (response.status === 200) {
+        if (currentItem.ingredients !== undefined) {
+          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+          setIngredients(ingredients);
         }
       }
     }
@@ -88,6 +85,7 @@ const OrderOptions = (props) => {
   }, []);
 
   //Update local stored extras && ingredients to match those stored in cart
+  //Fired whenever the order options menu is opened
   useEffect(() => {
     let extras = cartItems.find(item => item.id === props.id).extra;
     let ingredients = cartItems.find(item => item.id === props.id).ingredients;
@@ -111,6 +109,9 @@ const OrderOptions = (props) => {
         cost += extra.price;
         setCost(cost);
       })
+    }
+    else {
+      setCost(cost);
     }
   }, [storedExtras]);
 

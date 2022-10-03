@@ -3,12 +3,14 @@ import MenuItem from "../components/MenuItem";
 import Sidebar from "../components/Sidebar";
 import axios from "axios";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
  const Menu = () => {
     const [dishes, setDishes] = useState([]);
     
     useEffect(() => {
       const fetchDishes = async () => {
-        const response = await axios.get("/api/menu");
+        const response = await axios.get(`${baseurl}/api/menu/`);
 
         if (response.status == 200) {
             setDishes(response.data)
@@ -34,20 +36,22 @@ import axios from "axios";
 
     return ( 
         
-        <div class="container-fluid ">
-            <div class="row">
+        <div className="container-fluid ">
+            <div className="row">
             <Sidebar/>
-                <div class="col-2 bg-dark"></div>
+                <div className="col-2 bg-dark"></div>
                 {/* Menu */}
-                <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="col py-5 p-5 scrollspy-example rounded-2" tabindex="0">
-                    
+                <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" className="col py-5 p-5 scrollspy-example rounded-2" tabIndex="0">
+                                       
                     {/* Menu: Burgers */}
-                    <h3 id="section-1" class="p-2 text-white">Burgers </h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <h3 id="section-1" className="p-2 text-white">Burgers </h3>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
-                        burger.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                        burger.map((item, index) => 
+                        <div data-testid={`burger-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                            </div>
                         )
                     }
                     
@@ -56,12 +60,14 @@ import axios from "axios";
 
 
                     {/* Menu: Drinks */}
-                    <h3 id="section-2" class="p-3 text-white">Drinks</h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <h3 id="section-2" className="p-3 text-white">Drinks</h3>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        drink.map((item) => 
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                        drink.map((item, index) => 
+                            <div data-testid={`drink-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.category} ingredients={item.ingredients}/>
+                            </div>
                         )
                     }
 
@@ -69,12 +75,14 @@ import axios from "axios";
                     {/* End of Section 2 */}
 
                     {/* Menu: Sides */}
-                    <h3 id="section-3" class="p-3 text-white">Sides</h3>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <h3 id="section-3" className="p-3 text-white">Sides</h3>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
-                        sides.map((item) => 
+                        sides.map((item, index) => 
+                            <div data-testid={`side-item-${index}`}>
                             <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL}/>
+                            </div>
                         )
                     }
                     
