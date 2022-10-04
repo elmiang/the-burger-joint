@@ -79,13 +79,13 @@ const Checkout = () => {
                 <form className="create" onSubmit={handleSubmit}>
                     <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */class="col py-5 p-5 rounded-2" tabindex="0">
                         {/*Checkout: Cart Items */}
-                        <h3 id="CheckoutItems" class="p-1 text-white">Cart Items</h3>
+                        {/*<h3 id="CheckoutItems" class="p-1 text-white">Cart Items</h3>
                         <div class="row row-cols-1 row-cols-md-4 g-3">
                             <CheckoutItem/>
                             <CheckoutItem/>
                             <CheckoutItem/>
                             <CheckoutItem/>
-                        </div>
+                        </div>*/}
                         {/*End of Cart Items*/}
 
 
