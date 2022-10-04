@@ -13,19 +13,21 @@ import { BarChart, Bar, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Legend
         }
         
         if (Array.isArray(existingSel.OrderQuantity)) {
-          // if the topicName is an array, add to it.
+          // if the OrderQuantity is an array, add to it.
           existingSel.OrderQuantity.push(row.OrderQuantity);
         } else {
-          // Otherwise, make it an array with the two options.
+          // Otherwise, add to exisiting OrderQuantity
           existingSel.OrderQuantity += row.OrderQuantity;
         }
         return acc;
       }, []);
 
+      //Retrive names from dishes
       const namesList = props.dishData.map((item) => {
         return item.DishName;
       })
 
+      //Retrive prices from dishes
       const priceList = props.dishData.map((item) => {
         return item.Price;
       })
