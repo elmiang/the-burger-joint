@@ -3,6 +3,7 @@ import AccountProfile from './AccountProfile';
 import { Link } from 'react-router-dom'
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
+import OrderHistory from "../pages/ReciptHistory";
 
 const Navbar = () => {
   function initialiseCart() {
@@ -54,6 +55,18 @@ const Navbar = () => {
 
             <li className="nav-item">
               <Link className="nav-link" to="/sales">Sales Management</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Tickets</a> */}
+              <Link className="nav-link" to="/recipthistory">Recipts</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Tickets</a> */}
+              <Link className="nav-link" to="/tickets">Tickets</Link>
+            </li>
+            <li className="nav-item">
+              {/* <a className="nav-link" href="#">Tickets</a> */}
+              <Link className="nav-link" to="/admintickets">Ticket Management</Link>
             </li>
           </ul>
         </div>
