@@ -32,7 +32,11 @@ const getUserTickets = async (req, res) => {
         return res.status(404).json({error: 'no such ticket'})
     }*/
 
-    const ticket = await Ticket.find({user_id: id}).sort({createdAt: -1})
+    const ticket = await Ticket.find({
+        $and: [
+            { "ticket_resolved": "false"},
+            { "user_id": id}
+         ]}).sort({createdAt: -1})
 
 
     if (!ticket) {
