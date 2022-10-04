@@ -1,23 +1,50 @@
-import React from "react";
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
-const AddProduct = () => {
+const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
 
-  const [Dish_id, setDish_id] = useState("");
-  const [DishName, setDishName] = useState("");
-  const [Category, setCategory] = useState("");
-  const [Description, setDescription] = useState("");
-  const [Price, setPrice] = useState("");
-  const [ingredients, setIngredients] = useState([]);
-  const [imageURL, setImageURL] = useState("");
+  const [Dish_id, setDish_id] = useState(product.Dish_id);
+  const [DishName, setDishName] = useState(product.DishName);
+  const [Category, setCategory] = useState(product.Category);
+  const [Description, setDescription] = useState(product.Description);
+  const [Price, setPrice] = useState(product.Price);
+  const [ingredients, setIngredients] = useState(product.ingredients);
+  const [imageURL, setImageURL] = useState(product.imageURL);
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState("");
+  {
+    /*
+    useEffect(() => {
+      const fetchProduct = async () => {
+        const response = await fetch("/api/products/" + product.Dish_id);
+        const json = await response.json();
 
+        if (response.ok) {
+          setDish_id(product.Dish_id);
+          setDishName(product.DishName);
+          setCategory(product.Category);
+          setDescription(product.Description);
+          setPrice(product.Price);
+          setIngredients(product.ingredients);
+          setImageURL(product.imageURL);
+          dispatch({ type: "EDIT_PRODUCTS", payload: json });
+        }
+      };
+      fetchProduct();
+    });
+  */
+  }
+  {
+    /*}
+  const getProduct = async (id) => {
+    
+  }
+*/
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const product = {
+    const editedProduct = {
       Dish_id,
       DishName,
       Category,
@@ -26,9 +53,9 @@ const AddProduct = () => {
       ingredients,
       imageURL,
     };
-    const response = await fetch("/api/products", {
+    const response = await fetch("/api/products/" + editedProduct.Dish_id, {
       method: "POST",
-      body: JSON.stringify(product),
+      body: JSON.stringify(editedProduct),
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,28 +72,28 @@ const AddProduct = () => {
       setCategory("");
       setDescription("");
       setPrice("");
-      setIngredients([]);
+      setIngredients("");
       setImageURL("");
       setError(null);
       setEmptyFields([]);
-      console.log("new product added", json);
-      dispatch({ type: "CREATE_PRODUCT", payload: json });
+      console.log("product updated", json);
+      dispatch({ type: "EDIT_PRODUCT", payload: json });
     }
   };
 
   return (
-    <div className="modal fade" tabIndex="-1" id="addProduct">
+    <div className="modal fade" tabIndex="-1" id="editProduct">
       <div className="modal-dialog">
         <div className="modal-content bg-dark">
           <div className="modal-header">
-            <h5 className="modal=title">Add Product</h5>
+            <h5 className="modal=title text-warning">Edit Product</h5>
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
             ></button>
           </div>
-          <form className="create" onSubmit={handleSubmit}>
+          <form className="edit" onSubmit={handleSubmit}>
             <div className="modal-body">
               <div className="form-floating mb-3">
                 <input
@@ -82,7 +109,7 @@ const AddProduct = () => {
                   value={Dish_id}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="idInput">
-                  ID
+                  Dish_id
                 </label>
               </div>
               <div className="form-floating mb-3">
@@ -145,7 +172,7 @@ const AddProduct = () => {
                   className="form-control"
                   placeholder="ingredients"
                   id="ingredientsInput"
-                  onChange={(e) => setIngredients(e.target.value.split(","))}
+                  onChange={(e) => setIngredients(e.target.value.split(", "))}
                   value={ingredients}
                 ></input>
                 <label className="text-muted fs-6" htmlFor="ingredientsInput">
@@ -189,9 +216,9 @@ const AddProduct = () => {
               </div>
             </div>
             <div className="modal-footer bg-dark">
-              {error && <div className="error">{error}</div>}
+              {error && <div className="error text-warning">{error}</div>}
               <button type="submit" className="btn btn-warning m-1">
-                Add
+                Save
               </button>
             </div>
           </form>
@@ -201,4 +228,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
