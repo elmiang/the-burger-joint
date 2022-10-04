@@ -73,8 +73,8 @@ const Checkout = () => {
     }
 
     return ( 
-        <div class="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
-            <div class="row">
+        <div className="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
+            <div className="row">
             <CheckoutBar/>
                 <form className="create" onSubmit={handleSubmit}>
                     <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */class="col py-5 p-5 rounded-2" tabindex="0">

@@ -102,12 +102,7 @@ const Cart = () => {
 
     updateTotalPrice(coupon);
 
-
-    
     localStorage.setItem("total",totalPrice)
-
-
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartQuantities, cartExtras, cartItemServing]);
 
