@@ -31,7 +31,7 @@ const updateUserProfile =  async (req, res) => {
 
     // Check that the update was not null
     if (!profile) {
-        return res.status(404).json({error: 'no such account exists'})
+        return res.status(404).json({error: 'No such account exists'})
     }
 
     // Return 200 status, indicating that the profile had been updated

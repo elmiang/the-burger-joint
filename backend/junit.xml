@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="1" errors="0" time="2.191">
-  <testsuite name="Profile Service" errors="0" failures="1" skipped="0" timestamp="2022-10-06T12:13:19" time="1.883" tests="6">
-    <testcase classname="Profile Service Get User Profile Should return a user profile for a given ID" name="Profile Service Get User Profile Should return a user profile for a given ID" time="0.013">
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="3.244">
+  <testsuite name="Profile Service" errors="0" failures="0" skipped="0" timestamp="2022-10-06T12:21:43" time="2.917" tests="6">
+    <testcase classname="Profile Service Get User Profile Should return a user profile for a given ID" name="Profile Service Get User Profile Should return a user profile for a given ID" time="0.025">
     </testcase>
     <testcase classname="Profile Service Get User Profile Should return 404 when a user profile does not exist" name="Profile Service Get User Profile Should return 404 when a user profile does not exist" time="0.002">
     </testcase>
-    <testcase classname="Profile Service Update User Profile Should Update a user profile for a given ID" name="Profile Service Update User Profile Should Update a user profile for a given ID" time="0.003">
+    <testcase classname="Profile Service Update User Profile Should Update a user profile for a given ID" name="Profile Service Update User Profile Should Update a user profile for a given ID" time="0.006">
     </testcase>
-    <testcase classname="Profile Service Update User Profile Should return 404 when a user profile does not exist" name="Profile Service Update User Profile Should return 404 when a user profile does not exist" time="0.005">
-      <failure>Error: expect(received).toEqual(expected) // deep equality
-
-Expected: &quot;No such account exists&quot;
-Received: &quot;no such account exists&quot;
-    at Object.toEqual (C:\Users\mscov\Source\ASD\backend\controllers\profileController.test.js:133:32)
-    at processTicksAndRejections (internal/process/task_queues.js:95:5)</failure>
+    <testcase classname="Profile Service Update User Profile Should return 404 when a user profile does not exist" name="Profile Service Update User Profile Should return 404 when a user profile does not exist" time="0.002">
     </testcase>
-    <testcase classname="Profile Service Delete User Profile Should Delete a user profile for a given ID" name="Profile Service Delete User Profile Should Delete a user profile for a given ID" time="0.003">
+    <testcase classname="Profile Service Delete User Profile Should Delete a user profile for a given ID" name="Profile Service Delete User Profile Should Delete a user profile for a given ID" time="0.004">
     </testcase>
-    <testcase classname="Profile Service Delete User Profile Should return 404 when a user profile does not exist" name="Profile Service Delete User Profile Should return 404 when a user profile does not exist" time="0.008">
+    <testcase classname="Profile Service Delete User Profile Should return 404 when a user profile does not exist" name="Profile Service Delete User Profile Should return 404 when a user profile does not exist" time="0.005">
     </testcase>
   </testsuite>
 </testsuites>
