@@ -26,6 +26,11 @@ describe('Menu Items', () => {
         const menuItem = await screen.findByTestId('menu-item-0');
         expect(menuItem).toBeInTheDocument();
     });
+    test("Error in fetching menu items, cannot find item to be displayed", async () => {
+        renderWithProviders(<Menu />);
+        const menuItem = await screen.findByTestId('menu-item-2');
+        expect(menuItem).not.toBeInTheDocument();
+    })
 })
 
 describe('Sidebar navigation', () => {
