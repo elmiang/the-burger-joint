@@ -4,6 +4,11 @@ const mongoose = require("mongoose");
 // get all products
 const getProducts = async (req, res) => {
   const products = await Dish.find({}).sort({ Dish_id: -1 });
+
+  if (!products) {
+    return res.status(400).json({ error: "Could not find products!" });
+  }
+
   res.status(200).json(products);
 };
 
