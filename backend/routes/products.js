@@ -13,11 +13,11 @@ var router = express.Router();
 // Get all products
 router.get("/", getProducts);
 
-// Get products by type
-router.get("/:category", getProductsByType);
-
 // Get a product
 router.get("/:id", getProduct);
+
+// Get products by type
+router.get("/:category", getProductsByType);
 
 // Post new product
 router.post("/", createProduct);
