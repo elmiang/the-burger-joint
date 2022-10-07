@@ -43,8 +43,6 @@ const getProductsByType = async (req, res) => {
 
 // create a new product
 const createProduct = async (req, res) => {
-  console.log(req.body);
-
   const {
     Dish_id,
     category,
