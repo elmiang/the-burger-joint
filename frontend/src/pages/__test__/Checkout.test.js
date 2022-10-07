@@ -3,6 +3,7 @@ import {render, screen, fireEvent} from '@testing-library/react'
 import Checkout from '../Checkout'
 import { BrowserRouter } from 'react-router-dom';
 
+
 const MockCheckout = () => {
   return (
     <BrowserRouter>
