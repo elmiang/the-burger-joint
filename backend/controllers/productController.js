@@ -33,8 +33,11 @@ const getProduct = async (req, res) => {
 const getProductsByType = async (req, res) => {
   const { category } = req.params;
 
-  const products = await Dish.find({ category }).sort({ Dish_id: -1 });
+  const products = await Dish.find({ Category: category });
 
+  if (!products) {
+    return res.status(400).json({ error: "No such products" });
+  }
   res.status(200).json(products);
 };
 
@@ -42,10 +45,10 @@ const getProductsByType = async (req, res) => {
 const createProduct = async (req, res) => {
   const {
     Dish_id,
-    Category,
-    DishName,
-    Price,
-    Description,
+    category,
+    dishname,
+    price,
+    description,
     ingredients,
     imageURL,
   } = req.body;
@@ -55,16 +58,16 @@ const createProduct = async (req, res) => {
   if (!Dish_id) {
     emptyFields.push("Dish_id");
   }
-  if (!DishName) {
+  if (!dishname) {
     emptyFields.push("DishName");
   }
-  if (!Category) {
+  if (!category) {
     emptyFields.push("Category");
   }
-  if (!Description) {
+  if (!description) {
     emptyFields.push("Description");
   }
-  if (!Price) {
+  if (!price) {
     emptyFields.push("Price");
   }
   if (!imageURL) {
@@ -80,10 +83,10 @@ const createProduct = async (req, res) => {
   try {
     const product = await Dish.create({
       Dish_id,
-      Category,
-      DishName,
-      Price,
-      Description,
+      category,
+      dishname,
+      price,
+      description,
       ingredients,
       imageURL,
     });
@@ -109,29 +112,6 @@ const deleteProduct = async (req, res) => {
 // update a product
 const updateProduct = async (req, res) => {
   const { id } = req.params;
-
-  let emptyFields = [];
-
-  if (!dishname) {
-    emptyFields.push("DishName");
-  }
-  if (!category) {
-    emptyFields.push("Category");
-  }
-  if (!description) {
-    emptyFields.push("Description");
-  }
-  if (!price) {
-    emptyFields.push("Price");
-  }
-  if (!imageURL) {
-    emptyFields.push("ImageURL");
-  }
-  if (emptyFields.length > 0) {
-    return res
-      .status(400)
-      .json({ error: "Please fill in all the fields!", emptyFields });
-  }
 
   const product = await Dish.findOneAndUpdate(
     { Dish_id: id },
