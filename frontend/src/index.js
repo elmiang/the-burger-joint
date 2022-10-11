@@ -8,6 +8,7 @@ import "recharts";
 import { Auth0Provider } from '@auth0/auth0-react';
 import { store } from "./redux/store";
 import { Provider } from 'react-redux';
+import { ProductContextProvider } from "./context/ProductContext";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -25,7 +26,9 @@ root.render(
       scope='openid profile email'
     >
       <Provider store={store}>
-        <App />
+        <ProductContextProvider>
+          <App />
+        </ProductContextProvider>
       </Provider>
     </Auth0Provider>
   </React.StrictMode>

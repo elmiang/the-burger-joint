@@ -101,6 +101,8 @@ const Cart = () => {
     const coupon = JSON.parse(localStorage.getItem('coupon'));
 
     updateTotalPrice(coupon);
+
+    localStorage.setItem("total",totalPrice)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartQuantities, cartExtras, cartItemServing]);
 

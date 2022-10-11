@@ -51,6 +51,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
+                        //For every burger, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         burger.map((item, index) => 
                             <div key={item} data-testid={`menu-item-${index}`}>
                                 <MenuItem  name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
@@ -67,6 +68,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
+                        //For every drink, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         drink.map((item) => 
                             <div>  
                                 
@@ -84,6 +86,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
+                        //For every sides, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         sides.map((item) => 
                             <div>
                             <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>

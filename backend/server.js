@@ -14,6 +14,9 @@ const extrasRoutes = require('./routes/extras');
 const profileRoutes = require('./routes/profile');
 const dishesRoutes = require('./routes/dishes');
 const orderLinesRoutes = require('./routes/orderLines');
+const reciptsRoutes = require('./routes/recipts')
+const ticketRoutes = require('./routes/tickets')
+const productRoutes = require("./routes/products");
 
 const port = process.env.PORT || 8888;
 
@@ -66,6 +69,9 @@ app.use('/api/profile', profileRoutes);
 // app.use('/api/profile', checkJwt, profileRoutes);
 app.use('/api/menu', dishesRoutes);
 app.use('/api/sales', orderLinesRoutes);
+app.use('/api/recipts', reciptsRoutes)
+app.use('/api/tickets', ticketRoutes)
+app.use("/api/products", productRoutes);
 
 // Test routes
 // app.get("/", (req, res) => {

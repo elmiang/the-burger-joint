@@ -25,8 +25,39 @@ steps:
 - script: |
     cd frontend
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install frontend'
+  
+- script: |
+    cd backend
+    npm install
+  displayName: 'npm install backend'
+
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    workingDir: frontend/
+    command: custom
+    customCommand: run build
+  
+- task: Npm@1
+  displayName: 'npm run test frontend'
+  inputs:
+    workingDir: frontend/
+    command: custom
+    customCommand: run ci:unit
+  
+- task: Npm@1
+  displayName: 'npm run test backend'
+  inputs:
+    workingDir: 'backend/'
+    command: 'custom'
+    customCommand: 'run ci:unit'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results junit.xml'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/junit.xml'
 
 # - task: Npm@1
 #   inputs:
