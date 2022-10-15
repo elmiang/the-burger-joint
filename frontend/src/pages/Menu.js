@@ -64,6 +64,7 @@ const filterDishes = (dishes, query) => {
                 {/* Menu */}
                 <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" className="col py-5 p-5 scrollspy-example rounded-2" tabIndex="0">
                     <div class="btn-group" role="group">
+                    <label class="text-light p-2 fs-4">Categories</label>
                     <button type="submit" class="btn btn-outline-light me-2">Burgers</button>
                     <button type="submit" class="btn btn-outline-light me-2">Drinks</button>
                     <button type="submit" class="btn btn-outline-light me-2">Sides</button>
