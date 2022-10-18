@@ -12,8 +12,6 @@ export const store = configureStore({
 store.subscribe(() => {
   const salt = process.env.REACT_APP_SALT;
   const state = store.getState().cart;
-  console.log(state);
-  // const serializedState = JSON.stringify(state);
 
   const encryptedData = encryptData(state, salt);
   localStorage.setItem('cartItems', encryptedData);

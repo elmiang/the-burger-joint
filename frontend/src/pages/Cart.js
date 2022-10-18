@@ -5,37 +5,14 @@ import { useSelector } from 'react-redux';
 import CartItem from "../components/Cart/CartItem";
 
 import { currencyFormat, handleCategoryPrice } from '../utility/Functions';
+import axios from 'axios';
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
 //Cart page
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
-
-  const [coupons, setCoupons] = useState([
-    {
-      id: 1,
-      code: '15off',
-      rate: 0.15,
-      isValid: true
-    },
-    {
-      id: 2,
-      code: '50off',
-      rate: 0.5,
-      isValid: true
-    },
-    {
-      id: 3,
-      code: '25off',
-      rate: 0.25,
-      isValid: true
-    },
-    {
-      id: 4,
-      code: 'nocoupon',
-      rate: 0,
-      isValid: true
-    }
-  ]);
+  const [coupons, setCoupons] = useState([]);
 
   //Coupon-related states
   const [couponResponse, setCouponResponse] = useState("");
@@ -82,7 +59,8 @@ const Cart = () => {
   //Checks if the coupon exists and is valid, then applies the coupon
   function handleCouponSubmit() {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
-    if (coupon && coupon.isValid) {
+    console.log(coupon);
+    if (coupon) {
       setCouponResponse('valid');
       localStorage.setItem('coupon', JSON.stringify(coupon));
       localStorage.setItem('couponUsed', true);
@@ -116,6 +94,21 @@ const Cart = () => {
     }
 
   }, [totalPrice])
+
+  //Fetch coupons from database and save to coupons state
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const response = await axios.get(`${baseurl}/api/coupon/`);
+        console.log(response.data);
+        setCoupons(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchCoupons();
+  }, [])
 
   return (
     <div className="cart bg-secondary">

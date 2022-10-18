@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { decryptData, encryptData } from '../utility/Functions';
 
-// const initialState = JSON.parse(localStorage.getItem("cartItems"));
 const salt = process.env.REACT_APP_SALT;
 function initialiseCart() {
   const items = localStorage.getItem('cartItems');
-  console.log(items);
   if (items === undefined || items === null) {
     localStorage.setItem('cartItems', encryptData([], salt));
   }
@@ -53,9 +51,13 @@ const cartSlice = createSlice({
       const items = [...state];
       items.find(item => item.id === action.payload.id).servingSize = action.payload.servingSize;
       state = items;
+    },
+    clearItems(state, action) {
+      const items = [];
+      state = items;
     }
   },
 })
 
-export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients, updateServingSize } = cartSlice.actions
+export const { setItems, deleteItem, updateItemQuantity, updateItemPrice, updateItemExtras, updateItemIngredients, updateServingSize, clearItems } = cartSlice.actions
 export default cartSlice.reducer
