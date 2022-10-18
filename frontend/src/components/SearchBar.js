@@ -10,7 +10,7 @@ const Searchbar = ({ searchQuery, setSearchQuery }) => (
             onInput={e => setSearchQuery(e.target.value)}
             type="text"
             id="header-search"
-            placeholder="Search for..."
+            placeholder="Search for dish name..."
             name="s" 
         />
     </form>

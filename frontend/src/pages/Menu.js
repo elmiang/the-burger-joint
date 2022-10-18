@@ -41,6 +41,7 @@ const filterDishes = (dishes, query) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
     const filteredDishes = filterDishes(dishes, searchQuery);
 
+
     //Seperating "dishes" array into three categories
     const burger = filteredDishes.filter(obj => {
         return obj.Category === 'Burger';
@@ -72,7 +73,9 @@ const filterDishes = (dishes, query) => {
                     </div>
                         
                     {/* Menu: Burgers */}
-                    <h3 id="section-1" className="p-2 text-white">Burgers </h3>
+                    {burger.length > 0 &&
+                        <h3 id="section-1" className="p-2 text-white">Burgers </h3>
+ }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
@@ -89,7 +92,10 @@ const filterDishes = (dishes, query) => {
 
 
                     {/* Menu: Drinks */}
-                    <h3 id="section-2" className="p-3 text-white">Drinks</h3>
+
+                    {drink.length > 0 &&
+                        <h3 id="section-2" className="p-3 text-white">Drinks</h3>
+                    }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
@@ -107,7 +113,9 @@ const filterDishes = (dishes, query) => {
                     {/* End of Section 2 */}
 
                     {/* Menu: Sides */}
-                    <h3 id="section-3" className="p-3 text-white">Sides</h3>
+                    {sides.length > 0 &&
+                        <h3 id="section-3" className="p-3 text-white">Sides</h3>
+                    }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
