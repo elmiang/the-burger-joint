@@ -100,7 +100,6 @@ const Cart = () => {
     const fetchCoupons = async () => {
       try {
         const response = await axios.get(`${baseurl}/api/coupon/`);
-        console.log(response.data);
         setCoupons(response.data);
       } catch (error) {
         console.log(error);

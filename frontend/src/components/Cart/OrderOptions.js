@@ -176,7 +176,7 @@ const OrderOptions = (props) => {
               <h4 className="border-1 border-bottom text-warning pb-2">Ingredients</h4>
               {
                 ingredients.map((ingredient) => 
-                  <OrderIngredient name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
+                  <OrderIngredient key={ingredient} name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
                 )
               }
             </section>
