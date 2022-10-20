@@ -1,9 +1,24 @@
 import React, { useState, useEffect } from "react";
 import MenuItem from "../components/MenuItem";
 import Sidebar from "../components/Sidebar";
+import Searchbar from "../components/SearchBar";
 import axios from "axios";
 
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+const { search } = window.location;
+const query = new URLSearchParams(search).get('s');
+
+//Filter dishes based on query
+const filterDishes = (dishes, query) => {
+    if (!query) {
+        return dishes;
+    }
+
+    return dishes.filter((dishes) => {
+        const dishName = dishes.DishName.toLowerCase();
+        return dishName.includes(query);
+    })
+}
 
  const Menu = () => {
     const [dishes, setDishes] = useState([]);
@@ -24,20 +39,24 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
       fetchDishes();
     }, []);
 
+    const [searchQuery, setSearchQuery] = useState(query || '');
+    const filteredDishes = filterDishes(dishes, searchQuery);
+
+
     //Seperating "dishes" array into three categories
-    const burger = dishes.filter(obj => {
+    const burger = filteredDishes.filter(obj => {
         return obj.Category === 'Burger';
       })
 
-    const drink = dishes.filter(obj => {
+    const drink = filteredDishes.filter(obj => {
         return obj.Category === 'Drink';
       })
 
-    const sides = dishes.filter(obj => {
+    const sides = filteredDishes.filter(obj => {
         return obj.Category === 'Sides';
       })
+      
 
-    
     return ( 
         
         <div className="container-fluid ">
@@ -46,9 +65,18 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                 <div className="col-2 bg-dark"></div>
                 {/* Menu */}
                 <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" className="col py-5 p-5 scrollspy-example rounded-2" tabIndex="0">
-                                       
+                    <div class="btn-group" role="group">
+                    <label class="text-light p-2 fs-4">Categories</label>
+                    <button type="submit" class="btn btn-outline-light me-2">Burgers</button>
+                    <button type="submit" class="btn btn-outline-light me-2">Drinks</button>
+                    <button type="submit" class="btn btn-outline-light me-2">Sides</button>
+                    <Searchbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                    </div>
+                        
                     {/* Menu: Burgers */}
-                    <h3 id="section-1" className="p-2 text-white">Burgers </h3>
+                    {burger.length > 0 &&
+                        <h3 id="section-1" className="p-2 text-white">Burgers </h3>
+ }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
@@ -65,7 +93,10 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
 
                     {/* Menu: Drinks */}
-                    <h3 id="section-2" className="p-3 text-white">Drinks</h3>
+
+                    {drink.length > 0 &&
+                        <h3 id="section-2" className="p-3 text-white">Drinks</h3>
+                    }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
@@ -81,7 +112,9 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
                     {/* End of Section 2 */}
 
                     {/* Menu: Sides */}
-                    <h3 id="section-3" className="p-3 text-white">Sides</h3>
+                    {sides.length > 0 &&
+                        <h3 id="section-3" className="p-3 text-white">Sides</h3>
+                    }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {
