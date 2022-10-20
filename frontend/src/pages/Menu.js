@@ -35,6 +35,7 @@ const filterDishes = (dishes, query) => {
             console.log(err);
         }
       }
+
       fetchDishes();
     }, []);
 
@@ -80,9 +81,9 @@ const filterDishes = (dishes, query) => {
                         
                     {
                         //For every burger, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
-                       burger.map((item, index) => 
-                            <div key={item} data-testid={`menu-item-${index}`}>
-                                <MenuItem  name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                        burger.map((item, index) => 
+                            <div key={item._id} data-testid={`menu-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                             </div>
                         )
                     }
@@ -101,10 +102,8 @@ const filterDishes = (dishes, query) => {
                     {
                         //For every drink, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         drink.map((item) => 
-                            <div key={item}>  
-                                
+                            <div key={item._id}>  
                                 <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
-                                
                             </div>
                         )
                     }
@@ -121,7 +120,7 @@ const filterDishes = (dishes, query) => {
                     {
                         //For every sides, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         sides.map((item) => 
-                            <div key={item}>
+                            <div key={item._id}>
                             <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
                             </div>
                         )

@@ -17,6 +17,7 @@ const orderLinesRoutes = require('./routes/orderLines');
 const reciptsRoutes = require('./routes/recipts')
 const ticketRoutes = require('./routes/tickets')
 const productRoutes = require("./routes/products");
+const couponRoutes = require("./routes/coupon");
 
 const port = process.env.PORT || 8888;
 
@@ -69,24 +70,17 @@ app.use('/api/profile', profileRoutes);
 // app.use('/api/profile', checkJwt, profileRoutes);
 app.use('/api/menu', dishesRoutes);
 app.use('/api/sales', orderLinesRoutes);
-app.use('/api/recipts', reciptsRoutes)
-app.use('/api/tickets', ticketRoutes)
+app.use('/api/recipts', reciptsRoutes);
+app.use('/api/tickets', ticketRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/coupon", couponRoutes);
 
-// Test routes
-// app.get("/", (req, res) => {
-//   res.send("Hello");
-// })
 
 // Function defined for logging requests [DEBUGGING]
 app.use( (req, res, next) => {
   console.log(req.path, req.method);
   next();  
 })
-
-// app.get('/api', function (req, res) {
-//   res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
-// })
 
 // Connect to db
 mongoose.connect(process.env.MONGO_URL)

@@ -1,0 +1,18 @@
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+// Highlight snippets and select run to only run certain lines.
+
+// Select the database to use.
+use('BurgerJointDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.Coupon.drop();
+
+// Insert a few documents into the dish collection, if the collection doesnt exist, this will create it.
+db.Coupon.insertMany([
+  { id: 1, code: '15off', rate: 0.15 },
+  { id: 2, code: '25off', rate: 0.25 },
+  { id: 3, code: '50off', rate: 0.50 },
+  { id: 4, code: 'nocoupon', rate: 0 } //This one is just for debugging
+]);
