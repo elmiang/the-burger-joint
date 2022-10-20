@@ -12,6 +12,13 @@ const AccountProfile = () => {
     const { user, logout, isAuthenticated, loginWithRedirect} = useAuth0();
     //Used to dispatch clearItems method which removes all items from the cart
     const dispatch = useDispatch();
+
+    function logoutUser() {
+        logout();
+        dispatch(clearItems());
+        localStorage.clear();
+    }
+
     if (!isAuthenticated) {
         return (
             <a className="account-icon" href="/" onClick={() => loginWithRedirect()} alt="Sign in or Sign up">
@@ -37,7 +44,7 @@ const AccountProfile = () => {
                 <NavDropdown.Item href="/profile"> Profile</NavDropdown.Item>
                 <NavDropdown.Item  href="/orderhistory"> View Order History</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item  onClick={() => { logout(); dispatch(clearItems())}}>Logout</NavDropdown.Item>
+                <NavDropdown.Item  onClick={() => {logoutUser()} }>Logout</NavDropdown.Item>
            </NavDropdown>                     
         )
     }    

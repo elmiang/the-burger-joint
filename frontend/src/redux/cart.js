@@ -2,27 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 import { decryptData, encryptData } from '../utility/Functions';
 
 const salt = process.env.REACT_APP_SALT;
-// function initialiseCart() {
-//   const items = localStorage.getItem('cartItems');
-//   if (items === undefined || items === null) {
-//     localStorage.setItem('cartItems', encryptData([], salt));
-//   }
-// }
-// initialiseCart();
-
-
-// const initialState = decryptData(localStorage.getItem("cartItems"), salt);
-// if (!initialState) {
-
-// }
 var cartData = localStorage.getItem("cartItems");
+//If cartData is null
 if (!cartData) {
   localStorage.setItem('cartItems', encryptData([], salt));
   cartData = localStorage.getItem("cartItems");
 }
-const initialState = decryptData(cartData, salt);
+var initialState = decryptData(cartData, salt);
+//If initial state is modified
 if (!initialState) {
-  
+  initialState = [];
 }
 
 //Use return for methods that directly manipulates the state
