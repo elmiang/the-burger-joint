@@ -45,10 +45,10 @@ const getProductsByType = async (req, res) => {
 const createProduct = async (req, res) => {
   const {
     Dish_id,
-    category,
-    dishname,
-    price,
-    description,
+    Category,
+    DishName,
+    Price,
+    Description,
     ingredients,
     imageURL,
   } = req.body;
@@ -58,16 +58,16 @@ const createProduct = async (req, res) => {
   if (!Dish_id) {
     emptyFields.push("Dish_id");
   }
-  if (!dishname) {
+  if (!DishName) {
     emptyFields.push("DishName");
   }
-  if (!category) {
+  if (!Category) {
     emptyFields.push("Category");
   }
-  if (!description) {
+  if (!Description) {
     emptyFields.push("Description");
   }
-  if (!price) {
+  if (!Price) {
     emptyFields.push("Price");
   }
   if (!imageURL) {
@@ -76,17 +76,17 @@ const createProduct = async (req, res) => {
   if (emptyFields.length > 0) {
     return res
       .status(400)
-      .json({ error: "Please fill in all the fields!", emptyFields });
+      .json({ error: "Please fill in the highlighted fields!", emptyFields });
   }
 
   // add document to MongoDB
   try {
     const product = await Dish.create({
       Dish_id,
-      category,
-      dishname,
-      price,
-      description,
+      Category,
+      DishName,
+      Price,
+      Description,
       ingredients,
       imageURL,
     });

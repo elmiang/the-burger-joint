@@ -124,14 +124,14 @@ describe("Update Product", () => {
 
     await updateProduct(req, res);
     const data = res.json.mock.calls[0][0];
-
+    console.log(req.body)
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
 
     expect(data.Dish_id).toEqual(product.Dish_id);
     expect(data.dishname).toEqual(product.dishname);
     expect(data.category).toEqual(product.category);
-    expect(data.price).toEqual(product.price);
+    expect(data.price).toEqual(updatedProduct.price);
     expect(data.description).toEqual(product.description);
     expect(data.imageURL).toEqual(product.imageURL);
   });

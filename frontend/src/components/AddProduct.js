@@ -13,7 +13,7 @@ const AddProduct = () => {
   const [ingredients, setIngredients] = useState([]);
   const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState("");
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const AddProduct = () => {
       },
     });
     const json = await response.json();
-
+    console.log(emptyFields);
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
