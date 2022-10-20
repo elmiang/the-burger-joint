@@ -96,11 +96,8 @@ const deleteTicket = async (req, res) => {
     res.status(200).json(ticket)
 }
 
+// GETS tickets thats status have not been resolved 
 const getUnresolvedTicket = async (req, res) => {
-
-    /*if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'no such ticket'})
-    }*/
 
     const ticket = await Ticket.find({ticket_resolved: false}).sort({createdAt: -1})
 
@@ -112,11 +109,9 @@ const getUnresolvedTicket = async (req, res) => {
     res.status(200).json(ticket)
 }
 
+// GETS tickets thats status has been resolved & matches user ID
 const getResolvedTicket = async (req, res) => {
     const {id} = req.params
-    /*if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'no such ticket'})
-    }*/
 
     const ticket = await Ticket.find({ $and: [
         { "ticket_resolved": "true"},
