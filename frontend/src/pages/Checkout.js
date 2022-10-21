@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from 'react-redux';
 import { decryptData } from "../utility/Functions";
 import { clearItems } from "../redux/cart";
+import axios from "axios";
 
 const Checkout = () => {
     const cartItems = useSelector((state) => state.cart);
@@ -76,6 +77,15 @@ const Checkout = () => {
             setError(json.error)
         }
         if (response.ok) {
+            if (decryptedCoupon) {
+                try {
+                    const res = await axios.patch(`/api/profile/coupon/${User_ID}`, decryptedCoupon);
+                    console.log(res);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
             setUserID('')
             setPaymentType('')
             setCardNo('')

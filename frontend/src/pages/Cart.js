@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import CartItem from "../components/Cart/CartItem";
 
@@ -12,15 +13,35 @@ const salt = process.env.REACT_APP_SALT;
 
 //Cart page
 const Cart = () => {
+  const { user } = useAuth0();
   const cartItems = useSelector((state) => state.cart);
+  const couponSubmitted = useRef(false);
 
   //Coupon-related states
   const [coupons, setCoupons] = useState([]);
+  const [usedCoupons, setUsedCoupons] = useState([]);
   const [couponResponse, setCouponResponse] = useState("");
   const [discountMessage, setDiscountMessage] = useState("");
   const [inputCode, setInputCode] = useState("");
 
   const [totalPrice, setTotalPrice] = useState(0);
+
+  // Fetch user's used coupons
+  const fetchUsedCoupons = async () => {
+    if (user) {
+      try {
+        const response = await axios.get(`${baseurl}/api/profile/${user.email}`);
+        if (response.data.coupons) {
+          setUsedCoupons(response.data.coupons);
+        }
+        else {
+          setUsedCoupons([]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   //Updates the total price of the cart
   //Accounts for cart item extras and coupon application
@@ -58,17 +79,8 @@ const Cart = () => {
   //Handles the coupon submission
   //Checks if the coupon exists and is valid, then applies the coupon
   function handleCouponSubmit() {
-    let coupon = coupons.find(coupon => coupon.code === inputCode);
-    if (coupon) {
-      const encryptedData = encryptData(coupon, salt);
-
-      setCouponResponse('valid');
-      localStorage.setItem('coupon', encryptedData);
-      setDiscountMessage(coupon.rate * 100 + "% discount applied to $" + ((1 / (1-coupon.rate)) * totalPrice.replace(/[^\d.]/g, '')));
-    }
-    else {
-      setCouponResponse('invalid');
-    }
+    couponSubmitted.current = true;
+    fetchUsedCoupons();
   }
 
   //Update the total price when an item quantity, extra or serving size is updated
@@ -97,12 +109,12 @@ const Cart = () => {
     }
 
     if (decryptedCoupon && totalPrice) {
-      setDiscountMessage("%" + decryptedCoupon.rate * 100 + " discount applied to $" + ((1 / (1-decryptedCoupon.rate)) * totalPrice.replace(/[^\d.]/g, '')));
+      setDiscountMessage(decryptedCoupon.rate * 100 + "% discount applied to $" + ((1 / (1-decryptedCoupon.rate)) * totalPrice.replace(/[^\d.]/g, '')));
     }
 
   }, [totalPrice])
 
-  //Fetch coupons from database and save to coupons state
+  //Fetch coupons from database and save to coupons state on load
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
@@ -112,9 +124,34 @@ const Cart = () => {
         console.log(error);
       }
     }
-
     fetchCoupons();
   }, [])
+
+  //Set the coupon states and responses
+  //Runs whenever the usedCoupons field changes
+  useEffect(() => {
+    if (!couponSubmitted.current) {
+      return;
+    }
+
+    if (usedCoupons) {
+      if (usedCoupons.find(coupon => coupon.code === inputCode)) {
+        setCouponResponse('couponApplied');
+        return;
+      }
+    }
+
+    let coupon = coupons.find(coupon => coupon.code === inputCode);
+    if (coupon) {
+      const encryptedData = encryptData(coupon, salt);
+
+      setCouponResponse('valid');
+      localStorage.setItem('coupon', encryptedData);
+    }
+    else {
+      setCouponResponse('invalid');
+    }
+  }, [usedCoupons])
 
   return (
     <div className="cart bg-secondary">
@@ -143,7 +180,7 @@ const Cart = () => {
                 <div className='pt-2'>
                   {couponResponse==='valid' && <p className='text-warning fw-bold'>Coupon successfully applied</p>}
                   {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}
-                  {/* {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>A coupon is already applied</p>} */}
+                  {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>The coupon has already been applied</p>}
                 </div>
               </div>
             </form>
