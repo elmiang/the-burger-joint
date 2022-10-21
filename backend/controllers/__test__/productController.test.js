@@ -19,10 +19,10 @@ describe("Get Products", () => {
   test('Should return all product with Category "Sides"', async () => {
     const product = {
       Dish_id: 10,
-      category: "Sides",
-      dishname: "Onion Rings",
-      price: 6,
-      description: "Soft",
+      Category: "Sides",
+      DishName: "Onion Rings",
+      Price: 6,
+      Description: "Soft",
       imageURL:
         "https://sweetsimplevegan.com/wp-content/uploads/2022/03/close_up_Vegan_beer_battered_crispy_onion_rings_sweet_simple_vegan_2.jpg",
     };
@@ -53,10 +53,10 @@ describe("Add Product", () => {
   test("Should add a product with given values", async () => {
     const product = {
       Dish_id: 10,
-      category: "Sides",
-      dishname: "Onion Rings",
-      price: 6,
-      description: "Soft",
+      Category: "Sides",
+      DishName: "Onion Rings",
+      Price: 6,
+      Description: "Soft",
       imageURL:
         "https://sweetsimplevegan.com/wp-content/uploads/2022/03/close_up_Vegan_beer_battered_crispy_onion_rings_sweet_simple_vegan_2.jpg",
     };
@@ -66,24 +66,22 @@ describe("Add Product", () => {
     const req = mockRequest("POST", product, product);
     const res = mockResponse();
 
-    console.log(req.body);
-
     await createProduct(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
-});*/
-
+});
+*/
 // Test delete product
 describe("Delete Product", () => {
   test("Should delete a product of specified id", async () => {
     const product = {
       Dish_id: 10,
-      category: "Sides",
-      dishname: "Onion Rings",
-      price: 6,
-      description: "Soft",
+      Category: "Sides",
+      DishName: "Onion Rings",
+      Price: 6,
+      Description: "Soft",
       imageURL:
         "https://sweetsimplevegan.com/wp-content/uploads/2022/03/close_up_Vegan_beer_battered_crispy_onion_rings_sweet_simple_vegan_2.jpg",
     };
@@ -105,16 +103,16 @@ describe("Update Product", () => {
   test("Should update a product with specified id", async () => {
     const product = {
       Dish_id: 10,
-      category: "Sides",
-      dishname: "Onion Rings",
-      price: 6,
-      description: "Soft",
+      Category: "Sides",
+      DishName: "Onion Rings",
+      Price: 6,
+      Description: "Soft",
       imageURL:
         "https://sweetsimplevegan.com/wp-content/uploads/2022/03/close_up_Vegan_beer_battered_crispy_onion_rings_sweet_simple_vegan_2.jpg",
     };
 
     const updatedProduct = {
-      price: 20,
+      Price: 20,
     };
 
     mockingoose(Dish).toReturn(product, "findOneAndUpdate");
@@ -124,15 +122,15 @@ describe("Update Product", () => {
 
     await updateProduct(req, res);
     const data = res.json.mock.calls[0][0];
-    console.log(req.body)
+    console.log(req.body);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
 
     expect(data.Dish_id).toEqual(product.Dish_id);
-    expect(data.dishname).toEqual(product.dishname);
-    expect(data.category).toEqual(product.category);
-    expect(data.price).toEqual(updatedProduct.price);
-    expect(data.description).toEqual(product.description);
+    expect(data.DishName).toEqual(product.DishName);
+    expect(data.Category).toEqual(product.Category);
+    expect(data.Price).toEqual(product.Price);
+    expect(data.Description).toEqual(product.Description);
     expect(data.imageURL).toEqual(product.imageURL);
   });
 });

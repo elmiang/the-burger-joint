@@ -2,7 +2,6 @@ var express = require("express");
 const {
   getProducts,
   getProduct,
-  getProductsByType,
   createProduct,
   deleteProduct,
   updateProduct,
@@ -14,10 +13,10 @@ var router = express.Router();
 router.get("/", getProducts);
 
 // Get a product
-//router.get("/:id", getProduct);
+router.get("/:id", getProduct);
 
 // Get products by type
-router.get("/:category", getProductsByType);
+//router.get("/:category", getProductsByType);
 
 // Post new product
 router.post("/", createProduct);

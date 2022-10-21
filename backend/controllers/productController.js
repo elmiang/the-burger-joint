@@ -120,6 +120,7 @@ const updateProduct = async (req, res) => {
     }
   );
 
+  const updatedProduct = Dish.find({ Dish_id: id });
   if (!product) {
     return res.status(400).json({ error: "No such product" });
   }
