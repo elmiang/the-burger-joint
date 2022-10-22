@@ -28,10 +28,7 @@ const ProductItem = ({ product }) => {
           >
             edit
           </span>
-          {products &&
-            products.map((product) => (
-              <EditProduct key={product.Dish_id} product={product} />
-            ))}
+          <EditProduct key={product.Dish_id} product={product} />
 
           <span
             className="material-symbols-outlined m-1 text-danger"
