@@ -16,6 +16,7 @@ const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 const audience = process.env.REACT_APP_AUTH0_API;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Auth0Provider

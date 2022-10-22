@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js';
+
 //Formats a provided number into a currency format 
 function currencyFormat(num) {
   return '$' + num.toFixed(2);
@@ -24,4 +26,19 @@ function handleCategoryPrice(item) {
   return currentCost;
 }
 
-export { currencyFormat, handleCategoryPrice };
+const encryptData = (data, salt) => {
+  return CryptoJS.AES.encrypt(JSON.stringify(data), salt).toString();
+}
+
+const decryptData = (ciphertext, salt) => {
+  const bytes = CryptoJS.AES.decrypt(ciphertext, salt);
+  try {
+    return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+}
+
+
+export { currencyFormat, handleCategoryPrice, encryptData, decryptData };

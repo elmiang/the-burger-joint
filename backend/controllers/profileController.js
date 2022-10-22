@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Profile = require('../models/accountModel');
 const Order = require('../models/orderModel');
 const OrderLine = require('../models/orderLineModel');
+const { db } = require('../models/accountModel');
 
 // Get the user profile
 const getUserProfile = async (req, res) => {
@@ -81,10 +82,38 @@ const userOrderHistory  = async (req, res) => {
     res.status(200).json(orderHistory);
 }
 
+// Update a user's coupon status
+const updateUserCoupons = async (req, res) => {
+    // Get the user ID
+    const email = req.params.id;
+    const coupon = req.body;
+
+    db.collection('User')
+        .updateOne({email: email}, {$push: {"coupons": coupon}})
+        .then(result => {
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            res.status(500).json({error: 'Could not update the document'})
+        })
+
+    // const profile = await Profile.findOneAndUpdate({email: email}, { $push: {"coupons": coupon}});
+    // console.log(req.body);
+
+    // // Check that the update was not null
+    // if (!profile) {
+    //     return res.status(404).json({error: 'No such account exists'})
+    // }
+
+    // // Return 200 status, indicating that the profile had been updated
+    // res.status(200).json(profile)
+}
+
 // Exporting the functions
 module.exports = {
     getUserProfile,
     updateUserProfile,
     deleteUserProfile,
-    userOrderHistory  
+    userOrderHistory,
+    updateUserCoupons  
 };

@@ -7,19 +7,19 @@ const DishSchema = new Schema({
     type: Number,
     required: true
   },
-  category: {
+  Category: {
     type: String,
     required: true
   },
-  dishname: {
+  DishName: {
     type: String,
     required: true
   },
-  price: {
+  Price: {
     type: Number,
     required: true
   },
-  description: {
+  Description: {
     type: String,
     required: true
   },

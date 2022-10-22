@@ -86,7 +86,7 @@ const OrderOptions = (props) => {
         const response = await axios.get(`${baseurl}/api/menu/`);
 
         if (response.status === 200) {
-          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+          const ingredients = response.data.find(item => item.DishName === props.name).ingredients;
           if (ingredients) {
             setIngredients(ingredients);
           }
@@ -176,7 +176,7 @@ const OrderOptions = (props) => {
               <h4 className="border-1 border-bottom text-warning pb-2">Ingredients</h4>
               {
                 ingredients.map((ingredient) => 
-                  <OrderIngredient name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
+                  <OrderIngredient key={ingredient} name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
                 )
               }
             </section>
