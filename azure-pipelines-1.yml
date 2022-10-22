@@ -3,8 +3,11 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+# Trigger CI pipeline on commits to all branches
 trigger:
-- main
+  branches:
+    include:
+    - '*'
 
 pool:
   vmImage: ubuntu-latest
@@ -12,10 +15,52 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '16.x'
   displayName: 'Install Node.js'
 
 - script: |
+    cd frontend
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install frontend'
+
+- task: DownloadSecureFile@1
+  name: mySecureFile
+  inputs:
+    secureFile: '.env'
+  
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    workingDir: frontend/
+    command: custom
+    customCommand: run build
+  
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: $(Agent.TempDirectory)
+    contents: $(mySecureFile.secureFilePath)
+    targetFolder: frontend/
+- task: Npm@1
+  displayName: 'npm run test frontend'
+  inputs:
+    workingDir: frontend/
+    command: custom
+    customCommand: run ci:unit
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results junit.xml'
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/junit.xml'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+
+- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+  artifact: drop
