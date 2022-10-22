@@ -69,33 +69,14 @@ steps:
   inputs:
     testResultsFiles: '**/junit.xml'
 
-- task: CopyFiles@2
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '*.tgz' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy npm package'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy package.json'   
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/npm'
-    artifactName: npm
-  displayName: 'Publish npm artifact'
-# - task: Npm@1
-#   displayName: Publish release
-#   inputs:
-#     command: 'publish'
-#     publishRegistry: 'useFeed'
-#     publishFeed: '3eaa1418-7323-41c8-b44a-31878da72e5a/dae4a809-ff9e-491a-882e-dee35e2371d2'
-
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     PathtoPublish: $(Build.ArtifactStagingDirectory)/Release
-#     ArtifactName: ASDBuild
+- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+  artifact: drop
