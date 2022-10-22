@@ -55,10 +55,8 @@ const filterDishes = (dishes, query) => {
     const sides = filteredDishes.filter(obj => {
         return obj.Category === 'Sides';
       })
-      
 
     return ( 
-        
         <div className="container-fluid ">
             <div className="row">
             <Sidebar/>
@@ -76,18 +74,17 @@ const filterDishes = (dishes, query) => {
                     {/* Menu: Burgers */}
                     {burger.length > 0 &&
                         <h3 id="section-1" className="p-2 text-white">Burgers </h3>
- }
+                    }
+
                     <div className="row row-cols-1 row-cols-md-3 g-4">
-                        
                     {
                         //For every burger, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                         burger.map((item, index) => 
-                            <div key={item._id} data-testid={`menu-item-${index}`}>
+                            <div key={item.Dish_id} data-testid={`menu-item-${index}`}>
                                 <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                             </div>
                         )
                     }
-                    
                     </div>
                     {/* End of Section 1 */}
 
