@@ -1,40 +1,39 @@
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useEffect } from "react";
 
 const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
 
-  const [Dish_id, setDish_id] = useState(product.Dish_id);
-  const [DishName, setDishName] = useState(product.DishName);
-  const [Category, setCategory] = useState(product.Category);
-  const [Description, setDescription] = useState(product.Description);
-  const [Price, setPrice] = useState(product.Price);
-  const [ingredients, setIngredients] = useState(product.ingredients);
-  const [imageURL, setImageURL] = useState(product.imageURL);
+  const [Dish_id, setDish_id] = useState("");
+  const [DishName, setDishName] = useState("");
+  const [Category, setCategory] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Price, setPrice] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState("");
-  {
-    /*
-    useEffect(() => {
-      const fetchProduct = async () => {
-        const response = await fetch("/api/products/" + product.Dish_id);
-        const json = await response.json();
+  const [emptyFields, setEmptyFields] = useState([]);
+  /*
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch("/api/products/" + product.Dish_id);
+      const json = await response.json();
 
-        if (response.ok) {
-          setDish_id(product.Dish_id);
-          setDishName(product.DishName);
-          setCategory(product.Category);
-          setDescription(product.Description);
-          setPrice(product.Price);
-          setIngredients(product.ingredients);
-          setImageURL(product.imageURL);
-          dispatch({ type: "EDIT_PRODUCTS", payload: json });
-        }
-      };
-      fetchProduct();
-    });
-  */
-  }
+      if (response.ok) {
+        setDish_id(product.Dish_id);
+        setDishName(product.DishName);
+        setCategory(product.Category);
+        setDescription(product.Description);
+        setPrice(product.Price);
+        setIngredients(product.ingredients);
+        setImageURL(product.imageURL);
+        dispatch({ type: "EDIT_PRODUCTS", payload: json });
+      }
+    };
+    fetchProduct();
+  });
+*/
   {
     /*}
   const getProduct = async (id) => {
@@ -54,14 +53,14 @@ const EditProduct = ({ product }) => {
       imageURL,
     };
     const response = await fetch("/api/products/" + editedProduct.Dish_id, {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify(editedProduct),
       headers: {
         "Content-Type": "application/json",
       },
     });
     const json = await response.json();
-
+    console.log(response.ok);
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
