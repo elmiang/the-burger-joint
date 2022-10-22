@@ -32,6 +32,11 @@ steps:
     npm install
   displayName: 'npm install backend'
 
+- task: DownloadSecureFile@1
+  name: mySecureFile
+  inputs:
+    secureFile: '.env'
+  
 - task: Npm@1
   displayName: 'npm build'
   inputs:
@@ -39,6 +44,10 @@ steps:
     command: custom
     customCommand: run build
   
+- task: CopyFiles@2
+  inputs:
+    contents: $(mySecureFile)
+    TargetFolder: frontend/
 - task: Npm@1
   displayName: 'npm run test frontend'
   inputs:
@@ -59,8 +68,8 @@ steps:
   inputs:
     testResultsFiles: '**/junit.xml'
 
-# - task: Npm@1
-#   inputs:
-#     command: 'publish'
-#     publishRegistry: 'useFeed'
-#     publishFeed: '3eaa1418-7323-41c8-b44a-31878da72e5a/dae4a809-ff9e-491a-882e-dee35e2371d2'
+- task: Npm@1
+  inputs:
+    command: 'publish'
+    publishRegistry: 'useFeed'
+    publishFeed: '3eaa1418-7323-41c8-b44a-31878da72e5a/dae4a809-ff9e-491a-882e-dee35e2371d2'
