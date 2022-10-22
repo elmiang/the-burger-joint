@@ -46,8 +46,9 @@ steps:
   
 - task: CopyFiles@2
   inputs:
+    sourceFolder: $(Agent.TempDirectory)
     contents: $(mySecureFile.secureFilePath)
-    TargetFolder: frontend/
+    targetFolder: frontend/
 - task: Npm@1
   displayName: 'npm run test frontend'
   inputs:
