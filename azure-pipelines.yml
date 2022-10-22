@@ -106,4 +106,4 @@ stages:
             inputs:
               azureSubscription: 'asd-proj-connect'
               appName: 'burger-joint-demo-asd'
-              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+              package: '$(Pipeline.Workspace)//$(Build.BuildId)/*.zip'
