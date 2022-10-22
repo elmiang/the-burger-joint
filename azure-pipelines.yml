@@ -46,7 +46,7 @@ steps:
   
 - task: CopyFiles@2
   inputs:
-    contents: $(mySecureFile)
+    contents: $(mySecureFile.secureFilePath)
     TargetFolder: frontend/
 - task: Npm@1
   displayName: 'npm run test frontend'
