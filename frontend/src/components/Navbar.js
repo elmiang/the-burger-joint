@@ -6,14 +6,6 @@ import Checkout from "../pages/Checkout";
 import OrderHistory from "../pages/ReciptHistory";
 
 const Navbar = () => {
-  function initialiseCart() {
-    const items = JSON.parse(localStorage.getItem('cartItems'));
-    if (items === undefined || items === null) {
-      localStorage.setItem('cartItems', JSON.stringify([]));
-    }
-  }
-
-
   return(
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid justify-content-end">
@@ -26,7 +18,7 @@ const Navbar = () => {
         <AccountProfile/>
 
         {/* Cart  */}
-        <a href="/cart" className="btn bg-dark rounded-circle me-2" style={{ width: "3.5rem", height: "3rem"}} onClick={initialiseCart}>
+        <a href="/cart" className="btn bg-dark rounded-circle me-2" style={{ width: "3.5rem", height: "3rem"}}>
           <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
