@@ -175,8 +175,8 @@ const OrderOptions = (props) => {
             <section className="p-2">
               <h4 className="border-1 border-bottom text-warning pb-2">Ingredients</h4>
               {
-                ingredients.map((ingredient) => 
-                  <OrderIngredient name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
+                ingredients.map((ingredient, index) => 
+                  <OrderIngredient key={`${ingredient}-item-${index}`} name={ingredient} itemId={props.id} handleUpdateIngredients={handleUpdateIngredients} modalOpened={props.modalOpened}/>
                 )
               }
             </section>

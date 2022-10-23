@@ -37,14 +37,14 @@ const ActiveTicket = ({ ticket }) => {
     
 
     return (
-         <div class="col">
-            <div class="card h-100 w-100">
-                <div class="card-body">
-                    <h5 class="card-title">{ticket.ticket_title}</h5>
-                    <p class="card-text">Date: {ticket.createdAt}</p>
-                    <p class="fw-bold">{ticket.ticket_body}</p>
+         <div className="col">
+            <div className="card h-100 w-100">
+                <div className="card-body">
+                    <h5 className="card-title">{ticket.ticket_title}</h5>
+                    <p className="card-text">Date: {ticket.createdAt}</p>
+                    <p className="fw-bold">{ticket.ticket_body}</p>
                     <form>
-                        <textarea rows = "10" cols="50" id="TicketBody" class="m-2"
+                        <textarea rows = "10" cols="50" id="TicketBody" className="m-2"
                             onChange={(e) => setResolutionBody(e.target.value)}
                             value={resolution_body}
                         />

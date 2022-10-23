@@ -64,24 +64,24 @@ const filterDishes = (dishes, query) => {
                 <div className="col-2 bg-dark"></div>
                 {/* Menu */}
                 <div data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" className="col py-5 p-5 scrollspy-example rounded-2" tabIndex="0">
-                    <div class="btn-group" role="group">
-                    <label class="text-light p-2 fs-4">Categories</label>
-                    <button type="submit" class="btn btn-outline-light me-2">Burgers</button>
-                    <button type="submit" class="btn btn-outline-light me-2">Drinks</button>
-                    <button type="submit" class="btn btn-outline-light me-2">Sides</button>
+                    <div className="btn-group" role="group">
+                    <label className="text-light p-2 fs-4">Categories</label>
+                    <button type="submit" className="btn btn-outline-light me-2">Burgers</button>
+                    <button type="submit" className="btn btn-outline-light me-2">Drinks</button>
+                    <button type="submit" className="btn btn-outline-light me-2">Sides</button>
                     <Searchbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
                     </div>
                         
                     {/* Menu: Burgers */}
                     {burger.length > 0 &&
                         <h3 id="section-1" className="p-2 text-white">Burgers </h3>
- }
+                    }
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                         
                     {
                         //For every burger, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                        burger.map((item, index) => 
-                            <div key={item} data-testid={`menu-item-${index}`}>
+                            <div key={`burger-item-${index}`} data-testid={`menu-item-${index}`}>
                                 <MenuItem  name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                             </div>
                         )
@@ -100,8 +100,8 @@ const filterDishes = (dishes, query) => {
 
                     {
                         //For every drink, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
-                        drink.map((item) => 
-                            <div key={item}>  
+                        drink.map((item,index) => 
+                            <div key={`drink-item-${index}`}>  
                                 
                                 <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                                 
@@ -120,9 +120,9 @@ const filterDishes = (dishes, query) => {
 
                     {
                         //For every sides, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
-                        sides.map((item) => 
-                            <div key={item}>
-                            <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
+                        sides.map((item,index) => 
+                            <div key={`sides-item-${index}`}>
+                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
                             </div>
                         )
                     }

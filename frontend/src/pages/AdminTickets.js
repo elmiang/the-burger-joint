@@ -25,11 +25,11 @@ const Tickets = () => {
     }, [])
 
     return ( 
-        <div class="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
-            <div class="row">
+        <div className="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
+            <div className="row">
                 {/*AdminTicket: Active Tickets*/}
-                <h3 id="ResolvingTicket" class="p-2 mt-3 text-white">Tickets to be resolved</h3>
-                    <div class="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
+                <h3 id="ResolvingTicket" className="p-2 mt-3 text-white">Tickets to be resolved</h3>
+                    <div className="row row-cols-1 row-cols-md-2 g-4 bg-light m-2 p-2 rounded">
                         {tickets && tickets.map((ticket) => (
                             <ResolvingTicket key={ticket._id} ticket={ticket}/>
                         ))}
@@ -39,14 +39,14 @@ const Tickets = () => {
     );
 };
 export default Tickets;
-//<input id="TicketBody" type="text" class="w-75 h-100"></input><br/>
+//<input id="TicketBody" type="text" className="w-75 h-100"></input><br/>
 // Implement Ticket
 // 
 
 /*
-            <div class="row">
+            <div className="row">
                 <div>
-                    <h3 id="TicketHeader" class="p-3 mt-3 text-white">Ticket submission</h3>
+                    <h3 id="TicketHeader" className="p-3 mt-3 text-white">Ticket submission</h3>
                     <p>If the user has any problems with an order or questions regarding how to use the system, please fill out a ticket and we will respond as quickly as possible</p>
                 </div>
                 <div>
@@ -60,7 +60,7 @@ export default Tickets;
 
 
 
-/*                    <textarea rows = "10" cols="100" id="TicketBody" class="m-2"
+/*                    <textarea rows = "10" cols="100" id="TicketBody" className="m-2"
                         onChange={(e) => setTicketBody(e.target.value)}
                         value={ticket_body}
                     />*/
