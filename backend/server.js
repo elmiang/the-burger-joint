@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 
 const { auth } = require('express-oauth2-jwt-bearer');
 // const jwt = require('express-jwt');
@@ -22,6 +23,7 @@ const couponRoutes = require("./routes/coupon");
 const port = process.env.PORT || 8888;
 
 // Middleware
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 app.use(cors({
   origin: '*'
@@ -84,6 +86,10 @@ app.use( (req, res, next) => {
 
 app.get('/', (req, res) => {
   res.send('APP IS RUNNING.');
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Connect to db
