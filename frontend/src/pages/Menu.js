@@ -7,7 +7,7 @@ import axios from "axios";
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
 const { search } = window.location;
 const query = new URLSearchParams(search).get('s');
-
+console.log(process.env);
 //Filter dishes based on query
 const filterDishes = (dishes, query) => {
     if (!query) {
