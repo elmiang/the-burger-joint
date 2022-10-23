@@ -23,7 +23,7 @@ const couponRoutes = require("./routes/coupon");
 const port = process.env.PORT || 8888;
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(express.json());
 app.use(cors({
   origin: '*'
@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 // Connect to db
