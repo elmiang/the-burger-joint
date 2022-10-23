@@ -113,7 +113,7 @@ const Cart = () => {
     }
 
   }, [totalPrice])
-
+  
   //Fetch coupons from database and save to coupons state on load
   useEffect(() => {
     const fetchCoupons = async () => {
