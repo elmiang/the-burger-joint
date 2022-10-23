@@ -6,6 +6,7 @@ import { Button, ButtonGroup, Form, Col, Row, Modal } from 'react-bootstrap';
 import { IconContext } from "react-icons";
 import { FaTrash, FaPen, FaSave, FaHome, FaMobile, FaWindowClose } from "react-icons/fa";
 
+const domain = process.env.REACT_APP_BACKEND_API_URL;
 
 const ProfileDetails = () => {
   const { user, isAuthenticated, getAccessTokenSilently, logout } = useAuth0();
@@ -25,31 +26,24 @@ const ProfileDetails = () => {
 
   useEffect(() => {
     const getUserMetadata = async () => {
-      const domain = process.env.REACT_APP_BACKEND_API_URL;
-      // const audience = process.env.REACT_APP_AUTH0_API;
 
       try {
-        const accessToken = '';
-        // const accessToken = await getAccessTokenSilently({
-        //   audience: audience
-        // });
-
-        const profileURL = `${domain}/api/profile/${user.email}`;
-  
-        const profileResponse = await fetch(profileURL, {
+        const accessToken = await getAccessTokenSilently();
+        const response = await fetch(`${domain}/api/profile`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"            
           },
         });
   
-        const user_metadata = await profileResponse.json();
+        // parse response and set state
+        const user_metadata = await response.json();
         const { firstName, lastName, residentialAddress, phoneNumber } = user_metadata;
         setFirstName(firstName);
         setLastName(lastName);
         setResidentialAddress(residentialAddress);
         setPhoneNumber(phoneNumber ?? '');
   
-        //setUserMetadata(user_metadata);
       } catch (e) {
         console.log(e.message);
       }
@@ -58,11 +52,6 @@ const ProfileDetails = () => {
     getUserMetadata();
   }, [getAccessTokenSilently, user?.email]);
 
-  // useEffect(() => {
-  //   const form = document.getElementById("formAccountDetails");    
-  //   form?.checkValidity();
-  // }, [phoneNumber]);
-
   const handleSubmit = async (e) => { 
     const form = document.getElementById("formAccountDetails"); 
     if (form.checkValidity() === false) {
@@ -70,13 +59,10 @@ const ProfileDetails = () => {
       return;
     }
 
-    setValidated(true);
-    
-    const domain = process.env.REACT_APP_BACKEND_API_URL;
-    // const audience = process.env.REACT_APP_AUTH0_API;
+    setValidated(true);  
 
     try {
-      const profileURL = `${domain}/api/profile/${user.email}`;
+      const profileURL = `${domain}/api/profile`;
       const profileBody = {
         email: user.email,
         firstName: firstName,
@@ -87,11 +73,7 @@ const ProfileDetails = () => {
 
       console.log(JSON.stringify(profileBody));
 
-      const accessToken = '';
-      // const accessToken = await getAccessTokenSilently({
-      //   audience: audience
-      // });
-
+      const accessToken = await getAccessTokenSilently();
       const profileResponse = await fetch(profileURL, {
         method: 'PATCH',
         body: JSON.stringify(profileBody),
@@ -114,20 +96,14 @@ const ProfileDetails = () => {
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    const domain = process.env.REACT_APP_BACKEND_API_URL;
-    // const audience = process.env.REACT_APP_AUTH0_API;
-
     try {
-      const profileURL = `${domain}/api/profile/${user.email}`;
-      const accessToken = '';
-      // const accessToken = await getAccessTokenSilently({
-      //   audience: audience
-      // });
-
+      const profileURL = `${domain}/api/profile`;
+      const accessToken = await getAccessTokenSilently();
       await fetch(profileURL, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"            
         },
       });
 

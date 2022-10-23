@@ -26,28 +26,6 @@ app.use(cors({
   origin: '*'
 }));
 
-// Create middleware for checking the JWT
-// const checkJwt = auth({
-//   // Validate the audience and the issuer
-//   audience: process.env.AUTH0_API, 
-//   issuerBaseURL:process.env.AUTH0_BASE_URL,
-//   algorithms: [ 'RS256' ]
-// });
-
-console.log({
-  // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `${process.env.AUTH0_BASE_URL}.well-known/jwks.json`
-  }),
-  // Validate the audience and the issuer
-  audience: process.env.AUTH0_API, //replace with your API's audience, available at Dashboard > APIs
-  issuer: process.env.AUTH0_BASE_URL,
-  algorithms: [ 'RS256' ]
-});
-
 const checkJwt = jwt({
   // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
   secret: jwksRsa.expressJwtSecret({
@@ -56,27 +34,22 @@ const checkJwt = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: `${process.env.AUTH0_BASE_URL}.well-known/jwks.json`
   }),
-
   // Validate the audience and the issuer
-  audience: process.env.AUTH0_API, //replace with your API's audience, available at Dashboard > APIs
+  audience: process.env.AUTH0_AUDIENCE,
   issuer: process.env.AUTH0_BASE_URL,
   algorithms: [ 'RS256' ]
 });
 
-// Routes
+// Public Routes
 app.use('/api/cart', extrasRoutes);
-app.use('/api/profile', profileRoutes);
-// app.use('/api/profile', checkJwt, profileRoutes);
 app.use('/api/menu', dishesRoutes);
 app.use('/api/sales', orderLinesRoutes);
 app.use('/api/recipts', reciptsRoutes)
 app.use('/api/tickets', ticketRoutes)
 app.use("/api/products", productRoutes);
 
-// Test routes
-// app.get("/", (req, res) => {
-//   res.send("Hello");
-// })
+// Protected Routes
+app.use('/api/profile', checkJwt, profileRoutes);
 
 // Function defined for logging requests [DEBUGGING]
 app.use( (req, res, next) => {

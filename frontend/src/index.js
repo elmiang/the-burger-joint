@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { useHistory } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,7 +14,8 @@ import { ProductContextProvider } from "./context/ProductContext";
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_REDIRECT_URI;
-const audience = process.env.REACT_APP_AUTH0_API;
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,7 +25,6 @@ root.render(
       clientId={clientId}
       redirectUri={redirectUri}
       audience={audience}
-      scope='openid profile email'
     >
       <Provider store={store}>
         <ProductContextProvider>
