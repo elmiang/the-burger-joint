@@ -33,7 +33,8 @@ const Checkout = () => {
     const [Contact_Phone, setPhone] = useState('')
     const [error, setError] = useState(null)
 
-    const salt = process.env.REACT_APP_SALT;
+    // const salt = process.env.REACT_APP_SALT;
+    const salt = "12345TEST";
     const coupon = localStorage.getItem("coupon");
     if (coupon) {
       var decryptedCoupon = decryptData(coupon, salt);

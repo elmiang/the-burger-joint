@@ -10,7 +10,8 @@ export const store = configureStore({
 
 // Update the local storage whenever the redux store cart is updated (whenever an action is performed in the cart)
 store.subscribe(() => {
-  const salt = process.env.REACT_APP_SALT;
+  // const salt = process.env.REACT_APP_SALT;
+  const salt = "12345TEST";
   console.log(salt);
   const state = store.getState().cart;
 
