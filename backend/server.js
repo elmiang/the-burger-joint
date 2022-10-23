@@ -80,7 +80,11 @@ app.use("/api/coupon", couponRoutes);
 app.use( (req, res, next) => {
   console.log(req.path, req.method);
   next();  
-})
+});
+
+app.get('/', (req, res) => {
+  res.send('APP IS RUNNING.');
+});
 
 // Connect to db
 mongoose.connect(process.env.MONGO_URL)
