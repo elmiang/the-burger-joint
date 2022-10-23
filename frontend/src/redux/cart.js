@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { decryptData, encryptData } from '../utility/Functions';
 
-// const salt = process.env.REACT_APP_SALT;
-const salt = "12345TEST";
+const salt = process.env.REACT_APP_SALT;
 var cartData = localStorage.getItem("cartItems");
 //If cartData is null
 if (!cartData) {

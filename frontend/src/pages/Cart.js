@@ -9,8 +9,7 @@ import { currencyFormat, encryptData, decryptData, handleCategoryPrice } from '.
 import axios from 'axios';
 
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;
-// const salt = process.env.REACT_APP_SALT;
-const salt = "12345TEST";
+const salt = process.env.REACT_APP_SALT;
 
 //Cart page
 const Cart = () => {
