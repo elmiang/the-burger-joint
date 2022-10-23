@@ -23,7 +23,7 @@ const couponRoutes = require("./routes/coupon");
 const port = process.env.PORT || 8888;
 
 // Middleware
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use(express.static(path.join(__dirname, '/index.html')));
 console.log(__dirname);
 app.use(express.json());
 app.use(cors({
@@ -89,9 +89,9 @@ app.get('/', (req, res) => {
   res.send('APP IS RUNNING.');
 });
 
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-// });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 // Connect to db
 mongoose.connect(process.env.MONGO_URL)
