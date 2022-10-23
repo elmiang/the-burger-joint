@@ -5,8 +5,8 @@ import ActiveTicket from "../components/ActiveTicket"
 import ResolvedTicket from "../components/ResolvedTicket"
 
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
 
-    
 const Tickets = () => {
     const [tickets, setTickets] = useState(null)
     const { user } = useAuth0();
@@ -14,7 +14,7 @@ const Tickets = () => {
     useEffect(() => {
         const fetchTickets = async () => {
             try{
-                const response = await fetch('/api/tickets/' + user.email)
+                const response = await fetch(`${baseurl}/api/tickets/` + user.email)
                 const json = await response.json() 
                 if (response.ok) {
                 setTickets(json)
@@ -34,7 +34,7 @@ const Tickets = () => {
     useEffect(() => {
         const resFetchTickets = async () => {
             try{
-                const response = await fetch('/api/tickets/resolved/' + user.email)
+                const response = await fetch(`${baseurl}/api/tickets/resolved/` + user.email)
                 const json = await response.json() 
 
                 if (response.ok) {
@@ -65,7 +65,7 @@ const Tickets = () => {
         setTicketResolved(false)
         const ticket = {user_id, ticket_title, ticket_body, ticket_resolved, ticket_body}
 
-        const response = await fetch('/api/tickets', {
+        const response = await fetch(`${baseurl}/api/tickets`, {
             method: 'POST',
             body: JSON.stringify(ticket),
             headers: {

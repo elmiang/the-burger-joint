@@ -6,6 +6,8 @@ const ActiveTicket = ({ ticket }) => {
     const [resolution_body, setResolutionBody] = useState('')
     const [error, setError] = useState(null)
 
+    const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+
     const handleClick = async () => {
         //const tickets = {resolution_body}
         const tickets = {
@@ -13,7 +15,7 @@ const ActiveTicket = ({ ticket }) => {
             resolution_body: resolution_body
           };
 
-        const response = await fetch('/api/tickets/' + ticket._id, {
+        const response = await fetch(`${baseurl}/api/tickets/` + ticket._id, {
             method: 'PATCH',
             body: JSON.stringify(tickets),
             headers: {

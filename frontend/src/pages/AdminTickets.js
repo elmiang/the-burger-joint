@@ -4,7 +4,7 @@ import ResolvingTicket from '../components/ResolvingTicket'
 
 
 
-
+const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
     
 const Tickets = () => {
     const [tickets, setTickets] = useState(null)
@@ -13,7 +13,7 @@ const Tickets = () => {
     
     useEffect(() => {
         const fetchTickets = async () => {
-            const response = await fetch('/api/tickets/')
+            const response = await fetch(`${baseurl}/api/tickets/`)
             const json = await response.json() 
 
             if (response.ok) {

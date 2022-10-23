@@ -5,11 +5,24 @@ const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+require("dotenv").config();
 
 const { auth } = require('express-oauth2-jwt-bearer');
 // const jwt = require('express-jwt');
 const { expressjwt: jwt } = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+
+// Connect to db
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => {
+    // Listen for requests
+    app.listen(port, () => {
+      console.log('Connected to mongodb & listening on port', port);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const extrasRoutes = require('./routes/extras');
 const profileRoutes = require('./routes/profile');
@@ -23,7 +36,7 @@ const couponRoutes = require("./routes/coupon");
 const port = process.env.PORT || 8888;
 
 // Middleware
-app.use(express.static(path.join(__dirname, '/index.html')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 console.log(__dirname);
 app.use(express.json());
 app.use(cors({
@@ -93,14 +106,3 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
-// Connect to db
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => {
-    // Listen for requests
-    app.listen(port, () => {
-      console.log('Connected to mongodb & listening on port', port);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });

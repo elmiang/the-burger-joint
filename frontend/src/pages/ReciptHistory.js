@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import ReciptDetails from '../components/ReciptDetails'
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
 
 const OrderHistory = () => {
     const [recipts, setRecipts] = useState(null)
@@ -11,7 +12,7 @@ const OrderHistory = () => {
 
     useEffect(() => {
         const fetchRecipts = async () => {
-            const response = await fetch('/api/recipts/' + user.email)
+            const response = await fetch(`${baseurl}/api/recipts/` + user.email)
             const json = await response.json() 
 
             if (response.ok) {
