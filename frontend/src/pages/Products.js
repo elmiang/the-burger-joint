@@ -4,12 +4,14 @@ import AddProduct from "../components/AddProduct";
 import { useEffect } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+
 const Products = () => {
   const { products, dispatch } = useProductsContext();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch("/api/products");
+      const response = await fetch(`${baseurl}/api/products`);
       const json = await response.json();
 
       if (response.ok) {
