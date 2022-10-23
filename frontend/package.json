@@ -32,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "jest-preview": "jest-preview",
-    "ci:unit": "npm run test -- --watchAll=false --reporters=default --reporters=jest-junit"
+    "ci:unit": "npm run test -- --watchAll=false --reporters=default --reporters=jest-junit",
+    "postbuild": "node iisConfig/copyIISConfig.js"
   },
   "eslintConfig": {
     "extends": [
