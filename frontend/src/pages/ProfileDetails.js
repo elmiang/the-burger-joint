@@ -24,6 +24,8 @@ const ProfileDetails = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  console.log(user);
+
   useEffect(() => {
     const getUserMetadata = async () => {
 
