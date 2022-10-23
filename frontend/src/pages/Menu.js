@@ -42,8 +42,6 @@ const filterDishes = (dishes, query) => {
     const [searchQuery, setSearchQuery] = useState(query || '');
     const filteredDishes = filterDishes(dishes, searchQuery);
 
-    console.log(baseurl);
-    console.log(filteredDishes);
     //Seperating "dishes" array into three categories
     const burger = filteredDishes.filter(obj => {
         return obj.Category === 'Burger';

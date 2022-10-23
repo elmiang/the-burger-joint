@@ -24,6 +24,7 @@ const port = process.env.PORT || 8888;
 
 // Middleware
 app.use(express.static(path.join(__dirname, '../frontend/build')));
+console.log(__dirname);
 app.use(express.json());
 app.use(cors({
   origin: '*'
