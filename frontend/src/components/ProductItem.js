@@ -2,11 +2,11 @@ import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
-const ProductItem = ({ product }) => {
-  const { products, dispatch } = useProductsContext();
+const ProductItem = (props) => {
+  const { dispatch } = useProductsContext();
 
   const handleClick = async () => {
-    const response = await fetch("/api/products/" + product.Dish_id, {
+    const response = await fetch("/api/products/" + props.id, {
       method: "DELETE",
     });
     const json = await response.json();
@@ -19,27 +19,37 @@ const ProductItem = ({ product }) => {
   return (
     <div className="product-items align-items-start">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">{product.DishName}</h5>
+        <h5 className="mb-1">
+          {props.id}. {props.name}
+        </h5>
         <span>
-          <span
-            className="material-symbols-outlined m-1"
+          <button
+            className="material-symbols-outlined m-1 border border-light"
             data-bs-toggle="modal"
             data-bs-target="#editProduct"
           >
             edit
-          </span>
-          <EditProduct key={product.Dish_id} product={product} />
+          </button>
+          <EditProduct
+            id={props.id}
+            name={props.name}
+            price={props.price}
+            category={props.category}
+            ingredients={props.ingredients}
+            description={props.description}
+            imageURL={props.imageURL}
+          />
 
-          <span
-            className="material-symbols-outlined m-1 text-danger"
+          <button
+            className="material-symbols-outlined m-1 text-danger border border-light"
             onClick={handleClick}
           >
             delete_forever
-          </span>
+          </button>
         </span>
       </div>
-      <p className="mb-1">{product.Description}</p>
-      <small>${product.Price}</small>
+      <p className="mb-1">{props.description}</p>
+      <small>${props.price}</small>
     </div>
   );
 };
