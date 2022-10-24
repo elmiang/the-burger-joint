@@ -40,7 +40,7 @@ const Checkout = () => {
     //const [Item_Quantity, setItemQuantity] = useState("")
     //const [Item_Price, setItemPrice] = useState("")
 
-    let Items = {
+    const Items = {
         'Item_ID': '11111',
         'Item_Name': 'BurgerTest',
         'Item_Quantity': '3',
