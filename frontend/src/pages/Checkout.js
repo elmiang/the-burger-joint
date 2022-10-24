@@ -33,12 +33,6 @@ const Checkout = () => {
     const [Contact_Email, setEmail] = useState('')
     const [Contact_Phone, setPhone] = useState('')
     const [error, setError] = useState(null)
-
-    
-    //const [Item_ID, setItemID] = useState("")
-    //const [Item_Name, setItemName] = useState("")
-    //const [Item_Quantity, setItemQuantity] = useState("")
-    //const [Item_Price, setItemPrice] = useState("")
     let Order_id = 7;
     let Dish_id = 0;
     let OrderQuantity = 0;
@@ -47,25 +41,7 @@ const Checkout = () => {
     let Item_Price = "";
     let Items = "";
     let iterator = 1;
-    // Placeholder - IT WORKS
-    /*const Items = [{
-        'Item_ID': '11111',
-        'Item_Name': 'BurgerTest',
-        'Item_Quantity': '3',
-        'Item_Price': '21.00'
-    }, {
-        'Item_ID': '333',
-        'Item_Name': 'DrinkTest',
-        'Item_Quantity': '2',
-        'Item_Price': '8.50'
-    }]*/
-    // Initialising Items object array
-    /*const [Items = [{
-        Item_ID,
-        Item_Name,
-        Item_Quantity,
-        Item_Price
-    }], setItem] = useState(setItemID(""), setItemName(""), setItemQuantity(""), setItemPrice(""));*/
+
 
     const salt = process.env.REACT_APP_SALT;
     const coupon = localStorage.getItem("coupon");
@@ -95,8 +71,7 @@ const Checkout = () => {
         }
         
         
-        // Moving items from cart into Items array - to be tested
-        
+        // Moving items from cart into Items
         cartItems.forEach(item => {
             Item_Name= String(item.name);
             Item_Quantity = String(item.quantity);
@@ -109,27 +84,17 @@ const Checkout = () => {
             }
             iterator += 1;
         })
-        
-        
 
-
-        
-       
-        
-        /*const iterator = 0;
-        cartItems.forEach(item => {
-            //setItem(item.id, item.name, item.quantity, item.price)
-            Items[iterator].Item_ID = item.id;
-            Items[iterator].Item_Name = item.name;
-            Items[iterator].Item_Quantity = item.quantity;
-            Items[iterator].Item_Price = item.price;
-            iterator += 1;
-        })*/
-
+        // Sets users ID if they are logged in
         setUserID(user.email)
+
+        // Concatonates Expiry Dates
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
+        
+        // Creates recipt item in form
         const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, Items, total_price}
 
+        // Posts (creates) recipt item to controller using api
         const response = await fetch(`${baseurl}/api/recipts`, {
             method: 'POST',
             body: JSON.stringify(recipt),
@@ -140,7 +105,15 @@ const Checkout = () => {
         const json = await response.json()
 
         if (!response.ok) {
-            setError(json.error)
+            // Executes if no items are found in the cart
+            if (cartItems.length < 1 )
+            {
+                // Changes text field to visible, informing the user of empty cart
+                document.getElementById("emptyCartAlert").className = "alert text-danger"; 
+                setError(json.error)
+            }
+            
+            
         }
         if (response.ok) {
             if (decryptedCoupon) {
@@ -151,12 +124,15 @@ const Checkout = () => {
                     console.log(error);
                 }
             }
+
+            // If checkout succeeds, submit orderline
+            // Posts OrderLine sales record containing the orders id, dishes id, & dishes quantity for sales
             cartItems.forEach(async item => {
                 Dish_id = item.id;
                 OrderQuantity = item.quantity;
                 const orderLine = {Order_id, Dish_id, OrderQuantity}
 
-                // If checkout succeeds, submit orderline
+                
                 const response = await fetch(`${baseurl}/api/sales/`, {
                     method: 'POST',
                     body: JSON.stringify(orderLine),
@@ -169,35 +145,11 @@ const Checkout = () => {
                 if (!response.ok) {
                     setError(json.error)
                 }
-                if (response.ok) {
-                }
-            /*cartItems.forEach(async item => {
-                let Order_id = 3;
-                let Dish_id = Number(item.id);
-                console.log(item.id);
-                let OrderQuantity = Number(item.quantity);
-                let orderline = {Order_id, Dish_id, OrderQuantity}
-
-                // If checkout succeeds, submit orderline
-                const response = await fetch(`${baseurl}/api/sales/`, {
-                    method: 'POST',
-                    body: JSON.stringify(orderline),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                const json = await response.json()
-
-                if (!response.ok) {
-                    setError(json.error)
-                }
-                if (response.ok) {
-                }*/
             })
             
 
             
-
+            // Sets values back to empty
             setUserID('')
             setPaymentType('')
             setCardNo('')
@@ -227,7 +179,7 @@ const Checkout = () => {
             <div className="row">
             <CheckoutBar/>
                 <form className="create" onSubmit={handleSubmit}>
-                    <div /*data-bs-spy="scroll" data-bs-target="#checkoutbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" */className="col py-5 p-5 rounded-2" tabIndex="0">
+                    <div className="col py-5 p-5 rounded-2" tabIndex="0">
 
                         {/*Checkout: Payment Options & Details*/}
                         <h3 id="PaymentInput" className="p-2 mt-3 text-white">Payment Options/Details</h3>
@@ -252,14 +204,14 @@ const Checkout = () => {
 
                             <div>
                                 <div className="p-3">
-                                    <label htmlFor="CardNo" className="">Card Number</label><br></br>
+                                    <label htmlFor="CardNo" className="">Card Number*</label><br></br>
                                     <input type="text" id="CardNo"
                                         onChange={(e) => setCardNo(e.target.value)}
-                                        value={Card_No}
+                                        value={Card_No} required
                                     />
                                 </div>
                                 <div className="p-3">
-                                    <label className="">Expiration Date</label>
+                                    <label className="">Expiration Date*</label>
                                     <br></br>
                                     <select id="ExpirationDay" data-testid="ExpMM" onChange={(e) => setCardExpMM(e.target.value)}
                                         value={card_ExpMM}>
@@ -294,10 +246,10 @@ const Checkout = () => {
                                     </select>
                                 </div>
                                 <div className="pt-2">
-                                    <label htmlFor="CardNo">CSV</label>
+                                    <label htmlFor="CardNo">CSV*</label>
                                     <input type="text" size="3" maxLength="3" id="CardNo" className="m-2"
                                         onChange={(e) => setCardCSV(e.target.value)}
-                                        value={Card_CSV}/>
+                                        value={Card_CSV} required/>
                                 </div>
                                 
                             </div>
@@ -309,11 +261,11 @@ const Checkout = () => {
                         <div className="row row-cols-1 row-cols-md-2 g-4 m-2 p-2 bg-light rounded">
                             <div>
                                 <div className="p-2">
-                                    <label htmlFor="AddressLine1">Street Address 1</label>
+                                    <label htmlFor="AddressLine1">Street Address 1*</label>
                                     <br></br>
                                     <input type="text" id="AddressLine1" size="40"
                                         onChange={(e) => setAddOne(e.target.value)}
-                                        value={Address_One}
+                                        value={Address_One} required
                                     />
                                 </div>
                                 
@@ -328,20 +280,20 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <div className="p-2">
-                                    <label htmlFor="CityLine">City</label>
+                                    <label htmlFor="CityLine">City*</label>
                                     <br></br>
                                     <input type="text" id="CityLine"
                                         onChange={(e) => setAddCity(e.target.value)}
-                                        value={Address_City}
+                                        value={Address_City} required
                                     />
                                 </div>
                                 
                                 <div className="p-2">
-                                    <label htmlFor="CountryLine">Country</label>
+                                    <label htmlFor="CountryLine">Country*</label>
                                     <br></br>
                                     <input type="text" id="CountryLine" 
                                         onChange={(e) => setAddCountry(e.target.value)}
-                                        value={Address_Country}
+                                        value={Address_Country} required
                                     />
                                     <br></br>
                                 </div>
@@ -354,30 +306,30 @@ const Checkout = () => {
                         <div className="row row-cols-1 row-cols-md-2 m-2 p-2 bg-light rounded">
                         <div>
                                 <div className="p-2">
-                                    <label htmlFor="FName">First Name</label>
+                                    <label htmlFor="FName">First Name*</label>
                                     <br></br>
                                     <input type="text" id="FName"
                                         onChange={(e) => setFName(e.target.value)}
-                                        value={Contact_FName}
+                                        value={Contact_FName} required
                                     />
                                 </div>
                                 
                                 <div className="p-2">
-                                <label htmlFor="LName">Last Name</label>
+                                <label htmlFor="LName">Last Name*</label>
                                     <br></br>
                                     <input type="text" id="LName"
                                         onChange={(e) => setSName(e.target.value)}
-                                        value={Contact_SName}
+                                        value={Contact_SName} required
                                     />
                                 </div>
                             </div>
                             <div>
                                 <div className="p-2">
-                                    <label htmlFor="EmailLine">Email</label>
+                                    <label htmlFor="EmailLine">Email*</label>
                                     <br></br>
                                     <input type="text" id="EmailLine" size="40"
                                         onChange={(e) => setEmail(e.target.value)}
-                                        value={Contact_Email}
+                                        value={Contact_Email} required
                                     />
                                 </div>
                                 
@@ -400,9 +352,13 @@ const Checkout = () => {
                                 <button className="btn btn-primary btn-lg btn-block" id="Order">Submit</button>
                                 
                         </div>
+                        <div id="emptyCartAlert" className="d-none alert" >
+                            <impact>Cart is empty!</impact>
+                        </div>
                         {/*End of Order*/}
                     </div>
                 </form>
+                
             </div>
         </div>
     ); 

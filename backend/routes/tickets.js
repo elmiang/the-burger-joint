@@ -24,7 +24,7 @@ router.post('/', createTicket)
 // For admins to resolve tickets (update)
 router.patch('/:id', updateTicket)
 
-// Not required
+// For user to delete tickets
 router.delete('/:id', deleteTicket)
 
 // For users to view tickets attached to their account

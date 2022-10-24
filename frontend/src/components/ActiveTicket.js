@@ -1,14 +1,14 @@
 import React from "react";
 const ActiveTicket = ({ ticket }) => {
-
+    const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
     const handleClick = async () => {
-        const response = await fetch('/api/tickets/' + ticket._id, {
+        const response = await fetch(`${baseurl}/api/tickets/` + ticket._id, {
             method: 'DELETE'
         })
         const json = await response.json()
 
         if (response.ok) {
-            
+            window.location.href = "/menu"
         }
     }
 
