@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import { useEffect } from "react";
 
-const EditProduct = ({ product }) => {
+const EditProduct = (props) => {
   const { dispatch } = useProductsContext();
 
   const [Dish_id, setDish_id] = useState("");
@@ -17,30 +17,32 @@ const EditProduct = ({ product }) => {
   /*
   useEffect(() => {
     const fetchProduct = async () => {
-      const response = await fetch("/api/products/" + product.Dish_id);
+      const response = await fetch("/api/products/" + props.id);
       const json = await response.json();
+      const [
+        Dish_id,
+        DishName,
+        Category,
+        Description,
+        Price,
+        ingredients,
+        imageURL,
+      ] = json;
 
       if (response.ok) {
-        setDish_id(product.Dish_id);
-        setDishName(product.DishName);
-        setCategory(product.Category);
-        setDescription(product.Description);
-        setPrice(product.Price);
-        setIngredients(product.ingredients);
-        setImageURL(product.imageURL);
-        dispatch({ type: "EDIT_PRODUCTS", payload: json });
+        setDish_id(Dish_id);
+        setDishName(DishName);
+        setCategory(Category);
+        setDescription(Description);
+        setPrice(Price);
+        setIngredients(ingredients);
+        setImageURL(imageURL);
       }
     };
     fetchProduct();
   });
 */
-  {
-    /*}
-  const getProduct = async (id) => {
-    
-  }
-*/
-  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const editedProduct = {
@@ -76,7 +78,7 @@ const EditProduct = ({ product }) => {
       setError(null);
       setEmptyFields([]);
       console.log("product updated", json);
-      dispatch({ type: "EDIT_PRODUCT", payload: json });
+      dispatch({ type: "EDIT_PRODUCT", payload: editedProduct });
     }
   };
 
@@ -149,7 +151,7 @@ const EditProduct = ({ product }) => {
                 </div>
               </div>
               <div className="form-floating mb-3">
-                <input
+                <select
                   type="text"
                   className={
                     emptyFields.includes("Category")
@@ -159,8 +161,14 @@ const EditProduct = ({ product }) => {
                   placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
-                  value={Category}
-                ></input>
+                >
+                  <option value="" selected>
+                    Select Category...
+                  </option>
+                  <option value="Burger">Burger</option>
+                  <option value="Drink">Drink</option>
+                  <option value="Sides">Sides</option>
+                </select>
                 <label className="text-muted fs-6" htmlFor="categoryInput">
                   Category
                 </label>

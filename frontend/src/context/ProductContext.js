@@ -20,7 +20,7 @@ export const productsReducer = (state, action) => {
       };
     case "EDIT_PRODUCT":
       return {
-        products: [...state.products, action.payload],
+        products: [action.payload, ...state.products],
       };
     default:
       return state;

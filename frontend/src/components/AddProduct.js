@@ -34,7 +34,6 @@ const AddProduct = () => {
       },
     });
     const json = await response.json();
-    console.log(emptyFields);
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
@@ -59,7 +58,7 @@ const AddProduct = () => {
       <div className="modal-dialog">
         <div className="modal-content bg-dark">
           <div className="modal-header">
-            <h5 className="modal=title">Add Product</h5>
+            <h5 className="modal=title text-warning">Add Product</h5>
             <button
               type="button"
               className="btn-close"
@@ -123,7 +122,7 @@ const AddProduct = () => {
                 </div>
               </div>
               <div className="form-floating mb-3">
-                <input
+                <select
                   type="text"
                   className={
                     emptyFields.includes("Category")
@@ -133,8 +132,14 @@ const AddProduct = () => {
                   placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
-                  value={Category}
-                ></input>
+                >
+                  <option value="" selected>
+                    Select Category...
+                  </option>
+                  <option value="Burger">Burger</option>
+                  <option value="Drink">Drink</option>
+                  <option value="Sides">Sides</option>
+                </select>
                 <label className="text-muted fs-6" htmlFor="categoryInput">
                   Category
                 </label>
@@ -189,7 +194,7 @@ const AddProduct = () => {
               </div>
             </div>
             <div className="modal-footer bg-dark">
-              {error && <div className="error">{error}</div>}
+              {error && <div className="error text-warning">{error}</div>}
               <button type="submit" className="btn btn-warning m-1">
                 Add
               </button>

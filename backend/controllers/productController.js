@@ -16,11 +16,7 @@ const getProducts = async (req, res) => {
 const getProduct = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "No such product" });
-  }
-
-  const product = await Dish.findById(id);
+  const product = await Dish.find({ Dish_id: id });
 
   if (!product) {
     return res.status(404).json({ error: "No such product" });
