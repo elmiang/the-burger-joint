@@ -1,11 +1,17 @@
 const ReciptDetails = ({ recipt }) => {
     
-    
+    //document.getElementById("item").innerHTML = recipt.Items.map(ItemisedBill);
+    //function ItemisedBill(items) {
+    //    return [items.name, items.quantity, items.price].join("");
+    //}
+
     return (
         <div className="recipt-details" class="card h-50 w-50 m-3">
                 <div class="card-body bg-light">
                     <h4>Recipt</h4>
                     <p><strong>Billing Items</strong></p>
+                    <p id="item"></p>
+                    
                     <p>Total Cost: {recipt.total_price}</p>
                     <br/>
                     <p><strong>Payment Details</strong></p>

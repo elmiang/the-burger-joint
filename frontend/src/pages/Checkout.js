@@ -14,10 +14,10 @@ const Checkout = () => {
     const cartItems = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const { user } = useAuth0();
+
+
+
     
-
-
-
     const [User_ID, setUserID] = useState('')
     const [Payment_Type, setPaymentType] = useState('')
     const [Card_No, setCardNo] = useState('')
@@ -34,6 +34,25 @@ const Checkout = () => {
     const [Contact_Email, setEmail] = useState('')
     const [Contact_Phone, setPhone] = useState('')
     const [error, setError] = useState(null)
+    
+    //const [Item_ID, setItemID] = useState("")
+    //const [Item_Name, setItemName] = useState("")
+    //const [Item_Quantity, setItemQuantity] = useState("")
+    //const [Item_Price, setItemPrice] = useState("")
+
+    let Items = {
+        'Item_ID': '11111',
+        'Item_Name': 'BurgerTest',
+        'Item_Quantity': '3',
+        'Item_Price': '21.00'
+    }
+    // Initialising Items object array
+    /*const [Items = [{
+        Item_ID,
+        Item_Name,
+        Item_Quantity,
+        Item_Price
+    }], setItem] = useState(setItemID(""), setItemName(""), setItemQuantity(""), setItemPrice(""));*/
 
     const salt = process.env.REACT_APP_SALT;
     const coupon = localStorage.getItem("coupon");
@@ -62,9 +81,21 @@ const Checkout = () => {
             total_price *= decryptedCoupon.rate;
         }
         
+        
+        // Moving items from cart into Items array
+        /*const iterator = 0;
+        cartItems.forEach(item => {
+            //setItem(item.id, item.name, item.quantity, item.price)
+            //Items[iterator].Item_ID = item.id;
+            //Items[iterator].Item_Name = item.name;
+            //Items[iterator].Item_Quantity = item.quantity;
+            //Items[iterator].Item_Price = item.price;
+            //iterator += 1;
+        })*/
+
         setUserID(user.email)
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
-        const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price}
+        const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, Items, total_price}
 
         const response = await fetch(`${baseurl}/api/recipts`, {
             method: 'POST',
@@ -103,6 +134,7 @@ const Checkout = () => {
             setSName('')
             setEmail('')
             setPhone('')
+            //setItems(null)
             setError(null)
             console.log('new recipt added', json)
             dispatch(clearItems());
