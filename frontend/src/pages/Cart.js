@@ -41,9 +41,6 @@ const Cart = () => {
         console.log(error);
       }
     }
-    else {
-      setCouponResponse("notLoggedIn");
-    }
   }
 
   //Updates the total price of the cart
@@ -158,20 +155,6 @@ const Cart = () => {
 
   return (
     <div className="cart bg-secondary">
-      <div className="alert alert-warning alert-dismissible fade show" role="alert">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
-          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-        </svg>
-        <strong>Welcome to The Burger Joint!</strong>
-        <p>Please enjoy these coupons on us as a part of our launch celebration! <em>(Note: Coupons are one-time use)</em></p>
-        <ul>
-          <li>50off for 50% off</li>
-          <li>25off for 25% off</li>
-          <li>15off for 15% off</li>
-        </ul>
-        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-
       <div className="container-fluid bg-secondary w-50 mt-3 p-3 border border-dark">
         <h2 className="display-6 text-warning pb-3 fw-bold border-3 border-bottom border-warning">Cart</h2>
           {
@@ -198,7 +181,6 @@ const Cart = () => {
                   {couponResponse==='valid' && <p className='text-warning fw-bold'>Coupon successfully applied</p>}
                   {couponResponse==='invalid' && <p className='text-danger fw-bold'>Coupon invalid</p>}
                   {couponResponse==='couponApplied' && <p className='text-danger fw-bold'>The coupon has already been applied</p>}
-                  {couponResponse==='notLoggedIn' && <p className='text-danger fw-bold'>You need to log in to use the coupon system</p>}
                 </div>
               </div>
             </form>
