@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;
+
 const AddProduct = () => {
   const { dispatch } = useProductsContext();
 
@@ -26,7 +28,7 @@ const AddProduct = () => {
       ingredients,
       imageURL,
     };
-    const response = await fetch("/api/products", {
+    const response = await fetch(`${baseurl}/api/products`, {
       method: "POST",
       body: JSON.stringify(product),
       headers: {

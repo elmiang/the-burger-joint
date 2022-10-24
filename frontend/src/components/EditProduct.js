@@ -14,34 +14,8 @@ const EditProduct = (props) => {
   const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-  /*
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const response = await fetch("/api/products/" + props.id);
-      const json = await response.json();
-      const [
-        Dish_id,
-        DishName,
-        Category,
-        Description,
-        Price,
-        ingredients,
-        imageURL,
-      ] = json;
 
-      if (response.ok) {
-        setDish_id(Dish_id);
-        setDishName(DishName);
-        setCategory(Category);
-        setDescription(Description);
-        setPrice(Price);
-        setIngredients(ingredients);
-        setImageURL(imageURL);
-      }
-    };
-    fetchProduct();
-  });
-*/
+  const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,13 +28,16 @@ const EditProduct = (props) => {
       ingredients,
       imageURL,
     };
-    const response = await fetch("/api/products/" + editedProduct.Dish_id, {
-      method: "PATCH",
-      body: JSON.stringify(editedProduct),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${baseurl}/api/products` + editedProduct.Dish_id,
+      {
+        method: "PATCH",
+        body: JSON.stringify(editedProduct),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const json = await response.json();
     console.log(response.ok);
     if (!response.ok) {

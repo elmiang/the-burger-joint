@@ -2,11 +2,13 @@ import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;
+
 const ProductItem = (props) => {
   const { dispatch } = useProductsContext();
 
   const handleClick = async () => {
-    const response = await fetch("/api/products/" + props.id, {
+    const response = await fetch(`${baseurl}/api/products/` + props.id, {
       method: "DELETE",
     });
     const json = await response.json();
