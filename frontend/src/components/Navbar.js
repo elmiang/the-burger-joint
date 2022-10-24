@@ -33,7 +33,7 @@ const Navbar = () => {
         </button>
         
         {/* Navigation items */}
-        <div className="collapse navbar-collapse navbar-dark" id="main-nav">
+        <div className='collapse navbar-collapse navbar-dark' id="main-nav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/menu">Menu</Link>
