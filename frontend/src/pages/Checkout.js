@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react"
-import CheckoutItem from "../components/CheckoutItem";
 import CheckoutBar from "../components/CheckoutBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,18 +33,32 @@ const Checkout = () => {
     const [Contact_Email, setEmail] = useState('')
     const [Contact_Phone, setPhone] = useState('')
     const [error, setError] = useState(null)
+
     
     //const [Item_ID, setItemID] = useState("")
     //const [Item_Name, setItemName] = useState("")
     //const [Item_Quantity, setItemQuantity] = useState("")
     //const [Item_Price, setItemPrice] = useState("")
-
-    const Items = {
+    let orderNumber = "";
+    let DishID = "";
+    let DishQuantity = "";
+    let Item_Name = "";
+    let Item_Quantity = "";
+    let Item_Price = "";
+    let Items = "";
+    let iterator = 1;
+    // Placeholder - IT WORKS
+    /*const Items = [{
         'Item_ID': '11111',
         'Item_Name': 'BurgerTest',
         'Item_Quantity': '3',
         'Item_Price': '21.00'
-    }
+    }, {
+        'Item_ID': '333',
+        'Item_Name': 'DrinkTest',
+        'Item_Quantity': '2',
+        'Item_Price': '8.50'
+    }]*/
     // Initialising Items object array
     /*const [Items = [{
         Item_ID,
@@ -82,15 +95,35 @@ const Checkout = () => {
         }
         
         
-        // Moving items from cart into Items array
+        // Moving items from cart into Items array - to be tested
+        
+        cartItems.forEach(item => {
+            Item_Name= String(item.name);
+            Item_Quantity = String(item.quantity);
+            Item_Price = String(item.price);
+            if (iterator == 1) {
+                Items += Item_Name + " x" + Item_Quantity + " ... $"+Item_Price;
+            }
+            else if (iterator > 1) {
+                Items += ", " + Item_Name + " x" + Item_Quantity + " ... $"+Item_Price;
+            }
+            iterator += 1;
+        })
+        
+        
+
+
+        
+       
+        
         /*const iterator = 0;
         cartItems.forEach(item => {
             //setItem(item.id, item.name, item.quantity, item.price)
-            //Items[iterator].Item_ID = item.id;
-            //Items[iterator].Item_Name = item.name;
-            //Items[iterator].Item_Quantity = item.quantity;
-            //Items[iterator].Item_Price = item.price;
-            //iterator += 1;
+            Items[iterator].Item_ID = item.id;
+            Items[iterator].Item_Name = item.name;
+            Items[iterator].Item_Quantity = item.quantity;
+            Items[iterator].Item_Price = item.price;
+            iterator += 1;
         })*/
 
         setUserID(user.email)
@@ -118,6 +151,30 @@ const Checkout = () => {
                     console.log(error);
                 }
             }
+            iterator = 0;
+            cartItems.forEach(async item => {
+                const orderline = (6, item.id, item.quantity)
+
+                // If checkout succeeds, submit orderline
+                const response = await fetch(`${baseurl}/api/sales/`, {
+                    method: 'POST',
+                    body: JSON.stringify(orderline),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const json = await response.json()
+
+                if (!response.ok) {
+                    setError(json.error)
+                }
+                if (response.ok) {
+                    console.log("successfull orderline:" + iterator )
+                }
+            })
+            
+
+            
 
             setUserID('')
             setPaymentType('')
@@ -134,7 +191,7 @@ const Checkout = () => {
             setSName('')
             setEmail('')
             setPhone('')
-            //setItems(null)
+            Items = "";
             setError(null)
             console.log('new recipt added', json)
             dispatch(clearItems());
