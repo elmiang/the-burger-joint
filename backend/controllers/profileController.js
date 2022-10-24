@@ -59,7 +59,8 @@ const deleteUserProfile  = async (req, res) => {
 // View the order history of a user's account
 const userOrderHistory  = async (req, res) => {
     // Get the email from the JWT token in the request
-    const userId = req.auth.email;
+    //const userId = req.auth.email;
+    const userId = "test@gmail.com";
 
     // Retrieve the orders for the specified account
     const orderHistory = [];

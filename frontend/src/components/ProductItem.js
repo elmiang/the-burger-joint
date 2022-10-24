@@ -2,12 +2,22 @@ import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
 const ProductItem = ({ product }) => {
   const { products, dispatch } = useProductsContext();
+  const { user, getAccessTokenSilently } = useAuth0();  
 
   const handleClick = async () => {
-    const response = await fetch("/api/products/" + product.Dish_id, {
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${baseurl}/api/products/${product.Dish_id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"            
+      },        
     });
     const json = await response.json();
 

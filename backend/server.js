@@ -40,16 +40,23 @@ const checkJwt = jwt({
   algorithms: [ 'RS256' ]
 });
 
+// Middleware for checking the permissions
+const checkPermissions = (permissions) => {
+  
+}
+
 // Public Routes
 app.use('/api/cart', extrasRoutes);
 app.use('/api/menu', dishesRoutes);
-app.use('/api/sales', orderLinesRoutes);
 app.use('/api/recipts', reciptsRoutes)
-app.use('/api/tickets', ticketRoutes)
-app.use("/api/products", productRoutes);
+
+
 
 // Protected Routes
 app.use('/api/profile', checkJwt, profileRoutes);
+app.use("/api/products",checkJwt, productRoutes);
+app.use('/api/sales', checkJwt, orderLinesRoutes);
+app.use('/api/tickets', checkJwt, ticketRoutes)
 
 // Function defined for logging requests [DEBUGGING]
 app.use( (req, res, next) => {

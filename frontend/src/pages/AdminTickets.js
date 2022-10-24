@@ -2,18 +2,27 @@ import React from "react";
 import { useEffect, useState } from 'react'
 import ResolvingTicket from '../components/ResolvingTicket'
 
+// Bring in Auth0
+import { useAuth0 } from "@auth0/auth0-react";
 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
 
-
-    
 const Tickets = () => {
-    const [tickets, setTickets] = useState(null)
-
-
     
+    const { user, getAccessTokenSilently } = useAuth0();  
+
+    const [tickets, setTickets] = useState(null)    
     useEffect(() => {
         const fetchTickets = async () => {
-            const response = await fetch('/api/tickets/')
+            
+            const accessToken = await getAccessTokenSilently();
+
+            const response = await fetch(`${baseurl}/api/tickets/unresolved`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json"            
+                },                    
+            })
             const json = await response.json() 
 
             if (response.ok) {

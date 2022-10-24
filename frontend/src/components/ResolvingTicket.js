@@ -1,10 +1,14 @@
 import React from "react";
 import { useState } from "react"
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;   
 
 const ActiveTicket = ({ ticket }) => {
     const [ticket_resolved, setTicketResolved] = useState(Boolean)
     const [resolution_body, setResolutionBody] = useState('')
     const [error, setError] = useState(null)
+    const { user, getAccessTokenSilently } = useAuth0();
 
     const handleClick = async () => {
         //const tickets = {resolution_body}
@@ -13,12 +17,14 @@ const ActiveTicket = ({ ticket }) => {
             resolution_body: resolution_body
           };
 
-        const response = await fetch('/api/tickets/' + ticket._id, {
+        const accessToken = await getAccessTokenSilently();
+        const response = await fetch(`${baseurl}/api/tickets/` + ticket._id, {
             method: 'PATCH',
             body: JSON.stringify(tickets),
             headers: {
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json"
-              },
+            },
         })
 
 

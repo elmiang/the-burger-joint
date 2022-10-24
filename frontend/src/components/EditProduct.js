@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
 const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
+  const { user, getAccessTokenSilently } = useAuth0();  
 
   const [Dish_id, setDish_id] = useState(product.Dish_id);
   const [DishName, setDishName] = useState(product.DishName);
@@ -53,12 +58,14 @@ const EditProduct = ({ product }) => {
       ingredients,
       imageURL,
     };
-    const response = await fetch("/api/products/" + editedProduct.Dish_id, {
-      method: "POST",
+    const accessToken = await getAccessTokenSilently();
+    const response = await fetch(`${baseurl}/api/products/${editedProduct.Dish_id}`, {
+      method: "PATCH",
       body: JSON.stringify(editedProduct),
       headers: {
-        "Content-Type": "application/json",
-      },
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"            
+      },                    
     });
     const json = await response.json();
 
