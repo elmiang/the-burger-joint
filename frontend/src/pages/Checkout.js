@@ -39,9 +39,9 @@ const Checkout = () => {
     //const [Item_Name, setItemName] = useState("")
     //const [Item_Quantity, setItemQuantity] = useState("")
     //const [Item_Price, setItemPrice] = useState("")
-    let orderNumber = "";
-    let DishID = "";
-    let DishQuantity = "";
+    let Order_id = 7;
+    let Dish_id = 0;
+    let OrderQuantity = 0;
     let Item_Name = "";
     let Item_Quantity = "";
     let Item_Price = "";
@@ -151,9 +151,32 @@ const Checkout = () => {
                     console.log(error);
                 }
             }
-            iterator = 0;
             cartItems.forEach(async item => {
-                const orderline = (6, item.id, item.quantity)
+                Dish_id = item.id;
+                OrderQuantity = item.quantity;
+                const orderLine = {Order_id, Dish_id, OrderQuantity}
+
+                // If checkout succeeds, submit orderline
+                const response = await fetch(`${baseurl}/api/sales/`, {
+                    method: 'POST',
+                    body: JSON.stringify(orderLine),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const json = await response.json()
+
+                if (!response.ok) {
+                    setError(json.error)
+                }
+                if (response.ok) {
+                }
+            /*cartItems.forEach(async item => {
+                let Order_id = 3;
+                let Dish_id = Number(item.id);
+                console.log(item.id);
+                let OrderQuantity = Number(item.quantity);
+                let orderline = {Order_id, Dish_id, OrderQuantity}
 
                 // If checkout succeeds, submit orderline
                 const response = await fetch(`${baseurl}/api/sales/`, {
@@ -169,8 +192,7 @@ const Checkout = () => {
                     setError(json.error)
                 }
                 if (response.ok) {
-                    console.log("successfull orderline:" + iterator )
-                }
+                }*/
             })
             
 
