@@ -73,7 +73,7 @@ const filterDishes = (dishes, query) => {
                     <div className="btn-group" role="group">
                     <label className="text-light p-2 fs-4">Categories</label>
 
-                    <div class="btn-group" role="group">
+                    <div className="btn-group" role="group">
                         <button onClick={()=>setShowBurger(!showBurger)} type="checkbox" className="btn btn-outline-light me-2" data-bs-toggle="button">Burgers</button>
                         <button onClick={()=>setShowDrink(!showDrink)} type="checkbox" className="btn btn-outline-light me-2" data-bs-toggle="button">Drinks</button>
                         <button onClick={()=>setShowSides(!showSides)} type="checkbox" className="btn btn-outline-light me-2" data-bs-toggle="button">Sides</button>
