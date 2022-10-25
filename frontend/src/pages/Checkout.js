@@ -123,7 +123,7 @@ const Checkout = () => {
             if (decryptedCoupon) {
                 try {
                     const accessToken = await getAccessTokenSilently();
-                    const res = await axios.patch(`${baseurl}}/api/profile/coupon`, decryptedCoupon, {
+                    const res = await axios.patch(`${baseurl}/api/profile/coupon`, decryptedCoupon, {
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
                             "Content-Type": "application/json"            
@@ -182,7 +182,7 @@ const Checkout = () => {
             console.log('new recipt added', json)
             dispatch(clearItems());
             localStorage.clear();
-            window.location.href = "/menu"
+            // window.location.href = "/menu"
         }
     }
 
