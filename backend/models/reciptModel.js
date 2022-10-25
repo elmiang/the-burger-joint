@@ -69,6 +69,20 @@ const reciptSchema = new Schema ({
         required: false
     },
 
+    Items: {
+        type:String,
+        required: true
+    },
+
+    /*Items: [
+        {
+            Item_ID: String,
+            Item_Name: String,
+            Item_Quantity: String,
+            Item_Price: String
+        }
+    ],*/
+
     total_price: {
         type: String,
         required: true
