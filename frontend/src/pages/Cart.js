@@ -13,7 +13,7 @@ const salt = process.env.REACT_APP_SALT;
 
 //Cart page
 const Cart = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const cartItems = useSelector((state) => state.cart);
   const couponSubmitted = useRef(false);
 
@@ -30,7 +30,13 @@ const Cart = () => {
   const fetchUsedCoupons = async () => {
     if (user) {
       try {
-        const response = await axios.get(`${baseurl}/api/profile/${user.email}`);
+        const accessToken = await getAccessTokenSilently();
+        const response = await axios.get(`${baseurl}/api/profile/`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"            
+          },                  
+        });
         if (response.data.coupons) {
           setUsedCoupons(response.data.coupons);
         }
@@ -121,7 +127,13 @@ const Cart = () => {
   useEffect(() => {
     const fetchCoupons = async () => {
       try {
-        const response = await axios.get(`${baseurl}/api/coupon/`);
+        const accessToken = await getAccessTokenSilently();
+        const response = await axios.get(`${baseurl}/api/coupon`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"            
+          },          
+        });
         setCoupons(response.data);
       } catch (error) {
         console.log(error);
