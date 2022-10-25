@@ -7,6 +7,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 const AddProduct = () => {
   const { dispatch } = useProductsContext();
 
+  // initialise attributes of a product and fields to check for errors
   const [Dish_id, setDish_id] = useState("");
   const [DishName, setDishName] = useState("");
   const [Category, setCategory] = useState("");
@@ -19,6 +20,7 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // populate the new product with the parameters provided
     const product = {
       Dish_id,
       DishName,
@@ -28,6 +30,7 @@ const AddProduct = () => {
       ingredients,
       imageURL,
     };
+    // fetch the list of products and send a POST packet containing details of the new product
     const response = await fetch(`${baseurl}/api/products`, {
       method: "POST",
       body: JSON.stringify(product),
@@ -36,14 +39,15 @@ const AddProduct = () => {
       },
     });
     const json = await response.json();
+    // display an error if the response is bad
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
     }
+    // reset the attributes if successful
     if (response.ok) {
       setDish_id("");
       setDishName("");
-      setCategory("");
       setDescription("");
       setPrice("");
       setIngredients([]);
@@ -134,10 +138,9 @@ const AddProduct = () => {
                   placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
+                  defaultValue={Category}
                 >
-                  <option value="" selected>
-                    Select Category...
-                  </option>
+                  <option value="">Select Category...</option>
                   <option value="Burger">Burger</option>
                   <option value="Drink">Drink</option>
                   <option value="Sides">Sides</option>
@@ -197,7 +200,11 @@ const AddProduct = () => {
             </div>
             <div className="modal-footer bg-dark">
               {error && <div className="error text-warning">{error}</div>}
-              <button type="submit" className="btn btn-warning m-1">
+              <button
+                type="submit"
+                className="btn btn-warning m-1"
+                data-bs-dismiss="modal"
+              >
                 Add
               </button>
             </div>

@@ -8,6 +8,7 @@ const ProductItem = (props) => {
   const { dispatch } = useProductsContext();
 
   const handleClick = async () => {
+    // when delete button is pressed fetch the product with the given id and call the DELETE method
     const response = await fetch(`${baseurl}/api/products/` + props.id, {
       method: "DELETE",
     });
@@ -32,6 +33,7 @@ const ProductItem = (props) => {
           >
             edit
           </button>
+          {/* call the EditProduct component when the edit button is pressed */}
           <EditProduct
             id={props.id}
             name={props.name}
@@ -41,7 +43,6 @@ const ProductItem = (props) => {
             description={props.description}
             imageURL={props.imageURL}
           />
-
           <button
             className="material-symbols-outlined m-1 text-danger border border-light"
             onClick={handleClick}
