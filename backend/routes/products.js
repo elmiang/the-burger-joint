@@ -15,7 +15,7 @@ router.get("/", getProducts);
 // Get a product
 router.get("/:id", getProduct);
 
-// Get products by type
+// Get products by type (obsolete)
 //router.get("/:category", getProductsByType);
 
 // Post new product
