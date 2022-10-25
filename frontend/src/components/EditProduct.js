@@ -2,8 +2,13 @@ import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import { useEffect } from "react";
 
-const EditProduct = (props) => {
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+
+const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
+  const { user, getAccessTokenSilently } = useAuth0();  
 
   // initialise attributes of a product and fields to check for errors
   const [Dish_id, setDish_id] = useState("");
@@ -30,17 +35,17 @@ const EditProduct = (props) => {
       ingredients,
       imageURL,
     };
+
+    const accessToken = await getAccessTokenSilently();
     // find the product to be edited by the provided id and send a PATCH packet
-    const response = await fetch(
-      `${baseurl}/api/products/` + editedProduct.Dish_id,
-      {
-        method: "PATCH",
-        body: JSON.stringify(editedProduct),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${baseurl}/api/products/${editedProduct.Dish_id}`, {
+      method: "PATCH",
+      body: JSON.stringify(editedProduct),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"            
+      },                    
+    });
     const json = await response.json();
     // display an error if the response is bad
     if (!response.ok) {

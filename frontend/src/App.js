@@ -65,10 +65,13 @@ function App() {
               element={<AdminTickets/>}
             />
             <Route 
+              path="/callback" 
+              element={<Callback/>}
+            />
+            <Route 
               path="/"
               element={<Navigate replace to="/menu"/>}
             />
-            <Route path="/callback" element={<Callback/>}/>
         </Routes>
       </BrowserRouter>
       <Footer />

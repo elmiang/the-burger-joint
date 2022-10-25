@@ -17,24 +17,28 @@ import moment from 'moment';
 
 import { Accordion } from "react-bootstrap"
 
-const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+const domain = process.env.REACT_APP_BACKEND_API_URL;  
 
 const OrderHistory = () => {
 
     // Defining state for orderLine and dishes table
     const [orders, setOrders] = useState([]);
     const [dishes, setDishes] = useState([]);    
-    const { user } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
 
     // Retrieve the orders for the user
     useEffect(() => {
         const fetchOrders = async () => {
-            //const response = await axios.get(`${baseurl}/api/profile/${user?.email}/orders`);
-            // TEST PURPOSES
-            const response = await axios.get(`${baseurl}/api/profile/test@gmail.com/orders`);
-
+            const accessToken = await getAccessTokenSilently();
+            const response = await axios.get(`${domain}/api/profile/orders`, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"            
+              },
+            });
+    
             if (response.status == 200) {
-                setOrders(response.data)
+                setOrders(response.data);
             }
         }
         fetchOrders();
@@ -43,10 +47,10 @@ const OrderHistory = () => {
     // Retrieve the contents of the order from the user
     useEffect(() => {
         const fetchDishes = async () => {
-          const response = await axios.get(`${baseurl}/api/menu/`);
+          const response = await axios.get(`${domain}/api/menu/`);
   
           if (response.status == 200) {
-              setDishes(response.data)
+            setDishes(response.data);
           }
         }
         fetchDishes();

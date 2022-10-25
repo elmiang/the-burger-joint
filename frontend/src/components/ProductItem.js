@@ -2,15 +2,22 @@ import React from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
-const baseurl = process.env.REACT_APP_BACKEND_API_URL;
+import { useAuth0 } from "@auth0/auth0-react";
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
 
 const ProductItem = (props) => {
   const { dispatch } = useProductsContext();
+  const { user, getAccessTokenSilently } = useAuth0();  
 
   const handleClick = async () => {
+    const accessToken = await getAccessTokenSilently();
     // when delete button is pressed fetch the product with the given id and call the DELETE method
-    const response = await fetch(`${baseurl}/api/products/` + props.id, {
+    const response = await fetch(`${baseurl}/api/products/${props.id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"            
+      },        
     });
     const json = await response.json();
 

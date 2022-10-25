@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 
-const baseurl = process.env.REACT_APP_BACKEND_API_URL;
+import { useAuth0 } from "@auth0/auth0-react";
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
 
 const AddProduct = () => {
   const { dispatch } = useProductsContext();
+  const { user, getAccessTokenSilently } = useAuth0();  
 
   // initialise attributes of a product and fields to check for errors
   const [Dish_id, setDish_id] = useState("");
@@ -30,11 +32,13 @@ const AddProduct = () => {
       ingredients,
       imageURL,
     };
+    const accessToken = await getAccessTokenSilently();
     // fetch the list of products and send a POST packet containing details of the new product
     const response = await fetch(`${baseurl}/api/products`, {
       method: "POST",
       body: JSON.stringify(product),
       headers: {
+        Authorization: `Bearer ${accessToken}`,        
         "Content-Type": "application/json",
       },
     });

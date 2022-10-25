@@ -12,16 +12,16 @@ const {
 const router = express.Router();
 
 // Creating route for the user profile
-router.get('/:id', getUserProfile);
+router.get('/', getUserProfile);
 
 // Creating route for getting editing the user profile
-router.patch('/:id', updateUserProfile);
+router.patch('/', updateUserProfile);
 
 // Creating route for deleting the user profile
-router.delete('/:id', deleteUserProfile);
+router.delete('/', deleteUserProfile);
 
 // Creating route for retrieving the order history of a user
-router.get('/:id/orders', userOrderHistory);
+router.get('/orders', userOrderHistory);
 
 // Creating route for updating the user coupon status
 router.patch('/coupon/:id', updateUserCoupons);

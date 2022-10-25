@@ -10,20 +10,23 @@ const { db } = require('../models/accountModel');
 // Get the user profile
 const getUserProfile = async (req, res) => {
     // Get the email from the JWT token in the request
-    const email = req.params.id;
+    const email = req.auth.email;
+
+    console.log('getUserProfile: ' + email);
 
     // Find the specified profile 
     const data = await Profile.findOne({email: email}); 
     if (!data) {
         return res.status(404).json({error: 'No such account exists'});
     }
+
     res.status(200).json(data);
 }
 
 // Edit the user profile
 const updateUserProfile =  async (req, res) => {
-    // Get the email (primary identifier)
-    const email = req.params.id;
+    // Get the email from the JWT token in the request
+    const email = req.auth.email;
 
     // Update the Profile
     const profile = await Profile.findOneAndUpdate({email: email}, {
@@ -41,8 +44,8 @@ const updateUserProfile =  async (req, res) => {
 
 // Delete the user profile
 const deleteUserProfile  = async (req, res) => {
-    // Get the email
-    const email = req.params.id;
+    // Get the email from the JWT token in the request
+    const email = req.auth.email;
 
     // Delete the email from the DB
     const profile = await Profile.findOneAndDelete({email: email})
@@ -56,8 +59,9 @@ const deleteUserProfile  = async (req, res) => {
 
 // View the order history of a user's account
 const userOrderHistory  = async (req, res) => {
-    // Get the user ID
-    const userId = req.params.id;
+    // Get the email from the JWT token in the request
+    //const userId = req.auth.email;
+    const userId = "test@gmail.com";
 
     // Retrieve the orders for the specified account
     const orderHistory = [];

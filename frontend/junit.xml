@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="14" failures="0" errors="0" time="2.833">
-  <testsuite name="src\pages\__test__\Tickets.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-22T05:03:09" time="0.882" tests="2">
-    <testcase classname="Allows users to enter ticket details allows user to input into the ticket subject" name="Allows users to enter ticket details allows user to input into the ticket subject" time="0.034">
+<testsuites name="jest tests" tests="14" failures="0" errors="0" time="10.566">
+  <testsuite name="src\pages\__test__\Tickets.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:29:36" time="3.984" tests="2">
+    <testcase classname="Allows users to enter ticket details allows user to input into the ticket subject" name="Allows users to enter ticket details allows user to input into the ticket subject" time="0.123">
     </testcase>
-    <testcase classname="Allows users to enter ticket details allows user to input into the ticket body" name="Allows users to enter ticket details allows user to input into the ticket body" time="0.008">
-    </testcase>
-  </testsuite>
-  <testsuite name="src\pages\__test__\Checkout.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-22T05:03:09" time="1.176" tests="5">
-    <testcase classname="Allows users to enter their payment details correctly identifies the card type as Visa" name="Allows users to enter their payment details correctly identifies the card type as Visa" time="0.08">
-    </testcase>
-    <testcase classname="Allows users to enter their payment details will only allow one card type to be selected at any given time" name="Allows users to enter their payment details will only allow one card type to be selected at any given time" time="0.031">
-    </testcase>
-    <testcase classname="Allows users to enter their payment details allows user to enter their Card Number" name="Allows users to enter their payment details allows user to enter their Card Number" time="0.023">
-    </testcase>
-    <testcase classname="Allows users to enter their payment details allows user to enter their CSV" name="Allows users to enter their payment details allows user to enter their CSV" time="0.023">
-    </testcase>
-    <testcase classname="Allows users to enter their payment details card expiration options are available &amp; are changeable" name="Allows users to enter their payment details card expiration options are available &amp; are changeable" time="0.025">
+    <testcase classname="Allows users to enter ticket details allows user to input into the ticket body" name="Allows users to enter ticket details allows user to input into the ticket body" time="0.023">
     </testcase>
   </testsuite>
-  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-22T05:03:09" time="1.508" tests="4">
-    <testcase classname="Menu Items should fetch menu items from db and be displayed" name="Menu Items should fetch menu items from db and be displayed" time="0.05">
+  <testsuite name="src\pages\__test__\Checkout.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:29:36" time="5.44" tests="5">
+    <testcase classname="Allows users to enter their payment details correctly identifies the card type as Visa" name="Allows users to enter their payment details correctly identifies the card type as Visa" time="0.218">
     </testcase>
-    <testcase classname="Sidebar navigation should navigate to Burger section when button is clicked" name="Sidebar navigation should navigate to Burger section when button is clicked" time="0.008">
+    <testcase classname="Allows users to enter their payment details will only allow one card type to be selected at any given time" name="Allows users to enter their payment details will only allow one card type to be selected at any given time" time="0.088">
     </testcase>
-    <testcase classname="Sidebar navigation should navigate to Drinks section when button is clicked" name="Sidebar navigation should navigate to Drinks section when button is clicked" time="0.003">
+    <testcase classname="Allows users to enter their payment details allows user to enter their Card Number" name="Allows users to enter their payment details allows user to enter their Card Number" time="0.063">
     </testcase>
-    <testcase classname="Sidebar navigation should navigate to Sides section when button is clicked" name="Sidebar navigation should navigate to Sides section when button is clicked" time="0.003">
+    <testcase classname="Allows users to enter their payment details allows user to enter their CSV" name="Allows users to enter their payment details allows user to enter their CSV" time="0.094">
+    </testcase>
+    <testcase classname="Allows users to enter their payment details card expiration options are available &amp; are changeable" name="Allows users to enter their payment details card expiration options are available &amp; are changeable" time="0.111">
     </testcase>
   </testsuite>
-  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-22T05:03:09" time="1.555" tests="3">
-    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.067">
+  <testsuite name="src\pages\__test__\Menu.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:29:36" time="5.968" tests="4">
+    <testcase classname="Menu Items should fetch menu items from db and be displayed" name="Menu Items should fetch menu items from db and be displayed" time="0.117">
     </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.04">
+    <testcase classname="Sidebar navigation should navigate to Burger section when button is clicked" name="Sidebar navigation should navigate to Burger section when button is clicked" time="0.017">
     </testcase>
-    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.034">
+    <testcase classname="Sidebar navigation should navigate to Drinks section when button is clicked" name="Sidebar navigation should navigate to Drinks section when button is clicked" time="0.008">
+    </testcase>
+    <testcase classname="Sidebar navigation should navigate to Sides section when button is clicked" name="Sidebar navigation should navigate to Sides section when button is clicked" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="src\pages\__test__\Cart.test.js" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:29:36" time="6.7" tests="3">
+    <testcase classname="Cart total price tests should return the total price of a single item in the cart" name="Cart total price tests should return the total price of a single item in the cart" time="0.229">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items in the cart" name="Cart total price tests should return the total price of multiple items in the cart" time="0.209">
+    </testcase>
+    <testcase classname="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" name="Cart total price tests should return the total price of multiple items with multiple quantities in the cart" time="0.094">
     </testcase>
   </testsuite>
 </testsuites>

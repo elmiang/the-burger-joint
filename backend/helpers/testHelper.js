@@ -1,7 +1,8 @@
 // Helper Script for mocking requests and responses
-const mockRequest = (method, params, body) => {
+const mockRequest = (method, auth, params, body) => {
     return {
         method: method,
+        auth: auth,
         params: params,
         body: body
     };

@@ -29,7 +29,7 @@ describe("Get Products", () => {
 
     mockingoose(Dish).toReturn(product, "find");
 
-    const req = mockRequest("GET", { Category: "Sides" });
+    const req = mockRequest("GET", null, { Category: "Sides" });
     const res = mockResponse();
 
     await getProductsByType(req, res);
@@ -88,7 +88,7 @@ describe("Delete Product", () => {
 
     mockingoose(Dish).toReturn(product, "findOneAndDelete");
 
-    const req = mockRequest("DELETE", { id: 10 });
+    const req = mockRequest("DELETE", null, { id: 10 });
     const res = mockResponse();
 
     await deleteProduct(req, res);
@@ -117,7 +117,7 @@ describe("Update Product", () => {
 
     mockingoose(Dish).toReturn(product, "findOneAndUpdate");
 
-    const req = mockRequest("PATCH", { id: 10 }, updatedProduct);
+    const req = mockRequest("PATCH", null, { id: 10 }, updatedProduct);
     const res = mockResponse();
 
     await updateProduct(req, res);
