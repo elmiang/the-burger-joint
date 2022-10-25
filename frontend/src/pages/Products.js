@@ -13,10 +13,12 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 const { search } = window.location;
 const query = new URLSearchParams(search).get("s");
 
+// allow searching of the products displayed on screen
 const searchProducts = (products, query) => {
   if (!query) {
     return products;
   }
+  // filters the products by the dish name
   return products.filter((products) => {
     const dishname = products.DishName.toLowerCase();
     return dishname.includes(query.toLowerCase());
@@ -28,6 +30,7 @@ const Products = () => {
   const { user, getAccessTokenSilently } = useAuth0();  
 
   const { products, dispatch } = useProductsContext();
+  // on load fetch the products stored in the database
   useEffect(() => {
     const fetchProducts = async () => {
 
@@ -58,6 +61,7 @@ const Products = () => {
         <div className="row">
           <h3 className="text-warning">Product List</h3>
           <div className="col">
+            {/* Display searchbar component (provided by Kenny) */}
             <Searchbar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
@@ -76,6 +80,7 @@ const Products = () => {
           </div>
         </div>
         <div className="products">
+          {/* Map the products that match the search parameters or all if none */}
           {products &&
             searchedProducts.map((product) => (
               <div key={product._id}>

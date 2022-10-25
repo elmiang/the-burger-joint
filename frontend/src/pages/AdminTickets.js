@@ -12,6 +12,7 @@ const Tickets = () => {
     const { user, getAccessTokenSilently } = useAuth0();  
 
     const [tickets, setTickets] = useState(null)    
+    // Fetches tickets that have been marked as unresolved
     useEffect(() => {
         const fetchTickets = async () => {
             
@@ -48,28 +49,3 @@ const Tickets = () => {
     );
 };
 export default Tickets;
-//<input id="TicketBody" type="text" className="w-75 h-100"></input><br/>
-// Implement Ticket
-// 
-
-/*
-            <div className="row">
-                <div>
-                    <h3 id="TicketHeader" className="p-3 mt-3 text-white">Ticket submission</h3>
-                    <p>If the user has any problems with an order or questions regarding how to use the system, please fill out a ticket and we will respond as quickly as possible</p>
-                </div>
-                <div>
-                    <input type="text" id="TicketInput"></input>
-                    <button></button>
-                </div>
-            </div>
-
-*/
-
-
-
-
-/*                    <textarea rows = "10" cols="100" id="TicketBody" className="m-2"
-                        onChange={(e) => setTicketBody(e.target.value)}
-                        value={ticket_body}
-                    />*/

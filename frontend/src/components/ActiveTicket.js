@@ -18,7 +18,7 @@ const ActiveTicket = ({ ticket }) => {
         const json = await response.json()
 
         if (response.ok) {
-            
+            window.location.href = "/menu"
         }
     }
 

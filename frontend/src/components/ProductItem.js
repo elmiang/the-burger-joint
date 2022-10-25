@@ -3,7 +3,6 @@ import { useProductsContext } from "../hooks/useProductsContext";
 import EditProduct from "../components/EditProduct";
 
 import { useAuth0 } from "@auth0/auth0-react";
-
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
 
 const ProductItem = (props) => {
@@ -12,6 +11,7 @@ const ProductItem = (props) => {
 
   const handleClick = async () => {
     const accessToken = await getAccessTokenSilently();
+    // when delete button is pressed fetch the product with the given id and call the DELETE method
     const response = await fetch(`${baseurl}/api/products/${props.id}`, {
       method: "DELETE",
       headers: {
@@ -40,6 +40,7 @@ const ProductItem = (props) => {
           >
             edit
           </button>
+          {/* call the EditProduct component when the edit button is pressed */}
           <EditProduct
             id={props.id}
             name={props.name}
@@ -49,7 +50,6 @@ const ProductItem = (props) => {
             description={props.description}
             imageURL={props.imageURL}
           />
-
           <button
             className="material-symbols-outlined m-1 text-danger border border-light"
             onClick={handleClick}

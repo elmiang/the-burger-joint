@@ -10,6 +10,7 @@ const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
   const { user, getAccessTokenSilently } = useAuth0();  
 
+  // initialise attributes of a product and fields to check for errors
   const [Dish_id, setDish_id] = useState("");
   const [DishName, setDishName] = useState("");
   const [Category, setCategory] = useState("");
@@ -19,37 +20,12 @@ const EditProduct = ({ product }) => {
   const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-  /*
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const response = await fetch("/api/products/" + props.id);
-      const json = await response.json();
-      const [
-        Dish_id,
-        DishName,
-        Category,
-        Description,
-        Price,
-        ingredients,
-        imageURL,
-      ] = json;
 
-      if (response.ok) {
-        setDish_id(Dish_id);
-        setDishName(DishName);
-        setCategory(Category);
-        setDescription(Description);
-        setPrice(Price);
-        setIngredients(ingredients);
-        setImageURL(imageURL);
-      }
-    };
-    fetchProduct();
-  });
-*/
+  const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // populate the edited product with the provided details
     const editedProduct = {
       Dish_id,
       DishName,
@@ -59,7 +35,9 @@ const EditProduct = ({ product }) => {
       ingredients,
       imageURL,
     };
+
     const accessToken = await getAccessTokenSilently();
+    // find the product to be edited by the provided id and send a PATCH packet
     const response = await fetch(`${baseurl}/api/products/${editedProduct.Dish_id}`, {
       method: "PATCH",
       body: JSON.stringify(editedProduct),
@@ -69,15 +47,15 @@ const EditProduct = ({ product }) => {
       },                    
     });
     const json = await response.json();
-    console.log(response.ok);
+    // display an error if the response is bad
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
     }
+    // reset the attributes if successful
     if (response.ok) {
       setDish_id("");
       setDishName("");
-      setCategory("");
       setDescription("");
       setPrice("");
       setIngredients("");
@@ -168,10 +146,9 @@ const EditProduct = ({ product }) => {
                   placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
+                  defaultValue={Category}
                 >
-                  <option value="" selected>
-                    Select Category...
-                  </option>
+                  <option value="">Select Category...</option>
                   <option value="Burger">Burger</option>
                   <option value="Drink">Drink</option>
                   <option value="Sides">Sides</option>
@@ -231,7 +208,11 @@ const EditProduct = ({ product }) => {
             </div>
             <div className="modal-footer bg-dark">
               {error && <div className="error text-warning">{error}</div>}
-              <button type="submit" className="btn btn-warning m-1">
+              <button
+                type="submit"
+                className="btn btn-warning m-1"
+                data-bs-dismiss="modal"
+              >
                 Save
               </button>
             </div>

@@ -1,11 +1,44 @@
+import React from "react";
+import { useState } from "react"
+
 const ReciptDetails = ({ recipt }) => {
-    
-    
+    const [itemArray, setItemArray] = useState([])
+    //setItemArray(recipt.Items.split("|"))
+    //setValuesArray()
+    //const itemArray = recipt.Items.split("|");
+    //const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+    /*const testItems = [
+        {name: "clown cake", quantity: "3", price: "12.00"},
+        {name: "burger", quantity: "4", price: "26.00"}
+    ];
+    document.getElementById("ItemSection").innerHTML = testItems.map(ItemisedBill);
+    function ItemisedBill(items) {
+        return [items.name," x",items.quantity,"...",items.price].join("");
+    }*/
+
+    /*document.getElementById("ItemSection").innerHTML = recipt.Items.map(ItemisedBill);
+    function ItemisedBill(items) {
+        return [items.name, items.quantity, items.price].join("");
+    }*/
+    /*const itemArray = {
+        names: "",
+        quantity: "",
+        price: ""
+    }
+    const index = 0;
+    recipt.Items.forEach(element => {
+        itemArray[index].names = element.Item_Name;
+        itemArray[index].quantity = element.Item_Quantity;
+        itemArray[index].price = element.Item_Price;
+    });*/
+
+
     return (
         <div className="recipt-details card h-50 w-50 m-3">
                 <div className="card-body bg-light">
                     <h4>Recipt</h4>
                     <p><strong>Billing Items</strong></p>
+                    <p id="ItemSection">{recipt.Items}</p>
                     <p>Total Cost: {recipt.total_price}</p>
                     <br/>
                     <p><strong>Payment Details</strong></p>
@@ -23,6 +56,7 @@ const ReciptDetails = ({ recipt }) => {
                 </div>
         </div>
     )
+    
 }
 
 
