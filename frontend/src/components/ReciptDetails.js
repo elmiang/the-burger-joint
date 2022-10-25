@@ -34,8 +34,8 @@ const ReciptDetails = ({ recipt }) => {
 
 
     return (
-        <div className="recipt-details" class="card h-50 w-50 m-3">
-                <div class="card-body bg-light">
+        <div className="recipt-details card h-50 w-50 m-3">
+                <div className="card-body bg-light">
                     <h4>Recipt</h4>
                     <p><strong>Billing Items</strong></p>
                     <p id="ItemSection">{recipt.Items}</p>

@@ -1,11 +1,18 @@
 import AccountProfile from './AccountProfile';
 
-import { Link } from 'react-router-dom'
+import { createPath, Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import OrderHistory from "../pages/ReciptHistory";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Navbar = () => {
+  const cartItems = useSelector((state) => state.cart);
+  const { user, isAuthenticated } = useAuth0();
+  const isAdmin = isAuthenticated && user['https://burger-joint-api//roles'].includes('Admin');
+
   return(
     <nav className="navbar navbar-dark bg-dark">
       <div className="container-fluid justify-content-end">
@@ -26,6 +33,10 @@ const Navbar = () => {
           >
                 <path d="M14 13.1V12H4.6l.6-1.1 9.2-.9L16 4H3.7L3 1H0v1h2.2l2.1 8.4L3 13v1.5c0 .8.7 1.5 1.5 1.5S6 15.3 6 14.5 5.3 13 4.5 13H12v1.5c0 .8.7 1.5 1.5 1.5s1.5-.7 1.5-1.5c0-.7-.4-1.2-1-1.4zM4 5h10.7l-1.1 4-8.4.9L4 5z" />
           </svg>
+          <div className='rounded-circle bg-primary d-flex justify-content-center align-items-center' 
+          style={{ color: 'white', fontSize: '13px', width: "1.25rem", height: "1.25rem", transform: "translate(100%, -20%)"}}>
+            {cartItems.length}
+          </div>
         </a>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
@@ -33,7 +44,7 @@ const Navbar = () => {
         </button>
         
         {/* Navigation items */}
-        <div className="collapse navbar-collapse navbar-dark" id="main-nav">
+        <div className='collapse navbar-collapse navbar-dark' id="main-nav">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/menu">Menu</Link>
@@ -42,24 +53,27 @@ const Navbar = () => {
               <Link className="nav-link" to="/checkout">Checkout</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/products">Product Management</Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/sales">Sales Management</Link>
-            </li>
-            <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/recipthistory">Recipts</Link>
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/tickets">Tickets</Link>
+            </li>            
+
+            {isAdmin &&
+            <div>
+            <li className="nav-item">
+              <Link className="nav-link" to="/products">Product Management</Link>
             </li>
             <li className="nav-item">
-              {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/admintickets">Ticket Management</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/sales">Sales Management</Link>
+            </li>
+            </div>                                    
+            }
           </ul>
         </div>
       </div>

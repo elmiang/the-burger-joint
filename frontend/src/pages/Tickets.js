@@ -4,18 +4,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ActiveTicket from "../components/ActiveTicket"
 import ResolvedTicket from "../components/ResolvedTicket"
 
-
-const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;   
 
 const Tickets = () => {
-    const [tickets, setTickets] = useState(null)
-    const { user } = useAuth0();
-    
-    // GETS method, fetching active/ongoing tickets with equivalent user ID 
+    const [tickets, setTickets] = useState(null) 
+    const { user, getAccessTokenSilently } = useAuth0();
+    // GETS method, fetching active/ongoing tickets with equivalent user ID
     useEffect(() => {
         const fetchTickets = async () => {
             try{
-                const response = await fetch(`${baseurl}/api/tickets/` + user.email)
+                const accessToken = await getAccessTokenSilently();
+                const response = await fetch(`${baseurl}/api/tickets/`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json"            
+                    },    
+                });
                 const json = await response.json() 
                 if (response.ok) {
                 setTickets(json)
@@ -35,7 +39,13 @@ const Tickets = () => {
     useEffect(() => {
         const resFetchTickets = async () => {
             try{
-                const response = await fetch(`${baseurl}/api/tickets/resolved/` + user.email)
+                const accessToken = await getAccessTokenSilently();       
+                const response = await fetch(`${baseurl}/api/tickets/`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json"            
+                    },                        
+                });
                 const json = await response.json() 
 
                 if (response.ok) {
@@ -67,11 +77,13 @@ const Tickets = () => {
         setTicketResolved(false)
         // Ticket body is created containing all set values
         const ticket = {user_id, ticket_title, ticket_body, ticket_resolved, ticket_body}
+        const accessToken = await getAccessTokenSilently();
         // Ticket is posted (created), to controler using api routes
-        const response = await fetch(`${baseurl}/api/tickets`, {
+        const response = await fetch(`${baseurl}/api/tickets/`, {
             method: 'POST',
             body: JSON.stringify(ticket),
             headers: {
+                Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
             }
         })

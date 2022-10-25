@@ -35,7 +35,7 @@ describe('Profile Service', () => {
 
             mockingoose(Profile).toReturn(doc, 'findOne');            
 
-            const req = mockRequest('GET', { id: 'chuck.norris@domain.com' });
+            const req = mockRequest('GET', { email: 'chuck.norris@domain.com' });
             const res = mockResponse();
 
             // Act
@@ -59,7 +59,7 @@ describe('Profile Service', () => {
             // Arrange
             mockingoose(Profile).toReturn(null, 'findOne');            
 
-            const req = mockRequest('GET', { id: 'i.am.not.here@domain.com' });
+            const req = mockRequest('GET', { email: 'i.am.not.here@domain.com' });
             const res = mockResponse();
 
             // Act
@@ -92,7 +92,8 @@ describe('Profile Service', () => {
 
             const req = mockRequest(
                 'PATCH', 
-                { id: 'chuck.norris@domain.com' }, 
+                { email: 'chuck.norris@domain.com' },
+                null, 
                 { email: "chuck.norris@domain.com", firstName: "Adam", lastName: "Sandler", residentialAddress: "123", phoneNumber:"123" }
             );
             const res = mockResponse();
@@ -118,7 +119,7 @@ describe('Profile Service', () => {
             // Arrange
             mockingoose(Profile).toReturn(null, 'findOneAndUpdate');            
 
-            const req = mockRequest('PATCH', { id: 'i.am.not.here@domain.com' });
+            const req = mockRequest('PATCH', { email: 'i.am.not.here@domain.com' });
             const res = mockResponse();
 
             // Act
@@ -151,7 +152,7 @@ describe('Profile Service', () => {
 
             const req = mockRequest(
                 'DELETE', 
-                { id: 'chuck.norris@domain.com' });
+                { email: 'chuck.norris@domain.com' });
             const res = mockResponse();
 
             // Act
@@ -175,7 +176,7 @@ describe('Profile Service', () => {
             // Arrange
             mockingoose(Profile).toReturn(null, 'findOneAndDelete');            
 
-            const req = mockRequest('DELETE', { id: 'i.am.not.here@domain.com' });
+            const req = mockRequest('DELETE', { email: 'i.am.not.here@domain.com' });
             const res = mockResponse();
 
             // Act

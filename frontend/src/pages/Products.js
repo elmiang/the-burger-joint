@@ -5,26 +5,43 @@ import { useEffect } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
 import Searchbar from "../components/SearchBar";
 
+// Bring in Auth0
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+
 const { search } = window.location;
 const query = new URLSearchParams(search).get("s");
 
+// allow searching of the products displayed on screen
 const searchProducts = (products, query) => {
   if (!query) {
     return products;
   }
+  // filters the products by the dish name
   return products.filter((products) => {
     const dishname = products.DishName.toLowerCase();
     return dishname.includes(query.toLowerCase());
   });
 };
 
-const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
-
 const Products = () => {
+
+  const { user, getAccessTokenSilently } = useAuth0();  
+
   const { products, dispatch } = useProductsContext();
+  // on load fetch the products stored in the database
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch(`${baseurl}/api/products`);
+
+      const accessToken = await getAccessTokenSilently();
+      
+      const response = await fetch(`${baseurl}/api/products`,{
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json"            
+          },    
+      });
       const json = await response.json();
 
       if (response.ok) {
@@ -44,6 +61,7 @@ const Products = () => {
         <div className="row">
           <h3 className="text-warning">Product List</h3>
           <div className="col">
+            {/* Display searchbar component (provided by Kenny) */}
             <Searchbar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
@@ -62,6 +80,7 @@ const Products = () => {
           </div>
         </div>
         <div className="products">
+          {/* Map the products that match the search parameters or all if none */}
           {products &&
             searchedProducts.map((product) => (
               <div key={product._id}>

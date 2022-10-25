@@ -26,7 +26,7 @@ const getTicket = async (req, res) => {
 
 // GET a ticket
 const getUserTickets = async (req, res) => {
-    const {id} = req.params
+    const id = req.auth.email;
 
     /*if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'no such ticket'})
