@@ -89,7 +89,7 @@ const userOrderHistory  = async (req, res) => {
 // Update a user's coupon status
 const updateUserCoupons = async (req, res) => {
     // Get the user ID
-    const email = req.params.id;
+    const email = req.auth.email;
     const coupon = req.body;
 
     db.collection('User')

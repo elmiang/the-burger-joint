@@ -24,7 +24,7 @@ router.delete('/', deleteUserProfile);
 router.get('/orders', userOrderHistory);
 
 // Creating route for updating the user coupon status
-router.patch('/coupon/:id', updateUserCoupons);
+router.patch('/coupon', updateUserCoupons);
 
 // Exporting the routes within the router
 module.exports = router;
