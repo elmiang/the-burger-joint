@@ -14,7 +14,7 @@ const Tickets = () => {
         const fetchTickets = async () => {
             try{
                 const accessToken = await getAccessTokenSilently();
-                const response = await fetch(`${baseurl}/api/tickets/`, {
+                const response = await fetch(`${baseurl}/api/tickets/` + user.email, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                         "Content-Type": "application/json"            
@@ -40,7 +40,7 @@ const Tickets = () => {
         const resFetchTickets = async () => {
             try{
                 const accessToken = await getAccessTokenSilently();       
-                const response = await fetch(`${baseurl}/api/tickets/`, {
+                const response = await fetch(`${baseurl}/api/tickets/` + user.email, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                         "Content-Type": "application/json"            

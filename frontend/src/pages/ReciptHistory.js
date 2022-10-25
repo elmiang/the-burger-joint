@@ -1,5 +1,5 @@
 //import { set } from "mongoose";
-import React from 'react'
+import React, { useSyncExternalStore } from 'react'
 import { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import ReciptDetails from '../components/ReciptDetails';
@@ -14,7 +14,7 @@ const OrderHistory = () => {
     useEffect(() => {
         const fetchRecipts = async () => {
             const accessToken = await getAccessTokenSilently();
-            const response = await fetch(`${baseurl}/api/recipts`, {
+            const response = await fetch(`${baseurl}/api/recipts/` + user.email, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     "Content-Type": "application/json"            

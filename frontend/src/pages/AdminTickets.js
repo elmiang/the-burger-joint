@@ -18,7 +18,7 @@ const Tickets = () => {
             
             const accessToken = await getAccessTokenSilently();
 
-            const response = await fetch(`${baseurl}/api/tickets/unresolved`, {
+            const response = await fetch(`${baseurl}/api/tickets/`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     "Content-Type": "application/json"            
