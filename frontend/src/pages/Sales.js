@@ -15,6 +15,8 @@ const Sales = () => {
     //Fetch orderlines from db into "orderLines"
     const [orderLines, setOrderLines,] = useState([]);
 
+    console.log(orderLines);
+
     useEffect(() => {
         const fetchOrderLines = async () => {
 

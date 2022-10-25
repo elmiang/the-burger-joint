@@ -25,7 +25,7 @@ const Cart = () => {
   const [inputCode, setInputCode] = useState("");
 
   const [totalPrice, setTotalPrice] = useState(0);
-
+  console.log(cartItems);
   // Fetch user's used coupons 
   const fetchUsedCoupons = async () => {
     if (user) {
@@ -159,7 +159,7 @@ const Cart = () => {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
     if (coupon) {
       const encryptedData = encryptData(coupon, salt);
-      
+
       setCouponResponse('valid');
       localStorage.setItem('coupon', encryptedData);
     }

@@ -94,7 +94,7 @@ const filterDishes = (dishes, query) => {
                             //For every burger, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                             filteredDishes.filter(obj => obj.Category.includes('Burger')).map((item, index) => 
                                 <div key={item.Dish_id} data-testid={`menu-item-${index}`}>
-                                    <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                                    <MenuItem item_id={item.Dish_id} name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                                 </div>
                             )
                         }
@@ -115,7 +115,7 @@ const filterDishes = (dishes, query) => {
                             //For every drink, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                             filteredDishes.filter(obj => obj.Category.includes('Drink')).map((item) => 
                                 <div key={item._id}>  
-                                    <MenuItem name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
+                                    <MenuItem item_id={item.Dish_id} name={item.DishName} description={item.Description} price={item.Price} url={item.imageURL} category={item.Category} ingredients={item.ingredients}/>
                                 </div>
                             )
                         }
@@ -135,7 +135,7 @@ const filterDishes = (dishes, query) => {
                             //For every sides, retrieve name, description, price, url, category and ingredients and pass in into MenuItem as props
                             filteredDishes.filter(obj => obj.Category.includes('Sides')).map((item) => 
                                 <div key={item._id}>
-                                <MenuItem name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
+                                <MenuItem item_id={item.Dish_id} name={item.DishName} description={item.Description} price={item.Price} category={item.Category} url={item.imageURL}/>
                                 </div>
                             )
                         }

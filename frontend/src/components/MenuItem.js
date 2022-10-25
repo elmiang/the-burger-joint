@@ -13,6 +13,7 @@ const MenuItem = (props) => {
         if (findItem === undefined) {
             var item = {
                 id: items.length + 1, 
+                dish_id: props.item_id,
                 name: props.name, quantity: 1, 
                 price: props.price, 
                 category: props.category

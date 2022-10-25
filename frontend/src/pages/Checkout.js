@@ -139,7 +139,7 @@ const Checkout = () => {
             // If checkout succeeds, submit orderline
             // Posts OrderLine sales record containing the orders id, dishes id, & dishes quantity for sales
             cartItems.forEach(async item => {
-                Dish_id = item.id;
+                Dish_id = item.dish_id;
                 OrderQuantity = item.quantity;
                 const orderLine = {Order_id, Dish_id, OrderQuantity}
 
@@ -182,7 +182,7 @@ const Checkout = () => {
             console.log('new recipt added', json)
             dispatch(clearItems());
             localStorage.clear();
-            // window.location.href = "/menu"
+            window.location.href = "/menu"
         }
     }
 
