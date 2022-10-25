@@ -16,7 +16,7 @@ const Checkout = () => {
 
 
 
-    
+    // Initialise values for recipt
     const [User_ID, setUserID] = useState('')
     const [Payment_Type, setPaymentType] = useState('')
     const [Card_No, setCardNo] = useState('')
@@ -189,7 +189,7 @@ const Checkout = () => {
     return ( 
         <div className="container-fluid bg-secondary w-75 mt-3 p-3 border border-dark bg-dark rounded">
             <div className="row">
-            <CheckoutBar/>
+            {/*<CheckoutBar/>*/}
                 <form className="create" onSubmit={handleSubmit}>
                     <div className="col py-5 p-5 rounded-2" tabIndex="0">
 

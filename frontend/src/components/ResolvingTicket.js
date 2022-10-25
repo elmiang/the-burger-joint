@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react";
 
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;   
-
+// Recieves tickets parameter for resolving
 const ActiveTicket = ({ ticket }) => {
     const [ticket_resolved, setTicketResolved] = useState(Boolean)
     const [resolution_body, setResolutionBody] = useState('')
@@ -13,12 +13,12 @@ const ActiveTicket = ({ ticket }) => {
     const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
 
     const handleClick = async () => {
-        //const tickets = {resolution_body}
+        // Object to contain set values of ticket
         const tickets = {
             ticket_resolved: true,
             resolution_body: resolution_body
           };
-
+        // Updates ticket with resolved status & resolution body
         const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${baseurl}/api/tickets/` + ticket._id, {
             method: 'PATCH',
@@ -36,10 +36,10 @@ const ActiveTicket = ({ ticket }) => {
             setError(json.error)
         }
         if (response.ok) {
+            // Reset values on successful completion
             setResolutionBody('')
             setTicketResolved('')
             setError(null)
-            console.log('ticket edited', json)
         }
     }
     

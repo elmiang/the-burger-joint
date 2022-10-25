@@ -2,10 +2,11 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const baseurl = process.env.REACT_APP_BACKEND_API_URL;   
-
+// Recieves ticket paramater 
 const ActiveTicket = ({ ticket }) => {
     const { user, getAccessTokenSilently } = useAuth0();
 
+    // Handles delete request on tickets
     const handleClick = async () => {
         const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${baseurl}/api/tickets/` + ticket._id, {
@@ -18,6 +19,7 @@ const ActiveTicket = ({ ticket }) => {
         const json = await response.json()
 
         if (response.ok) {
+            // Redirects webpage to menu on successful completion
             window.location.href = "/menu"
         }
     }

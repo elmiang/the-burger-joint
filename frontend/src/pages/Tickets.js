@@ -34,8 +34,9 @@ const Tickets = () => {
         fetchTickets()
     }, [])
 
-    // GETS method, fetching resolved tickets with equivalent user ID
+    // Initialise resolved tickets
     const [ticketsRes, setTicketsRes] = useState(null)
+    // GETS method, fetching resolved tickets with equivalent user ID
     useEffect(() => {
         const resFetchTickets = async () => {
             try{
@@ -97,7 +98,7 @@ const Tickets = () => {
             setTicketTitle('')
             setTicketBody('')
             setError(null)
-            console.log('new ticket added', json)
+            // Moves to menu
             window.location.href = "/menu"
         }
     }

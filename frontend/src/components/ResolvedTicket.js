@@ -1,5 +1,5 @@
 import React from "react";
-
+// Recieves ticket parameter with status resolved
 const ResolvedTicket = ({ticket}) => {
     return (
          
