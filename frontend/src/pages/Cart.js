@@ -26,7 +26,7 @@ const Cart = () => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // Fetch user's used coupons
+  // Fetch user's used coupons 
   const fetchUsedCoupons = async () => {
     if (user) {
       try {
