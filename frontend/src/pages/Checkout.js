@@ -60,7 +60,7 @@ const Checkout = () => {
         //Calculate total price from cart items
         var total_price = 0
         cartItems.forEach(item => {
-            total_price += item.price;
+            total_price += item.price * item.quantity;
             if (item.extra) {
                 item.extra.forEach(extra => {
                     total_price += extra.price;
@@ -69,7 +69,7 @@ const Checkout = () => {
         });
         //Apply coupon if it exists
         if (decryptedCoupon) {
-            total_price *= decryptedCoupon.rate;
+            total_price *= (1 - decryptedCoupon.rate);
         }
         
         
