@@ -34,6 +34,7 @@ const Sales = () => {
         fetchOrderLines();
     }, []);
 
+    
     //Fetch dishes from db into "dishes"
     const [dishes, setDishes] = useState([]);
     
@@ -48,6 +49,9 @@ const Sales = () => {
       fetchDishes();
     }, []);
 
+    //Sort dishes by ID, ascending
+    const sortedDishes = [...dishes].sort((a, b) => a.Dish_id - b.Dish_id);
+    
     return ( 
         
         <div className="container-fluid p-5 ">  
@@ -56,7 +60,7 @@ const Sales = () => {
                 <div className="col mx-auto mt-4 p-5">
                     {/* Sales Statistics */}
                     
-                    <SalesGraph orderData={orderLines} dishData={dishes}/> 
+                    <SalesGraph orderData={orderLines} dishData={sortedDishes}/> 
                     
                 </div>
 
@@ -64,7 +68,7 @@ const Sales = () => {
             {/* <h3 className="text-white text-center">Date</h3>    */}
                 <div className="col mx-auto mt-5">
                     {/* Sales History */}
-                    <SalesTable orderDetails={orderLines} dishData={dishes}/>
+                    <SalesTable orderDetails={orderLines} dishData={sortedDishes}/>
                 </div>
         </div>
         );
