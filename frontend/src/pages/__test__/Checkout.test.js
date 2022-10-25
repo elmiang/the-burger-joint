@@ -2,6 +2,7 @@ import React from 'react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import Checkout from '../Checkout'
 import { BrowserRouter } from 'react-router-dom';
+import { renderWithProviders } from '../../utility/test-utils';
 
 
 const MockCheckout = () => {
@@ -14,7 +15,7 @@ const MockCheckout = () => {
 
 describe("Allows users to enter their payment details", () => {
   it('correctly identifies the card type as Visa', () => {
-    render(<MockCheckout/>)
+    renderWithProviders(<MockCheckout/>)
     const radioButton = screen.getByLabelText('Visa');
     expect(radioButton.checked).toEqual(false);
     fireEvent.click(screen.getByLabelText('Visa'))
@@ -22,7 +23,7 @@ describe("Allows users to enter their payment details", () => {
   });
   
   it('will only allow one card type to be selected at any given time', () => {
-    render(<MockCheckout/>)
+    renderWithProviders(<MockCheckout/>)
     const radioButtonVisa = screen.getByLabelText('Visa');
     const radioButtonMaster = screen.getByLabelText('Mastercard');
     fireEvent.click(radioButtonVisa)
@@ -34,7 +35,7 @@ describe("Allows users to enter their payment details", () => {
   });
 
   it ('allows user to enter their Card Number', () => {
-    render(<MockCheckout/>)
+    renderWithProviders(<MockCheckout/>)
     const textboxCardNo = screen.getByLabelText("Card Number")
     expect(textboxCardNo.textContent).toBe("");
     textboxCardNo.textContent = "5345783200567832"
@@ -42,7 +43,7 @@ describe("Allows users to enter their payment details", () => {
   })
 
   it ('allows user to enter their CSV', () => {
-    render(<MockCheckout/>)
+    renderWithProviders(<MockCheckout/>)
     const textboxCardNo = screen.getByLabelText("CSV")
     expect(textboxCardNo.textContent).toBe("");
     textboxCardNo.textContent = "444"
@@ -50,7 +51,7 @@ describe("Allows users to enter their payment details", () => {
   })
 
   it('card expiration options are available & are changeable', () => {
-    render(<MockCheckout/>)
+    renderWithProviders(<MockCheckout/>)
     fireEvent.change(screen.getByTestId('ExpMM'))
     let optionsMonth = screen.getAllByTestId('ExpMMArray')
     expect(optionsMonth[0].selected).toBeTruthy();

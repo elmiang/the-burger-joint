@@ -4,7 +4,8 @@
 const express = require('express');
 const {
     getUserProfile, updateUserProfile, deleteUserProfile,
-    userOrderHistory
+    userOrderHistory,
+    updateUserCoupons
  } = require('../controllers/profileController')
 
 // Creating a router
@@ -21,6 +22,9 @@ router.delete('/', deleteUserProfile);
 
 // Creating route for retrieving the order history of a user
 router.get('/orders', userOrderHistory);
+
+// Creating route for updating the user coupon status
+router.patch('/coupon/:id', updateUserCoupons);
 
 // Exporting the routes within the router
 module.exports = router;

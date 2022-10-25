@@ -4,11 +4,25 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
+const path = require('path');
+require("dotenv").config();
 
 const { auth } = require('express-oauth2-jwt-bearer');
 // const jwt = require('express-jwt');
 const { expressjwt: jwt } = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+
+// Connect to db
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => {
+    // Listen for requests
+    app.listen(port, () => {
+      console.log('Connected to mongodb & listening on port', port);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 const extrasRoutes = require('./routes/extras');
 const profileRoutes = require('./routes/profile');
@@ -17,10 +31,13 @@ const orderLinesRoutes = require('./routes/orderLines');
 const reciptsRoutes = require('./routes/recipts')
 const ticketRoutes = require('./routes/tickets')
 const productRoutes = require("./routes/products");
+const couponRoutes = require("./routes/coupon");
 
 const port = process.env.PORT || 8888;
 
 // Middleware
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+console.log(__dirname);
 app.use(express.json());
 app.use(cors({
   origin: '*'
@@ -48,7 +65,8 @@ const checkPermissions = (permissions) => {
 // Public Routes
 app.use('/api/cart', extrasRoutes);
 app.use('/api/menu', dishesRoutes);
-app.use('/api/recipts', reciptsRoutes)
+app.use('/api/recipts', reciptsRoutes);
+app.use("/api/coupon", couponRoutes);
 
 
 
@@ -62,20 +80,13 @@ app.use('/api/tickets', checkJwt, ticketRoutes)
 app.use( (req, res, next) => {
   console.log(req.path, req.method);
   next();  
-})
+});
 
-// app.get('/api', function (req, res) {
-//   res.json({ message: `YOUR EXPRESS BACKEND IS CONNECTED TO REACT`});
-// })
+app.get('/', (req, res) => {
+  res.send('APP IS RUNNING.');
+});
 
-// Connect to db
-mongoose.connect(process.env.MONGO_URL)
-  .then(() => {
-    // Listen for requests
-    app.listen(port, () => {
-      console.log('Connected to mongodb & listening on port', port);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
+

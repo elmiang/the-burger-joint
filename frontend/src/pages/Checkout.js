@@ -3,10 +3,16 @@ import { useState } from "react"
 import CheckoutItem from "../components/CheckoutItem";
 import CheckoutBar from "../components/CheckoutBar";
 import { useAuth0 } from "@auth0/auth0-react";
-//import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { decryptData } from "../utility/Functions";
+import { clearItems } from "../redux/cart";
+import axios from "axios";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 
 const Checkout = () => {
-    //const cartItems = useSelector((state) => state.cart);
+    const cartItems = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
     const { user } = useAuth0();
     
 
@@ -29,15 +35,38 @@ const Checkout = () => {
     const [Contact_Phone, setPhone] = useState('')
     const [error, setError] = useState(null)
 
+    const salt = process.env.REACT_APP_SALT;
+    const coupon = localStorage.getItem("coupon");
+    if (coupon) {
+      var decryptedCoupon = decryptData(coupon, salt);
+      //If coupon is modified
+      if (!decryptedCoupon) {
+        decryptedCoupon = [];
+      }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let total_price = localStorage.getItem("total");
+        //Calculate total price from cart items
+        var total_price = 0
+        cartItems.forEach(item => {
+            total_price += item.price;
+            if (item.extra) {
+                item.extra.forEach(extra => {
+                    total_price += extra.price;
+                })
+            }
+        });
+        //Apply coupon if it exists
+        if (decryptedCoupon) {
+            total_price *= decryptedCoupon.rate;
+        }
         
         setUserID(user.email)
         setCardExp(card_ExpMM.concat("/", card_ExpYYYY))
         const recipt = {User_ID, Payment_Type, Card_No, Card_Exp, Card_CSV, Address_One, Address_Two, Address_City, Address_Country, Contact_FName, Contact_SName, Contact_Email, Contact_Phone, total_price}
 
-        const response = await fetch('/api/recipts', {
+        const response = await fetch(`${baseurl}/api/recipts`, {
             method: 'POST',
             body: JSON.stringify(recipt),
             headers: {
@@ -50,6 +79,15 @@ const Checkout = () => {
             setError(json.error)
         }
         if (response.ok) {
+            if (decryptedCoupon) {
+                try {
+                    const res = await axios.patch(`${baseurl}}/api/profile/coupon/${User_ID}`, decryptedCoupon);
+                    console.log(res);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
             setUserID('')
             setPaymentType('')
             setCardNo('')
@@ -67,8 +105,9 @@ const Checkout = () => {
             setPhone('')
             setError(null)
             console.log('new recipt added', json)
+            dispatch(clearItems());
+            localStorage.clear();
             window.location.href = "/menu"
-            
         }
     }
 

@@ -29,3 +29,7 @@
 input.error {
   border: 3px solid #e7195a
 }
+
+select.error {
+  border: 3px solid #e7195a
+}

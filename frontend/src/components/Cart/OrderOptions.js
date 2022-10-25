@@ -86,7 +86,7 @@ const OrderOptions = (props) => {
         const response = await axios.get(`${baseurl}/api/menu/`);
 
         if (response.status === 200) {
-          const ingredients = response.data.find(item => item.Dish_id === props.id).ingredients;
+          const ingredients = response.data.find(item => item.DishName === props.name).ingredients;
           if (ingredients) {
             setIngredients(ingredients);
           }

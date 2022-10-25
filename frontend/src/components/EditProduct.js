@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useProductsContext } from "../hooks/useProductsContext";
+import { useEffect } from "react";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -9,44 +10,44 @@ const EditProduct = ({ product }) => {
   const { dispatch } = useProductsContext();
   const { user, getAccessTokenSilently } = useAuth0();  
 
-  const [Dish_id, setDish_id] = useState(product.Dish_id);
-  const [DishName, setDishName] = useState(product.DishName);
-  const [Category, setCategory] = useState(product.Category);
-  const [Description, setDescription] = useState(product.Description);
-  const [Price, setPrice] = useState(product.Price);
-  const [ingredients, setIngredients] = useState(product.ingredients);
-  const [imageURL, setImageURL] = useState(product.imageURL);
+  const [Dish_id, setDish_id] = useState("");
+  const [DishName, setDishName] = useState("");
+  const [Category, setCategory] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Price, setPrice] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [imageURL, setImageURL] = useState("");
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState("");
-  {
-    /*
-    useEffect(() => {
-      const fetchProduct = async () => {
-        const response = await fetch("/api/products/" + product.Dish_id);
-        const json = await response.json();
+  const [emptyFields, setEmptyFields] = useState([]);
+  /*
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch("/api/products/" + props.id);
+      const json = await response.json();
+      const [
+        Dish_id,
+        DishName,
+        Category,
+        Description,
+        Price,
+        ingredients,
+        imageURL,
+      ] = json;
 
-        if (response.ok) {
-          setDish_id(product.Dish_id);
-          setDishName(product.DishName);
-          setCategory(product.Category);
-          setDescription(product.Description);
-          setPrice(product.Price);
-          setIngredients(product.ingredients);
-          setImageURL(product.imageURL);
-          dispatch({ type: "EDIT_PRODUCTS", payload: json });
-        }
-      };
-      fetchProduct();
-    });
-  */
-  }
-  {
-    /*}
-  const getProduct = async (id) => {
-    
-  }
+      if (response.ok) {
+        setDish_id(Dish_id);
+        setDishName(DishName);
+        setCategory(Category);
+        setDescription(Description);
+        setPrice(Price);
+        setIngredients(ingredients);
+        setImageURL(imageURL);
+      }
+    };
+    fetchProduct();
+  });
 */
-  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const editedProduct = {
@@ -68,7 +69,7 @@ const EditProduct = ({ product }) => {
       },                    
     });
     const json = await response.json();
-
+    console.log(response.ok);
     if (!response.ok) {
       setError(json.error);
       setEmptyFields(json.emptyFields);
@@ -84,7 +85,7 @@ const EditProduct = ({ product }) => {
       setError(null);
       setEmptyFields([]);
       console.log("product updated", json);
-      dispatch({ type: "EDIT_PRODUCT", payload: json });
+      dispatch({ type: "EDIT_PRODUCT", payload: editedProduct });
     }
   };
 
@@ -157,7 +158,7 @@ const EditProduct = ({ product }) => {
                 </div>
               </div>
               <div className="form-floating mb-3">
-                <input
+                <select
                   type="text"
                   className={
                     emptyFields.includes("Category")
@@ -167,8 +168,14 @@ const EditProduct = ({ product }) => {
                   placeholder="Category"
                   id="categoryInput"
                   onChange={(e) => setCategory(e.target.value)}
-                  value={Category}
-                ></input>
+                >
+                  <option value="" selected>
+                    Select Category...
+                  </option>
+                  <option value="Burger">Burger</option>
+                  <option value="Drink">Drink</option>
+                  <option value="Sides">Sides</option>
+                </select>
                 <label className="text-muted fs-6" htmlFor="categoryInput">
                   Category
                 </label>

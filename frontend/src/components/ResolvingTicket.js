@@ -10,6 +10,8 @@ const ActiveTicket = ({ ticket }) => {
     const [error, setError] = useState(null)
     const { user, getAccessTokenSilently } = useAuth0();
 
+    const baseurl = process.env.REACT_APP_BACKEND_API_URL; 
+
     const handleClick = async () => {
         //const tickets = {resolution_body}
         const tickets = {
