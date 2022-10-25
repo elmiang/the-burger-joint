@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="0" errors="0" time="3.244">
-  <testsuite name="Profile Service" errors="0" failures="0" skipped="0" timestamp="2022-10-06T12:21:43" time="2.917" tests="6">
-    <testcase classname="Profile Service Get User Profile Should return a user profile for a given ID" name="Profile Service Get User Profile Should return a user profile for a given ID" time="0.025">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="3.545">
+  <testsuite name="Profile Service" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:42:11" time="2.575" tests="6">
+    <testcase classname="Profile Service Get User Profile Should return a user profile for a given ID" name="Profile Service Get User Profile Should return a user profile for a given ID" time="0.021">
     </testcase>
     <testcase classname="Profile Service Get User Profile Should return 404 when a user profile does not exist" name="Profile Service Get User Profile Should return 404 when a user profile does not exist" time="0.002">
     </testcase>
-    <testcase classname="Profile Service Update User Profile Should Update a user profile for a given ID" name="Profile Service Update User Profile Should Update a user profile for a given ID" time="0.006">
+    <testcase classname="Profile Service Update User Profile Should Update a user profile for a given ID" name="Profile Service Update User Profile Should Update a user profile for a given ID" time="0.003">
     </testcase>
     <testcase classname="Profile Service Update User Profile Should return 404 when a user profile does not exist" name="Profile Service Update User Profile Should return 404 when a user profile does not exist" time="0.002">
     </testcase>
-    <testcase classname="Profile Service Delete User Profile Should Delete a user profile for a given ID" name="Profile Service Delete User Profile Should Delete a user profile for a given ID" time="0.004">
+    <testcase classname="Profile Service Delete User Profile Should Delete a user profile for a given ID" name="Profile Service Delete User Profile Should Delete a user profile for a given ID" time="0.002">
     </testcase>
-    <testcase classname="Profile Service Delete User Profile Should return 404 when a user profile does not exist" name="Profile Service Delete User Profile Should return 404 when a user profile does not exist" time="0.005">
+    <testcase classname="Profile Service Delete User Profile Should return 404 when a user profile does not exist" name="Profile Service Delete User Profile Should return 404 when a user profile does not exist" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Get Products" errors="0" failures="0" skipped="0" timestamp="2022-10-25T00:42:11" time="2.753" tests="3">
+    <testcase classname="Get Products Should return all product with Category &quot;Sides&quot;" name="Get Products Should return all product with Category &quot;Sides&quot;" time="0.024">
+    </testcase>
+    <testcase classname="Delete Product Should delete a product of specified id" name="Delete Product Should delete a product of specified id" time="0.003">
+    </testcase>
+    <testcase classname="Update Product Should update a product with specified id" name="Update Product Should update a product with specified id" time="0.012">
     </testcase>
   </testsuite>
 </testsuites>

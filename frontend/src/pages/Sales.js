@@ -3,15 +3,29 @@ import SalesTable from '../components/SalesTable';
 import SalesGraph from '../components/SalesGraph';
 import axios from "axios";
 
-const baseurl = process.env.REACT_APP_BACKEND_API_URL;  
+// Bring in Auth0
+import { useAuth0 } from "@auth0/auth0-react";
+
+const baseurl = process.env.REACT_APP_BACKEND_API_URL;    
 
 const Sales = () => {
+
+    const { user, getAccessTokenSilently } = useAuth0();    
+
     //Fetch orderlines from db into "orderLines"
     const [orderLines, setOrderLines,] = useState([]);
 
     useEffect(() => {
         const fetchOrderLines = async () => {
-            const response = await axios.get(`${baseurl}/api/sales/`);
+
+            const accessToken = await getAccessTokenSilently();
+
+            const response = await axios.get(`${baseurl}/api/sales`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json"            
+                },                
+            });
 
             if (response.status == 200) {
                 setOrderLines(response.data)

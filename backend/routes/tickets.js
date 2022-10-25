@@ -23,9 +23,9 @@ router.patch('/:id', updateTicket)
 
 router.delete('/:id', deleteTicket)
 
-router.get('/:id', getUserTickets)
+router.get('/', getUserTickets)
 
-router.get('/', getUnresolvedTicket)
+router.get('/unresolved', getUnresolvedTicket)
 
 router.get('/resolved/:id', getResolvedTicket)
 

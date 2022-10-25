@@ -6,8 +6,12 @@ import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import OrderHistory from "../pages/ReciptHistory";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 const Navbar = () => {
   const cartItems = useSelector((state) => state.cart);
+  const { user, isAuthenticated } = useAuth0();
+  const isAdmin = isAuthenticated && user['https://burger-joint-api//roles'].includes('Admin');
 
   return(
     <nav className="navbar navbar-dark bg-dark">
@@ -49,24 +53,27 @@ const Navbar = () => {
               <Link className="nav-link" to="/checkout">Checkout</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/products">Product Management</Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/sales">Sales Management</Link>
-            </li>
-            <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/recipthistory">Recipts</Link>
             </li>
             <li className="nav-item">
               {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/tickets">Tickets</Link>
+            </li>            
+
+            {isAdmin &&
+            <div>
+            <li className="nav-item">
+              <Link className="nav-link" to="/products">Product Management</Link>
             </li>
             <li className="nav-item">
-              {/* <a className="nav-link" href="#">Tickets</a> */}
               <Link className="nav-link" to="/admintickets">Ticket Management</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/sales">Sales Management</Link>
+            </li>
+            </div>                                    
+            }
           </ul>
         </div>
       </div>
