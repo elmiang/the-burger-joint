@@ -159,7 +159,7 @@ const Cart = () => {
     let coupon = coupons.find(coupon => coupon.code === inputCode);
     if (coupon) {
       const encryptedData = encryptData(coupon, salt);
-
+      
       setCouponResponse('valid');
       localStorage.setItem('coupon', encryptedData);
     }

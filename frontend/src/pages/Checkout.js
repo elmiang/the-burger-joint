@@ -12,7 +12,7 @@ const baseurl = process.env.REACT_APP_BACKEND_API_URL;
 const Checkout = () => {
     const cartItems = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    const { user } = useAuth0();
+    const { user, getAccessTokenSilently } = useAuth0();
 
 
 
@@ -45,8 +45,10 @@ const Checkout = () => {
 
     const salt = process.env.REACT_APP_SALT;
     const coupon = localStorage.getItem("coupon");
+    console.log(coupon);
     if (coupon) {
       var decryptedCoupon = decryptData(coupon, salt);
+      console.log(decryptedCoupon);
       //If coupon is modified
       if (!decryptedCoupon) {
         decryptedCoupon = [];
@@ -118,7 +120,14 @@ const Checkout = () => {
         if (response.ok) {
             if (decryptedCoupon) {
                 try {
-                    const res = await axios.patch(`${baseurl}}/api/profile/coupon/${User_ID}`, decryptedCoupon);
+                    const accessToken = await getAccessTokenSilently();
+                    const res = await axios.patch(`${baseurl}}/api/profile/coupon`, decryptedCoupon, {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            "Content-Type": "application/json"            
+                        },
+                    });
+                    console.log(decryptedCoupon);
                     console.log(res);
                 } catch (error) {
                     console.log(error);
@@ -132,11 +141,12 @@ const Checkout = () => {
                 OrderQuantity = item.quantity;
                 const orderLine = {Order_id, Dish_id, OrderQuantity}
 
-                
+                const accessToken = await getAccessTokenSilently();
                 const response = await fetch(`${baseurl}/api/sales/`, {
                     method: 'POST',
                     body: JSON.stringify(orderLine),
                     headers: {
+                        Authorization: `Bearer ${accessToken}`,
                         'Content-Type': 'application/json'
                     }
                 })
