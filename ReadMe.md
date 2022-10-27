@@ -15,6 +15,12 @@ Steps for getting the project running
 
 > .env files are needed for the Frontend and Backend (TO DO for R2, configure the pipeline to read and use stored env variables for deployment).
 
+## Repository Structure
+
+The repository is divided into two primary sections:
+1. `frontend` - Contains the code and logic for displaying all of the pages and its components to the client.
+2. `backend` - Contains the server-side code and logic for all the API routes and handling data transfer between the database and frontend.
+
 ### Branching Strategy
 
 For the branching strategy, we utilized feature branches for our features which were merged into the main branch upon completion
@@ -53,3 +59,4 @@ To view the results of the tests
 
 1. Locally, this will be displayed within the terminal after running each test as well as the generated XML file.
 2. Within the pipeline, the results of the tests will be displayed within the `Test Run` section of the pipeline as well as within the `Test` Tab of each pipeline job.
+
