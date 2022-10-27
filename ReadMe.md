@@ -65,7 +65,19 @@ Michael Jiang
   - Cart page and all cart-related components in the front-end
   - Redux store
   - All `coupon` and `extras` related items in the backend 
+
 Kenny Doan
+
 Michael Scovell
+ - Account Profile Page.
+ - Order History Page.
+ - Profile Component (encased within the navbar).
+ - Login and Registration functionality using Auth0.
+ - Profile API + Accompanying unit tests.
+ - JWT Bearer Token for authentication and information transfer + route protection for frontend and backend APIs and routes.
+ - MFA for Login and Registration within Auth0.
+ - RBAC Role and Policies for Admin (with corresponding route permissions added to check the supplied JWT for the corresponding roles need to access admin related capabilities).
+ 
 Daniel Creak
+
 Nicholas Harrison
