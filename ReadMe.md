@@ -2,7 +2,7 @@
 
 This is the readme file for Group 5's Restaurant Ordering System
 
-### Live Website URL - https://burger-joint.onrender.com/menu 
+### Live Website URL - https://burger-joint.onrender.com/ 
 
 ## General Setup - For Running the Application
 
