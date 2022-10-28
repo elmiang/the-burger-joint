@@ -62,11 +62,12 @@ To view the results of the tests
 1. Locally, this will be displayed within the terminal after running each test as well as the generated XML file.
 2. Within the pipeline, the results of the tests will be displayed within the `Test Run` section of the pipeline as well as within the `Test` Tab of each pipeline job.
 
-### Contributions
+## Contributions
 Michael Jiang (Cart and Ordering System)
   - Cart page and all cart-related components in the front-end
   - Frontend utilities
   - Redux store
+  - Navbar setup, cart icon and cart items display in navbar
   - All `coupon` and `extras` related items in the backend 
 
 Kenny Doan (Menu and Sales Management)
