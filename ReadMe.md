@@ -77,10 +77,12 @@ Michael Scovell
  - Order History Page.
  - Profile Component (encased within the navbar).
  - Login and Registration functionality using Auth0.
- - Profile API + Accompanying unit tests.
- - JWT Bearer Token for authentication and information transfer + route protection for frontend and backend APIs and routes.
+ - Profile API (Profile Controller) + Accompanying unit tests.
+ - JWT Bearer Token for authentication + route protection for frontend and backend APIs and routes.
  - MFA for Login and Registration within Auth0.
  - RBAC Role and Policies for Admin (with corresponding route permissions added to check the supplied JWT for the corresponding roles need to access admin related capabilities).
+ - JWT Middleware within server.js
+
  
 Daniel Creak
 
