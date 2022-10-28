@@ -6,7 +6,7 @@ This is the readme file for Group 5's Restaurant Ordering System
 
 ## General Setup - For Running the Application
 
-Steps for getting the project running
+Steps for getting the project running (Within an IDE)
 
 1. CD into the frontend folder in a new terminal window
 2. Run `npm install` (to install frontend libraries)
