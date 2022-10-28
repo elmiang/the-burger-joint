@@ -76,15 +76,16 @@ Kenny Doan (Menu and Sales Management)
   - Dish and Orderline (models, controllers and routes) in the backend
  
 Michael Scovell
- - Account Profile Page.
- - Order History Page.
- - Profile Component (encased within the navbar).
+ - Account Profile Page (AccountDetails.js)
+ - Order History Page (orderHistory.js)
+ - Profile Component (AccountProfile.js).
  - Login and Registration functionality using Auth0.
- - Profile API (Profile Controller) + Accompanying unit tests.
- - JWT Bearer Token for authentication + route protection for frontend and backend APIs and routes.
+ - Profile API (Profile Controller) + Accompanying unit tests (profileController.test.js)
+ - JWT Bearer Token for authentication  (JWT Middleware within server.js)
+ - Route protection for frontend and backend APIs and routes (checkJWT function added to protected routes on server.js + header checks on frontend routes).
  - MFA for Login and Registration within Auth0.
  - RBAC Role and Policies for Admin (with corresponding route permissions added to check the supplied JWT for the corresponding roles need to access admin related capabilities).
- - JWT Middleware within server.js
+
 
  
 Daniel Creak
