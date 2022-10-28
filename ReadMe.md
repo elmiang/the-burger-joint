@@ -67,8 +67,11 @@ Michael Jiang (Cart and Ordering System)
   - Redux store
   - All `coupon` and `extras` related items in the backend 
 
-Kenny Doan
-
+Kenny Doan (Menu and Sales Management)
+  - Menu page and the search bar and sidebar component
+  - Sales Management page and the graph and table component
+  - Dish and Orderline (models, routes and routes) in the backend
+ 
 Michael Scovell
  - Account Profile Page.
  - Order History Page.
