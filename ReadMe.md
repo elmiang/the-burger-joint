@@ -87,6 +87,17 @@ Michael Scovell
 
  
 Daniel Creak
+- Frontend
+  - Products page
+  - AddProduct, EditProduct, ProductItem components
+  - ProductContext context, useProductContext hook components
+  - Small bit of css formating in index.css
+  - Small bit of formatting in public/index.html for icons on products page
+- Backend
+  - productController
+  - productController.test in __test__ folder
+  - sample data files for mongoDB (except coupon and extras samples)
+  - products.js routes file
 
 Nicholas Harrison
 - Ticket.js & AdminTicket.js Pages & Ticket Components in frontend
