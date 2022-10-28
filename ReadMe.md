@@ -70,7 +70,7 @@ Michael Jiang (Cart and Ordering System)
 Kenny Doan (Menu and Sales Management)
   - Menu page and the search bar and sidebar component
   - Sales Management page and the graph and table component
-  - Dish and Orderline (models, routes and routes) in the backend
+  - Dish and Orderline (models, controllers and routes) in the backend
  
 Michael Scovell
  - Account Profile Page.
