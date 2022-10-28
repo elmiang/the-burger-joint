@@ -85,3 +85,13 @@ Michael Scovell
 Daniel Creak
 
 Nicholas Harrison
+- Ticket.js & AdminTicket.js Pages & Ticket Components in frontend
+  - ActiveTicket.js
+  - ResolvingTicket.js
+  - ResolvedTicket.js
+- Checkout.js & ReciptHistory.js Pages & Components in frontend
+  - CheckoutBar.js
+  - CheckoutItems.js (Removed)
+  - ReciptDetails.js
+- Ticket & Recipt Route, Model & Controller in backend
+- Added POST method & API route to OrderLine controller & route
